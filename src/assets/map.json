@@ -1,0 +1,2212 @@
+{
+    "type": "FeatureCollection",
+    "totalFeatures": 123,
+    "features": [
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47b5",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            120.24727703,
+                            31.97234805
+                        ],
+                        [
+                            119.74432763,
+                            31.76776997
+                        ],
+                        [
+                            119.59155121,
+                            32.01318458
+                        ],
+                        [
+                            120.24727703,
+                            31.97234805
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "0118fe6069bb4143a60240e3dda3a72d",
+                "triangle_name": "3069-6018-6023",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R0-C3-E0(9)",
+                "cal_sate_qualify": 1,
+                "b1": 31.972348047168,
+                "l1": 120.247277027057,
+                "b2": 31.767769969729,
+                "l2": 119.744327625436,
+                "b3": 32.013184582952,
+                "l3": 119.591551205223
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47b4",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.52231394,
+                            33.03504089
+                        ],
+                        [
+                            112.98753262,
+                            33.25245367
+                        ],
+                        [
+                            112.43367199,
+                            33.46299707
+                        ],
+                        [
+                            112.52231394,
+                            33.03504089
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "017237391bc543aa9dad7fd818e2e601",
+                "triangle_name": "3021-6089-6091",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R3-C9-E4(23)",
+                "cal_sate_qualify": 1,
+                "b1": 33.03504088955,
+                "l1": 112.522313942692,
+                "b2": 33.252453669372,
+                "l2": 112.987532617118,
+                "b3": 33.462997066107,
+                "l3": 112.433671986839
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47b3",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.21819887,
+                            34.54984119
+                        ],
+                        [
+                            112.89856313,
+                            33.73954102
+                        ],
+                        [
+                            112.48557128,
+                            34.622292
+                        ],
+                        [
+                            112.21819887,
+                            34.54984119
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "02f22d781ec84e12b49e9dc7358ca918",
+                "triangle_name": "6058-6063-HN20",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R2-C8-E0(15)",
+                "cal_sate_qualify": 1,
+                "b1": 34.549841187338,
+                "l1": 112.218198865448,
+                "b2": 33.739541015975,
+                "l2": 112.898563131225,
+                "b3": 34.622292000103,
+                "l3": 112.485571283846
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47b2",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            120.67552719,
+                            31.35140339
+                        ],
+                        [
+                            120.24727703,
+                            31.97234805
+                        ],
+                        [
+                            120.83591565,
+                            32.00915687
+                        ],
+                        [
+                            120.67552719,
+                            31.35140339
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "03350a92f84144fea1308c2de4fb2cc3",
+                "triangle_name": "3039-3069-6015",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_8PY79Xz6",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R0-C6-E0(12)",
+                "cal_sate_qualify": 1,
+                "b1": 31.35140338547,
+                "l1": 120.675527189854,
+                "b2": 31.972348047168,
+                "l2": 120.247277027057,
+                "b3": 32.009156865899,
+                "l3": 120.835915648881
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47b1",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            113.8210424,
+                            34.08199411
+                        ],
+                        [
+                            114.62265051,
+                            33.59543457
+                        ],
+                        [
+                            114.85681119,
+                            34.06075952
+                        ],
+                        [
+                            113.8210424,
+                            34.08199411
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "03c7ce3cd58c41909792a0172a9233c9",
+                "triangle_name": "3018-3022-6074",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R3-C8-E4(22)",
+                "cal_sate_qualify": 1,
+                "b1": 34.08199410961,
+                "l1": 113.821042402047,
+                "b2": 33.595434570986,
+                "l2": 114.622650505484,
+                "b3": 34.060759518493,
+                "l3": 114.856811187239
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47b0",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            120.24727703,
+                            31.97234805
+                        ],
+                        [
+                            120.27360989,
+                            31.09783452
+                        ],
+                        [
+                            119.82872739,
+                            31.35060397
+                        ],
+                        [
+                            120.24727703,
+                            31.97234805
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "075298fa4dc44c3a9611fba836f5ab88",
+                "triangle_name": "3069-6033-6034",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R2-C5-E0(13)",
+                "cal_sate_qualify": 1,
+                "b1": 31.972348047168,
+                "l1": 120.247277027057,
+                "b2": 31.097834522598,
+                "l2": 120.27360988614,
+                "b3": 31.350603965794,
+                "l3": 119.828727394383
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47af",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            118.85764594,
+                            31.56207087
+                        ],
+                        [
+                            119.74432763,
+                            31.76776997
+                        ],
+                        [
+                            119.82872739,
+                            31.35060397
+                        ],
+                        [
+                            118.85764594,
+                            31.56207087
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "0eb3f7f117194d7bbfc5277edcfa25e2",
+                "triangle_name": "0121-6018-6034",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R5-C11-E0(22)",
+                "cal_sate_qualify": 1,
+                "b1": 31.562070866857,
+                "l1": 118.857645943364,
+                "b2": 31.767769969729,
+                "l2": 119.744327625436,
+                "b3": 31.350603965794,
+                "l3": 119.828727394383
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47ae",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            118.85764594,
+                            31.56207087
+                        ],
+                        [
+                            119.59155121,
+                            32.01318458
+                        ],
+                        [
+                            118.72321677,
+                            32.03365834
+                        ],
+                        [
+                            118.85764594,
+                            31.56207087
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "174b4c3c757e4e02a95fea0fccdbc551",
+                "triangle_name": "0121-6023-6037",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_8PY79Xz6",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R5-C16-E0(28)",
+                "cal_sate_qualify": 1,
+                "b1": 31.562070866857,
+                "l1": 118.857645943364,
+                "b2": 32.013184582952,
+                "l2": 119.591551205223,
+                "b3": 32.033658337573,
+                "l3": 118.72321676886
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47ad",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            119.84233034,
+                            32.9063785
+                        ],
+                        [
+                            120.17575428,
+                            33.39757145
+                        ],
+                        [
+                            119.33655209,
+                            33.23939527
+                        ],
+                        [
+                            119.84233034,
+                            32.9063785
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "18ad6b87955541d59b6259558dd16767",
+                "triangle_name": "6040-6082-6085",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R3-C10-E0(19)",
+                "cal_sate_qualify": 1,
+                "b1": 32.906378501289,
+                "l1": 119.842330337428,
+                "b2": 33.397571447667,
+                "l2": 120.175754278523,
+                "b3": 33.239395266046,
+                "l3": 119.336552089437
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47ac",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.92849848,
+                            33.06687923
+                        ],
+                        [
+                            113.31003321,
+                            32.70198007
+                        ],
+                        [
+                            112.51552686,
+                            32.99038674
+                        ],
+                        [
+                            112.92849848,
+                            33.06687923
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "190e50710c6d4970a7e1f664f50fd8de",
+                "triangle_name": "3035-6078-HN09",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R2-C7-E0(15)",
+                "cal_sate_qualify": 1,
+                "b1": 33.066879232565,
+                "l1": 112.928498478309,
+                "b2": 32.701980070229,
+                "l2": 113.310033213575,
+                "b3": 32.990386736957,
+                "l3": 112.515526857343
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47ab",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            118.79041691,
+                            32.25516719
+                        ],
+                        [
+                            118.99480837,
+                            33.00913823
+                        ],
+                        [
+                            119.44373771,
+                            32.77376312
+                        ],
+                        [
+                            118.79041691,
+                            32.25516719
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "1af949ea8027406f8c51a97b2f7af02a",
+                "triangle_name": "3059-6032-6086",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G4-R2-C11-E3(20)",
+                "cal_sate_qualify": 1,
+                "b1": 32.255167193667,
+                "l1": 118.790416913425,
+                "b2": 33.009138225633,
+                "l2": 118.994808372465,
+                "b3": 32.773763124442,
+                "l3": 119.443737708281
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47aa",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            120.56660245,
+                            32.38549743
+                        ],
+                        [
+                            120.24727703,
+                            31.97234805
+                        ],
+                        [
+                            120.83591565,
+                            32.00915687
+                        ],
+                        [
+                            120.56660245,
+                            32.38549743
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "1b8ebbd4b7c841f4a451f437492710a0",
+                "triangle_name": "3009-3069-6015",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G4-R0-C0-E0(4)",
+                "cal_sate_qualify": 0,
+                "b1": 32.385497425261,
+                "l1": 120.566602454274,
+                "b2": 31.972348047168,
+                "l2": 120.247277027057,
+                "b3": 32.009156865899,
+                "l3": 120.835915648881
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a9",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            118.2711447,
+                            33.93454199
+                        ],
+                        [
+                            118.204537,
+                            33.46382332
+                        ],
+                        [
+                            119.09651125,
+                            33.62060806
+                        ],
+                        [
+                            118.2711447,
+                            33.93454199
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "25c546a2edad454ea724e5fdf3bedbe1",
+                "triangle_name": "6024-6025-6027",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R5-C19-E4(34)",
+                "cal_sate_qualify": 1,
+                "b1": 33.934541989779,
+                "l1": 118.271144698052,
+                "b2": 33.463823324479,
+                "l2": 118.204537001342,
+                "b3": 33.620608061238,
+                "l3": 119.096511251952
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a8",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            118.204537,
+                            33.46382332
+                        ],
+                        [
+                            118.52101394,
+                            33.00871299
+                        ],
+                        [
+                            117.36168409,
+                            32.90817127
+                        ],
+                        [
+                            118.204537,
+                            33.46382332
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "263dbf2133d140d2baee1a8958e95ad3",
+                "triangle_name": "6025-6035-6107",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R0-C19-E4(29)",
+                "cal_sate_qualify": 1,
+                "b1": 33.463823324479,
+                "l1": 118.204537001342,
+                "b2": 33.008712990611,
+                "l2": 118.521013937399,
+                "b3": 32.908171265364,
+                "l3": 117.361684093688
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a7",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.92849848,
+                            33.06687923
+                        ],
+                        [
+                            113.31003321,
+                            32.70198007
+                        ],
+                        [
+                            112.98753262,
+                            33.25245367
+                        ],
+                        [
+                            112.92849848,
+                            33.06687923
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "2ec46e7700f14236a793c0f58103bc15",
+                "triangle_name": "3035-6078-6089",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R4-C6-E0(17)",
+                "cal_sate_qualify": 1,
+                "b1": 33.066879232565,
+                "l1": 112.928498478309,
+                "b2": 32.701980070229,
+                "l2": 113.310033213575,
+                "b3": 33.252453669372,
+                "l3": 112.987532617118
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a6",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.94342033,
+                            32.75719183
+                        ],
+                        [
+                            115.10501868,
+                            33.38646304
+                        ],
+                        [
+                            114.62452241,
+                            32.96800525
+                        ],
+                        [
+                            114.94342033,
+                            32.75719183
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "348391719992424ab5662913975b0505",
+                "triangle_name": "6071-6072-6073",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R4-C7-E4(20)",
+                "cal_sate_qualify": 1,
+                "b1": 32.757191825125,
+                "l1": 114.943420327473,
+                "b2": 33.38646303664,
+                "l2": 115.105018677715,
+                "b3": 32.968005246676,
+                "l3": 114.624522411593
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a5",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.6025566,
+                            35.06182328
+                        ],
+                        [
+                            113.01304935,
+                            34.45184132
+                        ],
+                        [
+                            113.53758549,
+                            34.79860059
+                        ],
+                        [
+                            112.6025566,
+                            35.06182328
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "39883a94d97a4d1e9a9c25d3ff423d12",
+                "triangle_name": "6012-HN02-HN03",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R2-C6-E4(18)",
+                "cal_sate_qualify": 1,
+                "b1": 35.061823279087,
+                "l1": 112.602556596207,
+                "b2": 34.451841324675,
+                "l2": 113.013049350823,
+                "b3": 34.79860059346,
+                "l3": 113.537585488359
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a4",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.80562705,
+                            34.82479532
+                        ],
+                        [
+                            114.85681119,
+                            34.06075952
+                        ],
+                        [
+                            114.23641832,
+                            34.79229266
+                        ],
+                        [
+                            114.80562705,
+                            34.82479532
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "3c62687a642245cda4bb9a190aa98b8c",
+                "triangle_name": "6060-6074-HN12",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R3-C9-E0(18)",
+                "cal_sate_qualify": 1,
+                "b1": 34.824795315672,
+                "l1": 114.80562704739,
+                "b2": 34.060759518493,
+                "l2": 114.856811187239,
+                "b3": 34.792292660396,
+                "l3": 114.236418317122
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a3",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            115.46851076,
+                            33.86127837
+                        ],
+                        [
+                            115.10501868,
+                            33.38646304
+                        ],
+                        [
+                            114.85681119,
+                            34.06075952
+                        ],
+                        [
+                            115.46851076,
+                            33.86127837
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "44ef4be1dffb439f9c4327ccfe094069",
+                "triangle_name": "6069-6072-6074",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_8PY79Xz6",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R5-C11-E4(27)",
+                "cal_sate_qualify": 1,
+                "b1": 33.861278374154,
+                "l1": 115.468510757994,
+                "b2": 33.38646303664,
+                "l2": 115.105018677715,
+                "b3": 34.060759518493,
+                "l3": 114.856811187239
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a2",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            117.43437735,
+                            34.48401185
+                        ],
+                        [
+                            118.2711447,
+                            33.93454199
+                        ],
+                        [
+                            118.05325806,
+                            34.47860329
+                        ],
+                        [
+                            117.43437735,
+                            34.48401185
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "473447100cff40fa8c3cb6f1a5a4999c",
+                "triangle_name": "3064-6024-6029",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G4-R2-C5-E0(11)",
+                "cal_sate_qualify": 1,
+                "b1": 34.48401184772,
+                "l1": 117.434377347271,
+                "b2": 33.934541989779,
+                "l2": 118.271144698052,
+                "b3": 34.47860329179,
+                "l3": 118.053258056103
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a1",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            115.02058166,
+                            32.14121766
+                        ],
+                        [
+                            114.94342033,
+                            32.75719183
+                        ],
+                        [
+                            114.76191313,
+                            32.35339611
+                        ],
+                        [
+                            115.02058166,
+                            32.14121766
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "48d4430469da40b28236df4e2a513bfd",
+                "triangle_name": "6045-6071-HN07",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G3-R2-C10-E0(15)",
+                "cal_sate_qualify": 1,
+                "b1": 32.141217658934,
+                "l1": 115.020581658138,
+                "b2": 32.757191825125,
+                "l2": 114.943420327473,
+                "b3": 32.353396106589,
+                "l3": 114.761913128818
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-47a0",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.37562361,
+                            32.62256709
+                        ],
+                        [
+                            114.51753854,
+                            32.20891738
+                        ],
+                        [
+                            114.76191313,
+                            32.35339611
+                        ],
+                        [
+                            114.37562361,
+                            32.62256709
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "4b7ebfccfe94436d8b910a7ad92c66f8",
+                "triangle_name": "6075-6084-HN07",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R4-C20-E0(31)",
+                "cal_sate_qualify": 1,
+                "b1": 32.62256709207,
+                "l1": 114.375623608635,
+                "b2": 32.208917376709,
+                "l2": 114.517538537126,
+                "b3": 32.353396106589,
+                "l3": 114.761913128818
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-479f",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            111.2015129,
+                            34.76633168
+                        ],
+                        [
+                            112.21819887,
+                            34.54984119
+                        ],
+                        [
+                            111.5697829,
+                            34.19738792
+                        ],
+                        [
+                            111.2015129,
+                            34.76633168
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "4c3b4efd62284bf79d73108bf93d23a3",
+                "triangle_name": "3017-6058-6090",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R3-C8-E3(20)",
+                "cal_sate_qualify": 1,
+                "b1": 34.76633168305,
+                "l1": 111.201512900007,
+                "b2": 34.549841187338,
+                "l2": 112.218198865448,
+                "b3": 34.197387918719,
+                "l3": 111.569782903281
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-479e",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            113.73103466,
+                            34.59977497
+                        ],
+                        [
+                            113.53758549,
+                            34.79860059
+                        ],
+                        [
+                            113.89362646,
+                            35.29624216
+                        ],
+                        [
+                            113.73103466,
+                            34.59977497
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "4d80ae8c33544cc38515efdfb1fe7076",
+                "triangle_name": "6021-HN03-HN19",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R0-C14-E4(24)",
+                "cal_sate_qualify": 1,
+                "b1": 34.59977496809,
+                "l1": 113.731034662115,
+                "b2": 34.79860059346,
+                "l2": 113.537585488359,
+                "b3": 35.296242164399,
+                "l3": 113.893626461511
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-479d",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.52231394,
+                            33.03504089
+                        ],
+                        [
+                            112.22409193,
+                            33.03671362
+                        ],
+                        [
+                            112.51552686,
+                            32.99038674
+                        ],
+                        [
+                            112.52231394,
+                            33.03504089
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "4e9253e48dac4028b98cb00dc0cdaf70",
+                "triangle_name": "3021-3051-HN09",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R0-C6-E0(12)",
+                "cal_sate_qualify": 1,
+                "b1": 33.03504088955,
+                "l1": 112.522313942692,
+                "b2": 33.036713615946,
+                "l2": 112.224091927453,
+                "b3": 32.990386736957,
+                "l3": 112.515526857343
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-479c",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.27600534,
+                            35.72205917
+                        ],
+                        [
+                            114.87036898,
+                            35.99215248
+                        ],
+                        [
+                            115.03950143,
+                            35.76992051
+                        ],
+                        [
+                            114.27600534,
+                            35.72205917
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "4e94fbf842fc4c2186be783643cd26a5",
+                "triangle_name": "3019-6088-HN15",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R2-C5-E4(18)",
+                "cal_sate_qualify": 1,
+                "b1": 35.722059166624,
+                "l1": 114.27600534467,
+                "b2": 35.992152476741,
+                "l2": 114.870368981331,
+                "b3": 35.769920505327,
+                "l3": 115.039501431019
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-479b",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            120.56660245,
+                            32.38549743
+                        ],
+                        [
+                            121.18605486,
+                            32.3186459
+                        ],
+                        [
+                            120.30346314,
+                            32.85296088
+                        ],
+                        [
+                            120.56660245,
+                            32.38549743
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "52beb433c15845c091198a2318bf1646",
+                "triangle_name": "3009-3056-6079",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G4-R2-C6-E0(12)",
+                "cal_sate_qualify": 1,
+                "b1": 32.385497425261,
+                "l1": 120.566602454274,
+                "b2": 32.318645902038,
+                "l2": 121.1860548583,
+                "b3": 32.852960879949,
+                "l3": 120.303463144903
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-479a",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.62265051,
+                            33.59543457
+                        ],
+                        [
+                            115.10501868,
+                            33.38646304
+                        ],
+                        [
+                            114.62452241,
+                            32.96800525
+                        ],
+                        [
+                            114.62265051,
+                            33.59543457
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "535e7b2d384a473f870e37a8ea8f0aca",
+                "triangle_name": "3022-6072-6073",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R2-C8-E4(21)",
+                "cal_sate_qualify": 1,
+                "b1": 33.595434570986,
+                "l1": 114.622650505484,
+                "b2": 33.38646303664,
+                "l2": 115.105018677715,
+                "b3": 32.968005246676,
+                "l3": 114.624522411593
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4799",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            113.99943123,
+                            33.01306787
+                        ],
+                        [
+                            114.37562361,
+                            32.62256709
+                        ],
+                        [
+                            114.04513205,
+                            32.46639142
+                        ],
+                        [
+                            113.99943123,
+                            33.01306787
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "538cb8765888447790b6e53b457d0d99",
+                "triangle_name": "6048-6075-6077",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R4-C11-E4(26)",
+                "cal_sate_qualify": 1,
+                "b1": 33.013067869251,
+                "l1": 113.999431226576,
+                "b2": 32.62256709207,
+                "l2": 114.375623608635,
+                "b3": 32.466391415068,
+                "l3": 114.045132050621
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4798",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.6025566,
+                            35.06182328
+                        ],
+                        [
+                            113.68672421,
+                            35.26563703
+                        ],
+                        [
+                            113.53758549,
+                            34.79860059
+                        ],
+                        [
+                            112.6025566,
+                            35.06182328
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "53f0d3021df1457c9955e2b3be81b57b",
+                "triangle_name": "6012-6115-HN03",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R3-C16-E0(24)",
+                "cal_sate_qualify": 1,
+                "b1": 35.061823279087,
+                "l1": 112.602556596207,
+                "b2": 35.265637031859,
+                "l2": 113.686724212805,
+                "b3": 34.79860059346,
+                "l3": 113.537585488359
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4797",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            115.47179938,
+                            35.25117552
+                        ],
+                        [
+                            115.48414768,
+                            35.19254064
+                        ],
+                        [
+                            114.80562705,
+                            34.82479532
+                        ],
+                        [
+                            115.47179938,
+                            35.25117552
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "576d7e7ec1724f149828de21c3011603",
+                "triangle_name": "2122-3034-6060",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R2-C4-E0(11)",
+                "cal_sate_qualify": 1,
+                "b1": 35.25117551785,
+                "l1": 115.471799375046,
+                "b2": 35.192540638695,
+                "l2": 115.484147682051,
+                "b3": 34.824795315672,
+                "l3": 114.80562704739
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4796",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            115.63836203,
+                            34.43560946
+                        ],
+                        [
+                            114.80562705,
+                            34.82479532
+                        ],
+                        [
+                            114.85681119,
+                            34.06075952
+                        ],
+                        [
+                            115.63836203,
+                            34.43560946
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "58f797b0d5de42c9b535c7c7b619c573",
+                "triangle_name": "3015-6060-6074",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_8PY79Xz6",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R4-C8-E0(19)",
+                "cal_sate_qualify": 1,
+                "b1": 34.435609460378,
+                "l1": 115.638362025344,
+                "b2": 34.824795315672,
+                "l2": 114.80562704739,
+                "b3": 34.060759518493,
+                "l3": 114.856811187239
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4795",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.27600534,
+                            35.72205917
+                        ],
+                        [
+                            114.33926332,
+                            36.1018298
+                        ],
+                        [
+                            113.80703168,
+                            36.06622509
+                        ],
+                        [
+                            114.27600534,
+                            35.72205917
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "5bbd669d17ac4f00a8c6e9817c9cad50",
+                "triangle_name": "3019-3054-6005",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R3-C6-E0(14)",
+                "cal_sate_qualify": 1,
+                "b1": 35.722059166624,
+                "l1": 114.27600534467,
+                "b2": 36.101829798088,
+                "l2": 114.339263316683,
+                "b3": 36.066225091851,
+                "l3": 113.807031675491
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4794",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.27600534,
+                            35.72205917
+                        ],
+                        [
+                            113.80703168,
+                            36.06622509
+                        ],
+                        [
+                            114.19187119,
+                            35.62566526
+                        ],
+                        [
+                            114.27600534,
+                            35.72205917
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "5cb5443f4cb64930912e993c4b94856a",
+                "triangle_name": "3019-6005-6046",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R0-C7-E0(14)",
+                "cal_sate_qualify": 1,
+                "b1": 35.722059166624,
+                "l1": 114.27600534467,
+                "b2": 36.066225091851,
+                "l2": 113.807031675491,
+                "b3": 35.625665257341,
+                "l3": 114.191871193692
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4793",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.22409193,
+                            33.03671362
+                        ],
+                        [
+                            111.82849576,
+                            33.05805383
+                        ],
+                        [
+                            112.11137591,
+                            32.69270083
+                        ],
+                        [
+                            112.22409193,
+                            33.03671362
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "5cf43bb00bb848fa903163ac205a3803",
+                "triangle_name": "3051-6092-6113",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G4-R3-C7-E0(14)",
+                "cal_sate_qualify": 1,
+                "b1": 33.036713615946,
+                "l1": 112.224091927453,
+                "b2": 33.058053827217,
+                "l2": 111.828495755522,
+                "b3": 32.692700830262,
+                "l3": 112.111375909342
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4792",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            118.204537,
+                            33.46382332
+                        ],
+                        [
+                            119.09651125,
+                            33.62060806
+                        ],
+                        [
+                            118.52101394,
+                            33.00871299
+                        ],
+                        [
+                            118.204537,
+                            33.46382332
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "60b939e6ccf54fc1b91bcf46f8149166",
+                "triangle_name": "6025-6027-6035",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R4-C20-E4(34)",
+                "cal_sate_qualify": 1,
+                "b1": 33.463823324479,
+                "l1": 118.204537001342,
+                "b2": 33.620608061238,
+                "l2": 119.096511251952,
+                "b3": 33.008712990611,
+                "l3": 118.521013937399
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4791",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            111.2015129,
+                            34.76633168
+                        ],
+                        [
+                            110.88151954,
+                            34.53866695
+                        ],
+                        [
+                            110.98647069,
+                            35.01688462
+                        ],
+                        [
+                            111.2015129,
+                            34.76633168
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "65406e855eeb40a299223dbee6c4cb62",
+                "triangle_name": "3017-6059-6109",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R0-C6-E3(16)",
+                "cal_sate_qualify": 1,
+                "b1": 34.76633168305,
+                "l1": 111.201512900007,
+                "b2": 34.538666945583,
+                "l2": 110.881519540518,
+                "b3": 35.016884619773,
+                "l3": 110.986470686926
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4790",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            113.68672421,
+                            35.26563703
+                        ],
+                        [
+                            113.53758549,
+                            34.79860059
+                        ],
+                        [
+                            113.89362646,
+                            35.29624216
+                        ],
+                        [
+                            113.68672421,
+                            35.26563703
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "660d5e62d4ca49398da15f6f2c765b6a",
+                "triangle_name": "6115-HN03-HN19",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R0-C16-E3(25)",
+                "cal_sate_qualify": 1,
+                "b1": 35.265637031859,
+                "l1": 113.686724212805,
+                "b2": 34.79860059346,
+                "l2": 113.537585488359,
+                "b3": 35.296242164399,
+                "l3": 113.893626461511
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-478f",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            113.99943123,
+                            33.01306787
+                        ],
+                        [
+                            114.04513205,
+                            32.46639142
+                        ],
+                        [
+                            113.31003321,
+                            32.70198007
+                        ],
+                        [
+                            113.99943123,
+                            33.01306787
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "666b11eb13df43d586a0bc7dba854592",
+                "triangle_name": "6048-6077-6078",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R5-C12-E4(28)",
+                "cal_sate_qualify": 1,
+                "b1": 33.013067869251,
+                "l1": 113.999431226576,
+                "b2": 32.466391415068,
+                "l2": 114.045132050621,
+                "b3": 32.701980070229,
+                "l3": 113.310033213575
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-478e",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            111.638553,
+                            33.7832708
+                        ],
+                        [
+                            112.21819887,
+                            34.54984119
+                        ],
+                        [
+                            111.5697829,
+                            34.19738792
+                        ],
+                        [
+                            111.638553,
+                            33.7832708
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "677276bc08f44abc9c2a105e3048a97c",
+                "triangle_name": "3068-6058-6090",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R2-C9-E0(17)",
+                "cal_sate_qualify": 1,
+                "b1": 33.783270800243,
+                "l1": 111.638553000057,
+                "b2": 34.549841187338,
+                "l2": 112.218198865448,
+                "b3": 34.197387918719,
+                "l3": 111.569782903281
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-478d",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            118.79041691,
+                            32.25516719
+                        ],
+                        [
+                            119.59155121,
+                            32.01318458
+                        ],
+                        [
+                            118.72321677,
+                            32.03365834
+                        ],
+                        [
+                            118.79041691,
+                            32.25516719
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "6b5417c008ed437eb1120dcdd1a18831",
+                "triangle_name": "3059-6023-6037",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R2-C10-E0(19)",
+                "cal_sate_qualify": 1,
+                "b1": 32.255167193667,
+                "l1": 118.790416913425,
+                "b2": 32.013184582952,
+                "l2": 119.591551205223,
+                "b3": 32.033658337573,
+                "l3": 118.72321676886
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-478c",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            120.24727703,
+                            31.97234805
+                        ],
+                        [
+                            119.74432763,
+                            31.76776997
+                        ],
+                        [
+                            119.82872739,
+                            31.35060397
+                        ],
+                        [
+                            120.24727703,
+                            31.97234805
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "6bd6b7a0547b4fd9926a923731e93e9e",
+                "triangle_name": "3069-6018-6034",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R0-C4-E0(9)",
+                "cal_sate_qualify": 1,
+                "b1": 31.972348047168,
+                "l1": 120.247277027057,
+                "b2": 31.767769969729,
+                "l2": 119.744327625436,
+                "b3": 31.350603965794,
+                "l3": 119.828727394383
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-478b",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.94342033,
+                            32.75719183
+                        ],
+                        [
+                            114.37562361,
+                            32.62256709
+                        ],
+                        [
+                            114.76191313,
+                            32.35339611
+                        ],
+                        [
+                            114.94342033,
+                            32.75719183
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "702ddf5e41a142e99532999fc7022dcd",
+                "triangle_name": "6071-6075-HN07",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G6-R4-C18-E0(28)",
+                "cal_sate_qualify": 1,
+                "b1": 32.757191825125,
+                "l1": 114.943420327473,
+                "b2": 32.62256709207,
+                "l2": 114.375623608635,
+                "b3": 32.353396106589,
+                "l3": 114.761913128818
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-478a",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            114.04513205,
+                            32.46639142
+                        ],
+                        [
+                            113.31003321,
+                            32.70198007
+                        ],
+                        [
+                            114.05658519,
+                            32.11377223
+                        ],
+                        [
+                            114.04513205,
+                            32.46639142
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "720ae3e0585644e0ac20b561c2656ee2",
+                "triangle_name": "6077-6078-HN06",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R5-C21-E4(37)",
+                "cal_sate_qualify": 1,
+                "b1": 32.466391415068,
+                "l1": 114.045132050621,
+                "b2": 32.701980070229,
+                "l2": 113.310033213575,
+                "b3": 32.113772229,
+                "l3": 114.056585189467
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4789",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            119.84233034,
+                            32.9063785
+                        ],
+                        [
+                            120.30346314,
+                            32.85296088
+                        ],
+                        [
+                            120.17575428,
+                            33.39757145
+                        ],
+                        [
+                            119.84233034,
+                            32.9063785
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "73f73f53313a41888ded113059ad3e4a",
+                "triangle_name": "6040-6079-6082",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R3-C21-E0(31)",
+                "cal_sate_qualify": 1,
+                "b1": 32.906378501289,
+                "l1": 119.842330337428,
+                "b2": 32.852960879949,
+                "l2": 120.303463144903,
+                "b3": 33.397571447667,
+                "l3": 120.175754278523
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4788",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            113.99943123,
+                            33.01306787
+                        ],
+                        [
+                            114.62452241,
+                            32.96800525
+                        ],
+                        [
+                            114.37562361,
+                            32.62256709
+                        ],
+                        [
+                            113.99943123,
+                            33.01306787
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "786c52d867044d60af7d69d04043e209",
+                "triangle_name": "6048-6073-6075",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G7-R4-C11-E4(26)",
+                "cal_sate_qualify": 1,
+                "b1": 33.013067869251,
+                "l1": 113.999431226576,
+                "b2": 32.968005246676,
+                "l2": 114.624522411593,
+                "b3": 32.62256709207,
+                "l3": 114.375623608635
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4787",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            115.47179938,
+                            35.25117552
+                        ],
+                        [
+                            114.80562705,
+                            34.82479532
+                        ],
+                        [
+                            115.03950143,
+                            35.76992051
+                        ],
+                        [
+                            115.47179938,
+                            35.25117552
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "78742e2095fd46bf965e9d9d5ea4b911",
+                "triangle_name": "2122-6060-HN15",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_ON0LTakB",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R2-C6-E0(13)",
+                "cal_sate_qualify": 1,
+                "b1": 35.25117551785,
+                "l1": 115.471799375046,
+                "b2": 34.824795315672,
+                "l2": 114.80562704739,
+                "b3": 35.769920505327,
+                "l3": 115.039501431019
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4786",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            112.52231394,
+                            33.03504089
+                        ],
+                        [
+                            112.92849848,
+                            33.06687923
+                        ],
+                        [
+                            112.98753262,
+                            33.25245367
+                        ],
+                        [
+                            112.52231394,
+                            33.03504089
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "7c2d98b306124353b520d7fab925091a",
+                "triangle_name": "3021-3035-6089",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G8-R2-C7-E0(17)",
+                "cal_sate_qualify": 1,
+                "b1": 33.03504088955,
+                "l1": 112.522313942692,
+                "b2": 33.066879232565,
+                "l2": 112.928498478309,
+                "b3": 33.252453669372,
+                "l3": 112.987532617118
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4785",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            111.2015129,
+                            34.76633168
+                        ],
+                        [
+                            111.04736914,
+                            34.04807054
+                        ],
+                        [
+                            111.5697829,
+                            34.19738792
+                        ],
+                        [
+                            111.2015129,
+                            34.76633168
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "7ea37fdc00814ffbab4cb58e4679403e",
+                "triangle_name": "3017-6057-6090",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_MxWMcq2L",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G4-R2-C8-E0(14)",
+                "cal_sate_qualify": 1,
+                "b1": 34.76633168305,
+                "l1": 111.201512900007,
+                "b2": 34.048070544992,
+                "l2": 111.04736913633,
+                "b3": 34.197387918719,
+                "l3": 111.569782903281
+            }
+        },
+        {
+            "type": "Feature",
+            "id": "cors_triangle_cal_area.fid-2dde5fc8_17d55bdba2f_-4784",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            120.56660245,
+                            32.38549743
+                        ],
+                        [
+                            121.18605486,
+                            32.3186459
+                        ],
+                        [
+                            120.83591565,
+                            32.00915687
+                        ],
+                        [
+                            120.56660245,
+                            32.38549743
+                        ]
+                    ]
+                ]
+            },
+            "geometry_name": "area",
+            "properties": {
+                "id": "7eaa1ebd18254590a8bc791225bd72f1",
+                "triangle_name": "3009-3056-6015",
+                "cal_status": 2,
+                "cal_update_tm": 1637821440,
+                "cal_update_node": "DCAL_VRS_8PY79Xz6",
+                "data_continuity_rate": 100,
+                "cal_sate_status": "G5-R3-C6-E4(18)",
+                "cal_sate_qualify": 1,
+                "b1": 32.385497425261,
+                "l1": 120.566602454274,
+                "b2": 32.318645902038,
+                "l2": 121.1860548583,
+                "b3": 32.009156865899,
+                "l3": 120.835915648881
+            }
+        }
+    ],
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:EPSG::4326"
+        }
+    }
+}
