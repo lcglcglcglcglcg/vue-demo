@@ -50,9 +50,9 @@ export const filtersMixin = {
     toFixed(cellValue) {
       if (!cellValue) return '-'
       return Math.round(cellValue * 1000000) / 1000000
-    },
+    }
   },
 
   methods: {},
-  created() {},
+  created() {}
 }

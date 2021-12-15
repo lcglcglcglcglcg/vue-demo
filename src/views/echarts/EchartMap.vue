@@ -22,14 +22,12 @@ export default {
       this.myEchart = echarts.init(this.$refs.myEchart)
       const url =
         'http://172.16.15.227:22704/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:cors_triangle_cal_area&maxFeatures=50&outputFormat=application%2Fjson'
-      echarts.registerMap('myJson', require('@/assets/map.json'))
+      echarts.registerMap('myJson', require('./map.json'))
       let option = {
         tooltip: {
           formatter: function (params, ticket, callback) {
-            return (
-              params.seriesName + '<br />' + params.name + '：' + params.value
-            )
-          }, //数据格式化
+            return params.seriesName + '<br />' + params.name + '：' + params.value
+          } //数据格式化
         },
         visualMap: {
           min: 0,
@@ -38,9 +36,9 @@ export default {
           top: 'bottom',
           text: ['高', '低'], //取值范围的文字
           inRange: {
-            color: ['#e0ffff', '#006edd'], //取值范围的颜色
+            color: ['#e0ffff', '#006edd'] //取值范围的颜色
           },
-          show: true, //图注
+          show: true //图注
         },
         // geo: {
         //   map: 'china',
@@ -80,20 +78,20 @@ export default {
             data: dataList,
             label: {
               normal: {
-                show: true,
+                show: true
               },
               emphasis: {
                 show: false,
                 textStyle: {
-                  color: '#fff',
-                },
-              },
+                  color: '#fff'
+                }
+              }
             },
             itemStyle: {
               normal: {
                 areaColor: '#0d0059',
                 borderColor: '#389dff',
-                borderWidth: 0.5,
+                borderWidth: 0.5
               },
               emphasis: {
                 areaColor: '#17008d',
@@ -101,11 +99,11 @@ export default {
                 shadowOffsetY: 0,
                 shadowBlur: 5,
                 borderWidth: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)',
-              },
-            },
-          },
-        ],
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
       }
       this.myEchart.setOption(option)
       this.myEchart.on('click', function (params) {
@@ -113,8 +111,7 @@ export default {
       })
     },
     initEcharts1() {
-      var ROOT_PATH =
-        'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples'
+      var ROOT_PATH = 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples'
 
       var chartDom = document.getElementById('myEchart')
       var myChart = echarts.init(chartDom)
@@ -128,26 +125,26 @@ export default {
             // 把阿拉斯加移到美国主大陆左下方
             left: -131,
             top: 25,
-            width: 15,
+            width: 15
           },
           Hawaii: {
             left: -110,
             top: 28,
-            width: 5,
+            width: 5
           },
           'Puerto Rico': {
             // 波多黎各
             left: -76,
             top: 26,
-            width: 2,
-          },
+            width: 2
+          }
         })
         option = {
           title: {
             text: 'USA Population Estimates (2012)',
             subtext: 'Data from www.census.gov',
             sublink: 'http://www.census.gov/popest/data/datasets.html',
-            left: 'right',
+            left: 'right'
           },
           tooltip: {
             trigger: 'item',
@@ -155,12 +152,9 @@ export default {
             transitionDuration: 0.2,
             formatter: function (params) {
               const value = (params.value + '').split('.')
-              const valueStr = value[0].replace(
-                /(\d{1,3})(?=(?:\d{3})+(?!\d))/g,
-                '$1,'
-              )
+              const valueStr = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,')
               return params.seriesName + '<br/>' + params.name + ': ' + valueStr
-            },
+            }
           },
           visualMap: {
             left: 'right',
@@ -178,11 +172,11 @@ export default {
                 '#fdae61',
                 '#f46d43',
                 '#d73027',
-                '#a50026',
-              ],
+                '#a50026'
+              ]
             },
             text: ['High', 'Low'],
-            calculable: true,
+            calculable: true
           },
           toolbox: {
             show: true,
@@ -192,19 +186,19 @@ export default {
             feature: {
               dataView: { readOnly: false },
               restore: {},
-              saveAsImage: {},
-            },
+              saveAsImage: {}
+            }
           },
           series: [
             {
-              name: 'USA PopEstimates',
+              name: 'china',
               type: 'map',
               roam: true,
               map: 'china',
               emphasis: {
                 label: {
-                  show: true,
-                },
+                  show: true
+                }
               },
               data: [
                 { name: 'Alabama', value: 4822023 },
@@ -258,10 +252,10 @@ export default {
                 { name: 'West Virginia', value: 1855413 },
                 { name: 'Wisconsin', value: 5726398 },
                 { name: 'Wyoming', value: 576412 },
-                { name: 'Puerto Rico', value: 3667084 },
-              ],
-            },
-          ],
+                { name: 'Puerto Rico', value: 3667084 }
+              ]
+            }
+          ]
         }
         myChart.setOption(option)
       })
@@ -284,17 +278,17 @@ export default {
             showLegendSymbol: false, // 存在legend时显示
             label: {
               normal: {
-                show: false,
+                show: false
               },
               emphasis: {
-                show: false,
-              },
+                show: false
+              }
             },
             itemStyle: {
               normal: {
                 areaColor: '#0d0059',
                 borderColor: '#389dff',
-                borderWidth: 0.5,
+                borderWidth: 0.5
               },
               emphasis: {
                 areaColor: '#17008d',
@@ -302,9 +296,9 @@ export default {
                 shadowOffsetY: 0,
                 shadowBlur: 5,
                 borderWidth: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)',
-              },
-            },
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
           },
           {
             name: '',
@@ -321,24 +315,24 @@ export default {
               formatter(value) {
                 return value.data.name + '<br/>' + '设备数：' + '22'
               },
-              show: true,
+              show: true
             },
             encode: {
-              value: 2,
+              value: 2
             },
             label: {
               formatter: '{b}',
               position: 'right',
-              show: false,
+              show: false
             },
             itemStyle: {
-              color: '#0efacc',
+              color: '#0efacc'
             },
             emphasis: {
               label: {
-                show: false,
-              },
-            },
+                show: false
+              }
+            }
           },
           {
             name: 'Top 5',
@@ -347,32 +341,32 @@ export default {
             data: data1,
             symbolSize: 15,
             tooltip: {
-              show: false,
+              show: false
             },
             encode: {
-              value: 2,
+              value: 2
             },
             showEffectOn: 'render',
             rippleEffect: {
               brushType: 'stroke',
               color: '#0efacc',
               period: 9,
-              scale: 5,
+              scale: 5
             },
             hoverAnimation: true,
             label: {
               formatter: '{b}',
               position: 'right',
-              show: true,
+              show: true
             },
             itemStyle: {
               color: '#0efacc',
               shadowBlur: 2,
-              shadowColor: '#333',
+              shadowColor: '#333'
             },
-            zlevel: 1,
-          },
-        ],
+            zlevel: 1
+          }
+        ]
       }
       this.myEchart.setOption(option)
     },
@@ -567,15 +561,15 @@ export default {
         菏泽: [115.480656, 35.23375],
         合肥: [117.27, 31.86],
         武汉: [114.31, 30.52],
-        大庆: [125.03, 46.58],
+        大庆: [125.03, 46.58]
       }
       var data = []
       for (var key in geoCoordMap) {
         data.push({ name: key, value: geoCoordMap[key] })
       }
       return data
-    },
-  },
+    }
+  }
 }
 </script>
 

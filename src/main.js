@@ -3,27 +3,30 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import Storage from 'vue-ls'
-
+// 引入自定义样式
 import '@/style/index.css'
-
-import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
+import '@/assets/less/JAreaLinkage.less'
 
 Vue.config.productionTip = false
 
+// 批量引入组件
+import '@/components'
+
+// localStorage 处理插件
+import Storage from 'vue-ls'
 const storageOptions = {
   namespace: 'pro__', // key prefix
   name: 'ls', // name variable Vue.[ls] or this.[$ls],
-  storage: 'local', // storage name session, local, memory
+  storage: 'local' // storage name session, local, memory
 }
 
 Vue.use(Storage, storageOptions)
 
-Vue.use(Antd)
+// 引入ant-design-vue
+import '@/plugins/antd'
 
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: (h) => h(App)
 }).$mount('#app')

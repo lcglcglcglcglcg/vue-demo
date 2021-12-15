@@ -29,11 +29,15 @@ export default {
 .home {
   width: 100%;
   height: 100%;
+  background: url('../assets/bg.png') center center;
+  background-size: 100%;
   .menu {
     width: 40%;
-    margin: 50px auto 0px auto;
+    margin: 0 auto;
+    padding-top: 50px;
     h1 {
       text-align: center;
+      color: #fff;
     }
     ul > li {
       height: 20px;

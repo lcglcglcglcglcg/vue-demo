@@ -6,48 +6,24 @@
           <!-- 选择操作板 -->
           <a-tabs default-active-key="1">
             <a-tab-pane key="1" tab="省市区查询">
-              <a-form-model
-                v-model="form.province"
-                :model="form"
-                :label-col="labelCol"
-                :wrapper-col="wrapperCol"
-              >
+              <a-form-model v-model="form.province" :model="form" :label-col="labelCol" :wrapper-col="wrapperCol">
                 <a-form-model-item label="省">
                   <a-select @change="onProvinceChange" placeholder="请选择省份">
-                    <a-select-option
-                      v-for="item in provinceList"
-                      :key="item.id"
-                      :value="item.id"
-                    >
+                    <a-select-option v-for="item in provinceList" :key="item.id" :value="item.id">
                       {{ item.name }}
                     </a-select-option>
                   </a-select>
                 </a-form-model-item>
                 <a-form-model-item label="市">
-                  <a-select
-                    v-model="form.city"
-                    @change="onCityChange"
-                    placeholder="请选择城市"
-                  >
-                    <a-select-option
-                      v-for="item in cityList"
-                      :key="item.id"
-                      :value="item.id"
-                      >{{ item.locname }}</a-select-option
-                    >
+                  <a-select v-model="form.city" @change="onCityChange" placeholder="请选择城市">
+                    <a-select-option v-for="item in cityList" :key="item.id" :value="item.id">{{
+                      item.locname
+                    }}</a-select-option>
                   </a-select>
                 </a-form-model-item>
                 <a-form-model-item label="区/县">
-                  <a-select
-                    v-model="form.county"
-                    @change="onCountyChange"
-                    placeholder="请选择区县"
-                  >
-                    <a-select-option
-                      v-for="item in countyList"
-                      :key="item.id"
-                      :value="item.id"
-                    >
+                  <a-select v-model="form.county" @change="onCountyChange" placeholder="请选择区县">
+                    <a-select-option v-for="item in countyList" :key="item.id" :value="item.id">
                       {{ item.locname }}
                     </a-select-option>
                   </a-select>
@@ -55,40 +31,20 @@
               </a-form-model>
             </a-tab-pane>
             <a-tab-pane key="2" tab="经纬度查询" force-render>
-              <a-form-model
-                :model="formLocation"
-                :label-col="labelCol"
-                :wrapper-col="wrapperCol"
-              >
+              <a-form-model :model="formLocation" :label-col="labelCol" :wrapper-col="wrapperCol">
                 <a-form-model-item label="经度">
-                  <a-input
-                    v-model="formLocation.lon"
-                    placeholder="请输入经度,如113.1372"
-                  >
-                  </a-input>
+                  <a-input v-model="formLocation.lon" placeholder="请输入经度,如113.1372"> </a-input>
                 </a-form-model-item>
                 <a-form-model-item label="纬度">
-                  <a-input
-                    v-model="formLocation.lat"
-                    placeholder="请输入纬度,如23.4132"
-                  >
-                  </a-input>
+                  <a-input v-model="formLocation.lat" placeholder="请输入纬度,如23.4132"> </a-input>
                 </a-form-model-item>
               </a-form-model>
-              <a-button
-                type="primary"
-                @click="onLocal"
-                style="text-align: center; margin-bottom: 10px"
-              >
+              <a-button type="primary" @click="onLocal" style="text-align: center; margin-bottom: 10px">
                 定位
               </a-button>
             </a-tab-pane>
             <a-tab-pane key="3" tab="关键词搜索" force-render>
-              <a-form-model
-                :model="formArea"
-                :label-col="labelCol"
-                :wrapper-col="wrapperCol"
-              >
+              <a-form-model :model="formArea" :label-col="labelCol" :wrapper-col="wrapperCol">
                 <a-form-model-item label="关键字">
                   <a-select
                     show-search
@@ -119,12 +75,7 @@
                   </a-select>
                 </a-form-model-item>
                 <a-form-model-item label="区域">
-                  <a-input
-                    disabled
-                    v-model="formArea.area"
-                    placeholder="在上面输入关键词"
-                  >
-                  </a-input>
+                  <a-input disabled v-model="formArea.area" placeholder="在上面输入关键词"> </a-input>
                 </a-form-model-item>
               </a-form-model>
             </a-tab-pane>
@@ -176,14 +127,7 @@ import Feature from 'ol/Feature.js'
 import Circle from 'ol/geom/Circle.js'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer.js'
 import { OSM, Vector as VectorSource } from 'ol/source.js'
-import {
-  Circle as CircleStyle,
-  Fill,
-  Stroke,
-  Style,
-  Text,
-  RegularShape,
-} from 'ol/style.js'
+import { Circle as CircleStyle, Fill, Stroke, Style, Text, RegularShape } from 'ol/style.js'
 import WMSCapabilities from 'ol/format/WMSCapabilities.js'
 import Point from 'ol/geom/Point'
 import { easeOut } from 'ol/easing'
@@ -230,15 +174,15 @@ export default {
       form: {
         province: undefined,
         city: undefined,
-        county: undefined,
+        county: undefined
       },
       formLocation: {
         lon: '',
-        lat: '',
+        lat: ''
       },
       formArea: {
         keyword: undefined,
-        area: '',
+        area: ''
       },
       tips: [],
       cmChecked: true,
@@ -250,7 +194,7 @@ export default {
       geom: '',
 
       stations: [], // 基站
-      triangles: [], // 三角网
+      triangles: [] // 三角网
     }
   },
 
@@ -273,8 +217,8 @@ export default {
             element: container,
             autoPan: true,
             autoPanAnimation: {
-              duration: 250,
-            },
+              duration: 250
+            }
           })
         )
 
@@ -284,10 +228,10 @@ export default {
           style: function (feature) {
             return new Style({
               fill: new Fill({
-                color: [24, 144, 255, 0.4], // 蓝色
-              }),
+                color: [24, 144, 255, 0.4] // 蓝色
+              })
             })
-          },
+          }
         })
 
         StationSourceLine = new VectorSource()
@@ -296,10 +240,10 @@ export default {
           style: function (feature) {
             return new Style({
               fill: new Fill({
-                color: [255, 202, 24, 0.4], // 橙色
-              }),
+                color: [255, 202, 24, 0.4] // 橙色
+              })
             })
-          },
+          }
         })
 
         polygonSource = new VectorSource()
@@ -309,17 +253,17 @@ export default {
             return new Style({
               stroke: new Stroke({
                 width: 6,
-                color: '#c76b7a',
-              }),
+                color: '#c76b7a'
+              })
             })
-          },
+          }
         })
         map = new Map({
           // 默认控件隐藏，并添加控件
           controls: defaultControls().extend([
             new ScaleLine({
-              units: 'metric',
-            }),
+              units: 'metric'
+            })
           ]),
           overlays: [overlay],
           target: 'mapServeRange',
@@ -329,8 +273,8 @@ export default {
             center: window.g.center,
             zoom: window.g.zoomVal,
             minZoom: window.g.minzoomVal,
-            maxZoom: window.g.maxzoomVal,
-          }),
+            maxZoom: window.g.maxzoomVal
+          })
         })
         setMapColor('mapServeRange')
 
@@ -349,7 +293,7 @@ export default {
           new MousePosition({
             undefinedHTML: 'outside',
             projection: 'EPSG:4326',
-            coordinateFormat: createStringXY(4),
+            coordinateFormat: createStringXY(4)
           })
         )
         window.addEventListener('resize', this.changeSize)
@@ -362,13 +306,10 @@ export default {
           // 当前点击的地图坐标点
           var pixel = map.getEventPixel(evt.originalEvent)
           // 如果当前点击地图坐标点与layer层的坐标点相交，返回该坐标点；
-          var feature = map.forEachFeatureAtPixel(
-            pixel,
-            function (feature, layer) {
-              // 过滤掉与非基准站坐标层相交的其他图层的点
-              if (feature.getProperties().user_name) return feature
-            }
-          )
+          var feature = map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+            // 过滤掉与非基准站坐标层相交的其他图层的点
+            if (feature.getProperties().user_name) return feature
+          })
           // 如果当前指针坐标不经过基准站坐标点，隐藏弹窗
           if (feature === null || feature === undefined) {
             overlay.setPosition(undefined)
@@ -391,13 +332,9 @@ export default {
 
       this.stations.forEach((v) => {
         let { l, b } = v
-        featuresArr.push(
-          turf.buffer(turf.point([l, b]), 30, { units: 'kilometers' })
-        )
+        featuresArr.push(turf.buffer(turf.point([l, b]), 30, { units: 'kilometers' }))
 
-        featuresLineArr.push(
-          turf.buffer(turf.point([l, b]), 50, { units: 'kilometers' })
-        )
+        featuresLineArr.push(turf.buffer(turf.point([l, b]), 50, { units: 'kilometers' }))
       })
 
       console.log('featuresArr: ', featuresArr, featuresLineArr)
@@ -425,14 +362,12 @@ export default {
         keywords: value,
         key: gdkey,
         type: '分类代码',
-        citylimit: true,
+        citylimit: true
       })
-      axios
-        .get(`https://restapi.amap.com/v3/assistant/inputtips?${str}`)
-        .then((res) => {
-          if (res.status !== 200) return
-          this.tips = res.data.tips
-        })
+      axios.get(`https://restapi.amap.com/v3/assistant/inputtips?${str}`).then((res) => {
+        if (res.status !== 200) return
+        this.tips = res.data.tips
+      })
     },
     handleChange(value) {
       console.log('value2', value)
@@ -440,7 +375,7 @@ export default {
       this.formArea.area = this.tips[i].district
       const params = {
         key: gdkey,
-        extensions: 'all', //获取行政区域边界值
+        extensions: 'all' //获取行政区域边界值
       }
       const id = this.tips[i].id
       if (id && JSON.stringify(id) === '[]') {
@@ -449,14 +384,12 @@ export default {
         params.keywords = this.tips[i].adcode
       }
       const str = Qs.stringify(params)
-      axios
-        .get(`https://restapi.amap.com/v3/config/district?${str}`)
-        .then((res) => {
-          if (res.status !== 200) return
-          const polyline = res.data.districts[0].polyline
-          polygonSource.clear()
-          this.handelLonLat(polyline)
-        })
+      axios.get(`https://restapi.amap.com/v3/config/district?${str}`).then((res) => {
+        if (res.status !== 200) return
+        const polyline = res.data.districts[0].polyline
+        polygonSource.clear()
+        this.handelLonLat(polyline)
+      })
     },
     // 处理经纬度
     handelLonLat(polyline) {
@@ -471,7 +404,7 @@ export default {
         })
         let feature = new Feature({
           type: 'Polygon',
-          geometry: new Polygon([arr]),
+          geometry: new Polygon([arr])
         })
         polygonSource.addFeature(feature)
       })
@@ -519,8 +452,7 @@ export default {
       cover(1, v)
         .then((res) => {
           if (res.success) {
-            let { province, cityList, stationList, countyList, triangleList } =
-              res.result
+            let { province, cityList, stationList, countyList, triangleList } = res.result
             this.cityList = cityList
             this.addMultiPolygon(province.geom)
             // this.addStation(stationList, triangleList, province.geom);
@@ -592,14 +524,14 @@ export default {
             this.addMultiPolygon(county.geom)
             this.addStation(stationList, triangleList, county.geom)
             let feature = new Feature({
-              geometry: new Point([lon, lat]),
+              geometry: new Point([lon, lat])
             })
             feature.setStyle(
               new Style({
                 image: new Icon({
                   src: locationRed,
-                  anchor: [0.5, 1], // 设置图标位置
-                }),
+                  anchor: [0.5, 1] // 设置图标位置
+                })
               })
             )
             polygonSource.addFeature(feature)
@@ -626,7 +558,7 @@ export default {
         // 获取图层
         this.getLayers()
       })
-    },
+    }
   },
   mounted() {
     this.getStations()
@@ -635,7 +567,7 @@ export default {
         this.provinceList = res.result.provinceList
         this.provinceList.unshift({
           id: '1000',
-          name: '请选择省份',
+          name: '请选择省份'
         })
       }
     })
@@ -649,7 +581,7 @@ export default {
   },
 
   //地图自适应缩放
-  computed: {},
+  computed: {}
 }
 </script>
 
