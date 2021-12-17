@@ -97,6 +97,8 @@
           <a-button @click="clickReturn">返回</a-button>
         </div>
       </div>
+      <!-- 工具箱 -->
+      <ToolBox class="toolBox" />
     </a-spin>
   </div>
 </template>
@@ -590,6 +592,12 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  .toolBox {
+    position: absolute;
+    left: 20px;
+    top: 100px;
+    z-index: 100;
+  }
   #mapServeRange {
     > .ol-mouse-position {
       top: auto;

@@ -183,6 +183,7 @@ export default {
   height: 100%;
   .myEchart {
     width: 50%;
+    height: 100%;
     padding-top: 80px;
     text-align: center;
     margin: 0 auto;
