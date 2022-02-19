@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>vue-demo</title><script>function browser() {
+        var u = navigator.userAgent
+        return u.indexOf('AppleWebKit') > -1
+      }
+      var app = browser()
+      if (!app) {
+        alert(
+          '您当前使用浏览不支持系统，请更改为360浏览器极速模式或更换谷歌浏览器浏览(You currently do not support the system with browsing, please change to 360 browser speed mode or change to Google browser browsing)'
+        )
+      }
+  
+      window._CONFIG = {}
+  
+      var reg = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/
+      let url = window.location.href
+      var ip = reg.exec(window.location.href)
+  
+      if (!ip) { 
+        window._CONFIG['domianURL'] = 'http://172.16.51.94:8081/south-cors/'
+      } else {
+        window._CONFIG['domianURL'] = 'http://' + ip[0] + ':22702/south-cors/'
+      }
+  
+      window.baseIp = '172.16.15.227'
+      // geoserver 服务器端口
+      window.wmsPort = '22704'
+      // window.wmsPort = '31110'
+  
+      window.g = {
+        // 地图配置
+        mapType: 0, // 默认国内使用天地图: 0, 国外及外贸等请设置谷歌地图：1
+        zoomVal: 5, // 当前地图显示层级
+        minzoomVal: 4, // 地图最小缩放层级
+        maxzoomVal: 18, // 地图最大缩放层级
+        center: [109.9829, 32.928], // 地图中心经纬度
+        areaExtext: [-180, -45, 180, 48], // 地图显示区域: 限制不出现空白： [-180, -45, 180, 48]；在外贸部署时显示俄罗斯需设置为： [-180, -90, 180, 90];  中国经纬度： [73.33, 3.51, 135.05, 53.33],
+  
+        // 使用在线地图或者离线地图
+        useOfflineMap: true, // 默认为 false， true为使用离线地图 
+        // 离线地图底图设置
+        offlineMapLayerColor: 'white', //black:黑色  white:白色 不填默认设置为黑色底图
+        offlineMapLayer: 'all', //山西:sx  陕西:xa  云南:yn  重庆:cq  广东:gd 全国：all  不填默认设置重庆
+  
+  
+        offCoordinate: [107.879, 30.095], //中心点:仅大屏离线地图使用 //默认设置在重庆
+        offZoom: 8, //缩放比：默认设置为8，仅大屏使用
+  
+        mapApiwms: 'http://' + window.baseIp + ':' + wmsPort + '/geoserver/cors/wms',
+        mapApiwfs:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:station_info&outputFormat=application%2Fjson',
+        //基站分布图物理站图层
+        mapBaseStationwfs:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:station_info_user&outputFormat=application%2Fjson',
+        mapNetBaseStationwfs:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:station_info_area&outputFormat=application%2Fjson',
+        mapUserwfs:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:view_user_info_user&maxFeatures=10000&outputFormat=application%2Fjson',
+  
+        // 历史轨迹图层
+        mapPathPoint:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:user_gga_history_sql&outputFormat=application%2Fjson&viewparams=',
+        mapPathLine:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:user_trajectory_gga&outputFormat=application%2Fjson&viewparams=',
+  
+        historyActive:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:history_user_info_user&outputFormat=application%2Fjson&viewparams=',
+  
+        // 虚拟点图层名
+        virwsm:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:view_station_vrs&outputFormat=application%2Fjson&viewparams=',
+        // 播发质量图层名
+        svdvirwsm:
+          'http://' +
+          window.baseIp +
+          ':' +
+          wmsPort +
+          '/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:station_svd_vrs&outputFormat=application%2Fjson&viewparams=',
+  
+        // 虚拟点
+        virtualwms: 'http://' + window.baseIp + ':' + wmsPort + '/geoserver/cors/wms',
+        // 本地地图资源
+        mapRoad: 'http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=40b72a34fc05f53b1eccca7b0bfb631a',
+        mapText: 'http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=40b72a34fc05f53b1eccca7b0bfb631a',
+        mapTextEn: 'http://t3.tianditu.com/DataServer?T=eva_w&x={x}&y={y}&l={z}&tk=40b72a34fc05f53b1eccca7b0bfb631a'
+      }</script><link href="/css/chunk-0900a86a.f7fe1783.css" rel="prefetch"><link href="/css/chunk-0c0a59e8.4584e0c2.css" rel="prefetch"><link href="/css/chunk-1368b6fe.50ce90e8.css" rel="prefetch"><link href="/css/chunk-1a7e9804.50ce90e8.css" rel="prefetch"><link href="/css/chunk-3211eead.50ce90e8.css" rel="prefetch"><link href="/css/chunk-3b907e89.8f163d98.css" rel="prefetch"><link href="/css/chunk-4871f2a4.1b343a2b.css" rel="prefetch"><link href="/css/chunk-52d9430e.2508134b.css" rel="prefetch"><link href="/css/chunk-a97cf3be.7cb90006.css" rel="prefetch"><link href="/css/chunk-e1ed5842.50ce90e8.css" rel="prefetch"><link href="/js/chunk-0900a86a.6ee4b7d0.js" rel="prefetch"><link href="/js/chunk-0b40fd74.24a35810.js" rel="prefetch"><link href="/js/chunk-0c0a59e8.b6230b84.js" rel="prefetch"><link href="/js/chunk-1368b6fe.0d353b0f.js" rel="prefetch"><link href="/js/chunk-1a7e9804.76cca0ef.js" rel="prefetch"><link href="/js/chunk-3211eead.6dc9314a.js" rel="prefetch"><link href="/js/chunk-3b907e89.6fadeac0.js" rel="prefetch"><link href="/js/chunk-42960d9b.e2d07e8e.js" rel="prefetch"><link href="/js/chunk-4871f2a4.d50d09de.js" rel="prefetch"><link href="/js/chunk-52d9430e.26f49519.js" rel="prefetch"><link href="/js/chunk-a97cf3be.9fb09cc8.js" rel="prefetch"><link href="/js/chunk-e1ed5842.20c29850.js" rel="prefetch"><link href="/css/app.9bec5758.css" rel="preload" as="style"><link href="/css/chunk-vendors.29d30d4b.css" rel="preload" as="style"><link href="/js/app.e8139148.js" rel="preload" as="script"><link href="/js/chunk-vendors.c0554cca.js" rel="preload" as="script"><link href="/css/chunk-vendors.29d30d4b.css" rel="stylesheet"><link href="/css/app.9bec5758.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but south-position doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><script src="/js/chunk-vendors.c0554cca.js"></script><script src="/js/app.e8139148.js"></script></body></html>
