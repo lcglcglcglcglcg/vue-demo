@@ -2,23 +2,30 @@
   <div>
     <a class="skiplink" href="#map">Go to map</a>
     <div id="map" class="map" tabindex="0"></div>
-    <button id="zoom-out">Zoom out</button>
-    <button id="zoom-in">Zoom in</button>
   </div>
 </template>
 
 <script>
 import { Map, View, Overlay, TileLayer, OSM } from './mapModule'
+import { Vector as VectorLayer } from 'ol/layer'
+import { Vector as VectorSource } from 'ol/source'
+import Feature from 'ol/Feature'
+import { Point } from 'ol/geom'
+import { fromLonLat } from 'ol/proj'
+import typhoonData from './typhoon.json'
 export default {
   data() {
-    return {}
+    return {
+      map: null,
+    }
   },
   mounted() {
     this.initMap()
+    this.drawTyphoonPath()
   },
   methods: {
     initMap() {
-      const map = new Map({
+      this.map = new Map({
         layers: [
           new TileLayer({
             source: new OSM(),
@@ -31,6 +38,24 @@ export default {
         }),
       })
     },
+    drawTyphoonPath() {
+      const points = typhoonData.points
+      let features = []
+      points.forEach(item => {
+        let feature = new Feature({
+          // 'fromLonLat' 球面投影转化平面
+          geometry: new Point(fromLonLat([item.lng, item.lat])),
+        })
+        features.push(feature)
+      })
+      // 矢量图层
+      let layer = new VectorLayer()
+      // 矢量数据源
+      let source = new VectorSource()
+      source.addFeatures(features)
+      layer.setSource(source)
+      this.map.addLayer(layer)
+    },
   },
 }
 </script>
@@ -38,7 +63,7 @@ export default {
 <style>
 .map {
   width: 100%;
-  height: 400px;
+  height: 100vh;
 }
 a.skiplink {
   position: absolute;
