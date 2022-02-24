@@ -1,6 +1,6 @@
 <template>
   <ul class="tree">
-    <div class="star"></div>
+    <!-- <div class="star"></div> -->
     <div class="chunk"></div>
   </ul>
 </template>
@@ -19,7 +19,15 @@ export default {
       li.style = `--i:${i}`
       tree.appendChild(li)
     }
-  }
+
+    // 创建多个星星
+    for (let i = 2; i < 20; i += 4) {
+      let div = document.createElement('div')
+      div.style = `--i:${i}`
+      div.className = 'star'
+      tree.appendChild(div)
+    }
+  },
 }
 </script>
 
@@ -46,6 +54,8 @@ body {
   width: 50px;
   height: 50px;
   position: absolute;
+  left: calc(var(--i) * 22px + 8px);
+  top: 0;
   background-color: rgb(236, 234, 167);
   z-index: 999;
   margin-bottom: 40px;

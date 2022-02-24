@@ -12,7 +12,10 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   return modules
 }, {})
 
+import createPersistedState from 'vuex-persistedstate'
+
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   modules,
   state: {},
   mutations: {},
