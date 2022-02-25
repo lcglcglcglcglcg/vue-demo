@@ -13,6 +13,7 @@ import Feature from 'ol/Feature'
 import { Point } from 'ol/geom'
 import { fromLonLat } from 'ol/proj'
 import typhoonData from './typhoon.json'
+import { Style, Circle, Fill, Stroke, Text, Icon } from 'ol/style'
 export default {
   data() {
     return {
@@ -46,6 +47,14 @@ export default {
           // 'fromLonLat' 球面投影转化平面
           geometry: new Point(fromLonLat([item.lng, item.lat])),
         })
+        feature.setStyle(
+          new Style({
+            image: new Circle({
+              fill: new Fill({ color: this.judeColorByWindLevel(item.strong) }),
+              radius: 4,
+            }),
+          })
+        )
         features.push(feature)
       })
       // 矢量图层
@@ -55,6 +64,17 @@ export default {
       source.addFeatures(features)
       layer.setSource(source)
       this.map.addLayer(layer)
+    },
+    judeColorByWindLevel(level) {
+      let colors = {
+        热带低压: 'green',
+        热带风暴: 'blue',
+        强热带风暴: 'yellow',
+        台风: 'orange',
+        强台风: 'purple',
+        超强台风: 'red',
+      }
+      return colors[level]
     },
   },
 }
