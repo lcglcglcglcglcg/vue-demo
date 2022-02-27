@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import store from '@/store'
 import routes from '@/router/routes'
 const whiteList = ['*', '/Home', '/exception/403', '/exception/404', '/exception/500', '/exception/ExceptionPage']
 
@@ -20,6 +21,11 @@ export default {
   data() {
     return {
       routes: routes.filter((v) => !whiteList.includes(v.path))
+    }
+  },
+  methods: {
+    setStore() {
+      this.$store.dispatch('setName', 'zs')
     }
   }
 }

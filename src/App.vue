@@ -41,8 +41,13 @@ export default {
   .snapshotBtn {
     position: absolute;
     top: 0;
-    left: 50%;
+    left: 5%;
     z-index: 99;
+    opacity: 0.2;
+    &:hover {
+      opacity: 1;
+      transition: opacity 1s;
+    }
   }
 }
 </style>

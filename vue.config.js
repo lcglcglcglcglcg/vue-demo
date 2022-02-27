@@ -21,6 +21,37 @@ module.exports = {
     if (process.env.NODE_ENV === 'development') {
       config.devtool = 'source-map'
     }
+
+    // 增加cesium使用loader
+    config.module.rules.push(
+      // OrbitControls.js库使用
+      {
+        test: require.resolve('three/examples/js/controls/OrbitControls'),
+        use: 'imports-loader?THREE=three'
+      },
+      {
+        test: require.resolve('three/examples/js/controls/OrbitControls'),
+        use: 'exports-loader?THREE.OrbitControls'
+      },
+      // CSS2DRenderer.js库使用
+      {
+        test: require.resolve('three/examples/js/renderers/CSS2DRenderer.js'),
+        use: 'imports-loader?THREE=three'
+      },
+      {
+        test: require.resolve('three/examples/js/renderers/CSS2DRenderer.js'),
+        use: 'exports-loader?THREE.CSS2DRenderer'
+      },
+      // OBJLoader.js库使用
+      {
+        test: require.resolve('three/examples/js/loaders/OBJLoader.js'),
+        use: 'imports-loader?THREE=three'
+      },
+      {
+        test: require.resolve('three/examples/js/loaders/OBJLoader.js'),
+        use: 'exports-loader?THREE.OBJLoader'
+      }
+    )
   },
   chainWebpack: config => {
     config.resolve.alias.set('@$', resolve('src')).set('@api', resolve('src/api'))
