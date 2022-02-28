@@ -27,29 +27,38 @@ module.exports = {
       // OrbitControls.js库使用
       {
         test: require.resolve('three/examples/js/controls/OrbitControls'),
-        use: 'imports-loader?THREE=three'
+        use: 'imports-loader?THREE=three',
       },
       {
         test: require.resolve('three/examples/js/controls/OrbitControls'),
-        use: 'exports-loader?THREE.OrbitControls'
+        use: 'exports-loader?THREE.OrbitControls',
       },
+      // TextGeometry库使用
+      // {
+      //   test: require.resolve('three/examples/js/controls/TextGeometry'),
+      //   use: 'imports-loader?THREE=three',
+      // },
+      // {
+      //   test: require.resolve('three/examples/js/controls/TextGeometry'),
+      //   use: 'exports-loader?THREE.TextGeometry',
+      // },
       // CSS2DRenderer.js库使用
       {
         test: require.resolve('three/examples/js/renderers/CSS2DRenderer.js'),
-        use: 'imports-loader?THREE=three'
+        use: 'imports-loader?THREE=three',
       },
       {
         test: require.resolve('three/examples/js/renderers/CSS2DRenderer.js'),
-        use: 'exports-loader?THREE.CSS2DRenderer'
+        use: 'exports-loader?THREE.CSS2DRenderer',
       },
       // OBJLoader.js库使用
       {
         test: require.resolve('three/examples/js/loaders/OBJLoader.js'),
-        use: 'imports-loader?THREE=three'
+        use: 'imports-loader?THREE=three',
       },
       {
         test: require.resolve('three/examples/js/loaders/OBJLoader.js'),
-        use: 'exports-loader?THREE.OBJLoader'
+        use: 'exports-loader?THREE.OBJLoader',
       }
     )
   },
@@ -62,7 +71,7 @@ module.exports = {
         new CompressionPlugin({
           test: /\.js$|\.css|\.less/, // 匹配文件名
           threshold: 10240, // 对超过10k的数据压缩
-          deleteOriginalAssets: true // 不删除源文件
+          deleteOriginalAssets: true, // 不删除源文件
         })
       )
     }
@@ -83,11 +92,11 @@ module.exports = {
           /* less 变量覆盖，用于自定义 ant design 主题 */
           'primary-color': '#1890FF',
           'link-color': '#1890FF',
-          'border-radius-base': '4px'
+          'border-radius-base': '4px',
         },
-        javascriptEnabled: true
-      }
-    }
+        javascriptEnabled: true,
+      },
+    },
   },
 
   devServer: {
@@ -96,8 +105,8 @@ module.exports = {
       '/jeecg-boot': {
         target: 'http://localhost:8080', // 请求本地 需要jeecg-boot后台项目
         ws: false,
-        changeOrigin: true
-      }
-    }
-  }
+        changeOrigin: true,
+      },
+    },
+  },
 }

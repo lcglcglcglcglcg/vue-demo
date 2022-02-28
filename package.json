@@ -23,10 +23,12 @@
     "js-cookie": "^3.0.1",
     "nprogress": "^0.2.0",
     "ol": "^6.9.0",
+    "three": "^0.129.0",
     "vue": "^2.6.11",
     "vue-ls": "^3.2.2",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -40,6 +42,8 @@
     "gh-pages": "^3.2.3",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
+    "exports-loader": "^3.1.0",
+    "imports-loader": "^3.1.1",
     "vue-template-compiler": "^2.6.11"
   }
 }

@@ -63,7 +63,7 @@ export default {
           color: 0xffffff,
           dashSize: 4,
           gapSize: 0.1,
-          linewidth: 50
+          linewidth: 50,
         })
       )
       // line.computeLineDistances(); // 非常重要 不然出不来效果
@@ -110,8 +110,8 @@ export default {
         render.render(scene, camera)
       }
       setInterval(animate, 100)
-    }
-  }
+    },
+  },
 }
 </script>
 

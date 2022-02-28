@@ -5,15 +5,15 @@
 <script>
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
+// import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry'
 
 import { sRGBEncoding } from 'three'
 //此处加载gltf模型，故使用GLFTLoader
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 //其他模型加载器
-import { OBJLoader, MTLLoader } from 'three-obj-mtl-loader'
-import dat from 'dat.gui'
+// import { OBJLoader, MTLLoader } from 'three-obj-mtl-loader'
+// import dat from 'dat.gui'
 
 let scene, camera, renderer, controls
 let group, textMesh1, textMesh2, textGeo, materials
@@ -24,8 +24,8 @@ export default {
       step: 0,
       controls: {
         rotationSpeed: 0.5,
-        bouncingSpeed: 0.5
-      }
+        bouncingSpeed: 0.5,
+      },
     }
   },
   mounted() {
@@ -250,8 +250,8 @@ export default {
     },
     render() {
       renderer.render(scene, camera)
-    }
-  }
+    },
+  },
 }
 </script>
 
