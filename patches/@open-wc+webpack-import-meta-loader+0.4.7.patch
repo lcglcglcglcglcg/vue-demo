@@ -1,0 +1,13 @@
+diff --git a/node_modules/@open-wc/webpack-import-meta-loader/webpack-import-meta-loader.js b/node_modules/@open-wc/webpack-import-meta-loader/webpack-import-meta-loader.js
+index 3bf4695..1e3cecb 100644
+--- a/node_modules/@open-wc/webpack-import-meta-loader/webpack-import-meta-loader.js
++++ b/node_modules/@open-wc/webpack-import-meta-loader/webpack-import-meta-loader.js
+@@ -17,7 +17,7 @@ module.exports = function (source) {
+   const path = require('path');
+ 
+   const relativePath = this.context.substring(
+-    this.context.indexOf(this.rootContext) + this.rootContext.length + 1,
++    this.context.indexOf(this.rootContext) + this.rootContext?.length + 1,
+     this.resource.lastIndexOf(path.sep) + 1,
+   );
+ 
