@@ -14,11 +14,13 @@ import { Point, MultiLineString, LineString, Polygon } from 'ol/geom'
 import { fromLonLat } from 'ol/proj'
 import typhoonData from './typhoon.json'
 import { Style, Circle, Fill, Stroke, Text, Icon } from 'ol/style'
+import { featureObj } from './feature'
 export default {
   data() {
     return {
       map: null,
       lastSolar: null,
+      lastZoomPoint: null,
     }
   },
   mounted() {
@@ -29,19 +31,47 @@ export default {
   methods: {
     initMap() {
       this.map = new Map({
+        target: 'map',
         layers: [
           new TileLayer({
             source: new OSM(),
           }),
         ],
-        target: 'map',
         view: new View({
-          center: [0, 0],
-          zoom: 2,
+          center: [15611315, 2500873],
+          zoom: 6,
         }),
       })
+      this.designHoverOnMap()
     },
 
+    // 注册时间
+    designHoverOnMap() {
+      this.map.on('pointermove', e => {
+        let pixel = e.pixel
+        let feature = this.map.forEachFeatureAtPixel(pixel, (feature, layer) => {
+          return feature
+        })
+        if (feature) {
+          if (feature.get('type') === 'typhoonPoint') {
+            featureObj.typhoonPointHover.apply(this, [feature])
+          }
+        } else {
+          this.setPointStyle(this.lastZoomPoint, 4)
+          this.map.getTargetElement().style.cursor = ''
+        }
+      })
+    },
+    // 设置点击样式
+    setPointStyle(feature, radius) {
+      if (feature) {
+        feature
+          .getStyle()
+          .getImage()
+          .setRadius(radius)
+        feature.changed()
+      }
+    },
     drawTyphoonPath() {
       const points = typhoonData.points
       let features = []
@@ -103,6 +133,7 @@ export default {
               }),
             })
           )
+          featurePoint.set('type', 'typhoonPoint')
           source.addFeature(featurePoint)
           // 增加风圈
           if (points[index].radius7) {
