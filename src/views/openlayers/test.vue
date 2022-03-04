@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a class="skiplink" href="#map">Go to map</a>
     <div id="map" class="map" tabindex="0"></div>
+    <Popup ref="Popup" :info="pointInfo" :commonInfo="commonInfo" />
   </div>
 </template>
 
@@ -12,21 +12,26 @@ import { Vector as VectorSource } from 'ol/source'
 import Feature from 'ol/Feature'
 import { Point, MultiLineString, LineString, Polygon } from 'ol/geom'
 import { fromLonLat } from 'ol/proj'
-import typhoonData from './typhoon.json'
 import { Style, Circle, Fill, Stroke, Text, Icon } from 'ol/style'
+
+import typhoonData from './typhoon.json'
 import { featureObj } from './feature'
+
+import Popup from './modules/Popup'
 export default {
+  components: { Popup },
   data() {
     return {
       map: null,
       lastSolar: null,
       lastZoomPoint: null,
+      overlay: null,
+      pointInfo: {},
+      commonInfo: {},
     }
   },
   mounted() {
     this.initMap()
-    // this.drawTyphoonPath()
-    this.drawTyphoonPathInterval()
   },
   methods: {
     initMap() {
@@ -39,15 +44,32 @@ export default {
         ],
         view: new View({
           center: [15611315, 2500873],
-          zoom: 6,
+          zoom: 5,
         }),
       })
+      this.addOverlay()
+      // this.drawTyphoonPath()
+      this.drawTyphoonPathInterval()
       this.designHoverOnMap()
     },
 
-    // 注册时间
+    // 添加叠加层
+    addOverlay() {
+      // 创建一个overlay，绑定html元素container
+      this.overlay = new Overlay({
+        element: this.$refs.Popup.$el,
+        autoPan: true,
+        autoPanAnimation: {
+          duration: 250,
+        },
+        positioning: 'bottom-center',
+      })
+      this.map.addOverlay(this.overlay)
+    },
+
+    // 注册事件
     designHoverOnMap() {
-      this.map.on('pointermove', e => {
+      this.map.on('pointermove', (e) => {
         let pixel = e.pixel
         let feature = this.map.forEachFeatureAtPixel(pixel, (feature, layer) => {
           return feature
@@ -55,20 +77,21 @@ export default {
         if (feature) {
           if (feature.get('type') === 'typhoonPoint') {
             featureObj.typhoonPointHover.apply(this, [feature])
+            let coordinates = feature.getGeometry().getCoordinates()
+            this.pointInfo = feature.get('pointData')
+            this.overlay.setPosition(coordinates)
           }
         } else {
           this.setPointStyle(this.lastZoomPoint, 4)
           this.map.getTargetElement().style.cursor = ''
+          this.overlay.setPosition(undefined)
         }
       })
     },
     // 设置点击样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature
-          .getStyle()
-          .getImage()
-          .setRadius(radius)
+        feature.getStyle().getImage().setRadius(radius)
         feature.changed()
       }
     },
@@ -113,6 +136,7 @@ export default {
       this.map.getView().fit(source.getExtent(), this.map.getSize())
     },
     drawTyphoonPathInterval() {
+      this.commonInfo = { name: typhoonData.name, starttime: typhoonData.starttime }
       const points = typhoonData.points
       let index = 0
       let layer = new VectorLayer()
@@ -134,6 +158,7 @@ export default {
             })
           )
           featurePoint.set('type', 'typhoonPoint')
+          featurePoint.set('pointData', points[index])
           source.addFeature(featurePoint)
           // 增加风圈
           if (points[index].radius7) {
@@ -159,7 +184,7 @@ export default {
       this.map.addLayer(layer)
     },
     drawSolar(point) {
-      const radiusArr = point.radius7.split('|').map(item => parseFloat(item))
+      const radiusArr = point.radius7.split('|').map((item) => parseFloat(item))
       var Configs = {
         CIRCLE_CENTER_X: parseFloat(point.lng),
         CIRCLE_CENTER_Y: parseFloat(point.lat),
@@ -207,28 +232,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 .map {
   width: 100%;
   height: 100vh;
-}
-a.skiplink {
-  position: absolute;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0;
-  border: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-}
-a.skiplink:focus {
-  clip: auto;
-  height: auto;
-  width: auto;
-  background-color: #fff;
-  padding: 0.3em;
-}
-#map:focus {
-  outline: #4a74a8 solid 0.15em;
 }
 </style>
