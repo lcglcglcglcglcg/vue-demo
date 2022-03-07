@@ -25,8 +25,8 @@ export default {
         link.click()
         URL.revokeObjectURL(link.href)
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
