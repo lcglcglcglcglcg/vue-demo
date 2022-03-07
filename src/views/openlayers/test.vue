@@ -3,7 +3,14 @@
     <div id="map" class="map" tabindex="0">
       <div class="tools">
         <a-button type="primary" @click="beginCalDistance">开始测距</a-button>
-        <a-button type="primary" style="margin-left:10px;" @click="cancleCalDistance">取消测距</a-button>
+        <a-button type="primary" @click="cancleCalDistance">取消测距</a-button>
+
+        <!-- <button @click="startMeasure">测距</button>
+        <button @click="stopMeasure">清除</button> -->
+        <a-button type="primary">相对湿度绘制</a-button>
+        <a-button type="primary">webgl渲染大数据</a-button>
+        <a-button type="primary">刷新 webgl 数据</a-button>
+        <a-button type="primary">时间切片刷新</a-button>
       </div>
     </div>
     <Popup ref="Popup" :info="pointInfo" :commonInfo="commonInfo" />
@@ -513,7 +520,8 @@ export default {
       let source = new ImageStatic({
         imageExtent: extent,
         // http://d1.weather.com.cn/newwebgis/radar/5m/QPFRef_202203072010.png
-        url: '/jeecg-boot/' + this.dealPathArray[index],
+        url:
+          'https://tse1-mm.cn.bing.net/th/id/R-C.35d35a3c8795f9eec6a0e212ff5efd41?rik=zRrNeHs5grQx%2bA&riu=http%3a%2f%2fwww.182806.com%2fuploads11%2fprocessed%2f24be6f0e18a68b0e0ba141e4515f02d9.jpeg%40s_0%2cw_660%2ch_370%2cq_80&ehk=l9bQPBf0IV%2fq6JhJyxl6dYbvwodKMZj5Vm7U0EJ6Phg%3d&risl=&pid=ImgRaw&r=0',
       })
       imageLayer.setSource(source)
       imageLayer.changed()
@@ -568,6 +576,14 @@ export default {
     right: 0;
     top: 10px;
     z-index: 99;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 200px;
+    button {
+      width: 100%;
+      margin: 5px 0;
+    }
   }
 }
 </style>
