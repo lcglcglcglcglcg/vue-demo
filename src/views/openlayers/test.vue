@@ -12,17 +12,20 @@
 
 <script>
 import { Map, View, Overlay, TileLayer, OSM } from './mapModule'
-import { Vector as VectorLayer } from 'ol/layer'
-import { Vector as VectorSource } from 'ol/source'
+import { Vector as VectorLayer, Image as ImageLayer, WebGLPoints as WebGLPointsLayer } from 'ol/layer'
+import { WMTS, Vector as VectorSource, ImageStatic, Cluster } from 'ol/source'
 import Feature from 'ol/Feature'
 import { Point, MultiLineString, LineString, Polygon, Circle } from 'ol/geom'
-import { fromLonLat } from 'ol/proj'
+import { getTopLeft, getWidth } from 'ol/extent'
+import { fromLonLat, get as getProjection } from 'ol/proj'
 import { Style, Circle as CircleStyle, Fill, Stroke, Text, Icon } from 'ol/style'
 import { Select, Draw } from 'ol/interaction'
 import { getLength, getArea } from 'ol/sphere'
 import { unByKey } from 'ol/Observable'
+import WMTSTileGrid from 'ol/tilegrid/WMTS'
 
-import typhoonData from './typhoon.json'
+import typhoonData from './json/typhoon.json'
+import radarData from './json/radarData.json'
 import { featureObj } from './feature'
 
 import Popup from './modules/Popup'
@@ -50,6 +53,16 @@ export default {
   },
   mounted() {
     this.initMap()
+    // this.tiandituInit(0, '11748a73773880cc126562dfe4cf9047')
+    // this.drawTyphoonPath()
+    this.drawTyphoonPathInterval()
+    this.designHoverOnMap()
+    this.addOverlay()
+
+    this.radarDataDeal()
+    this.drawPicToMap(this, 0)
+
+    // this.drawGrid()
   },
   methods: {
     initMap() {
@@ -71,10 +84,6 @@ export default {
           zoom: 5,
         }),
       })
-      // this.drawTyphoonPath()
-      this.drawTyphoonPathInterval()
-      this.designHoverOnMap()
-      this.addOverlay()
     },
 
     // 添加叠加层
@@ -401,14 +410,149 @@ export default {
 
     judeColorByWindLevel(level) {
       let colors = {
-        热带低压: 'green',
-        热带风暴: 'blue',
-        强热带风暴: 'yellow',
+        热带风暴: 'red',
+        热带低压: 'blue',
+        强热带风暴: 'green',
         台风: 'orange',
-        强台风: 'purple',
-        超强台风: 'red',
+        强台风: 'yellow',
+        超强台风: 'salmon',
       }
       return colors[level]
+    },
+
+    /**
+     * @param {index} 想要初始化的地图类型的相关索引 支持：矢量图、影像图、地形图，分别对应 0 1 2
+     * @param {key} 天地图 中申请的秘钥key
+     * @param {*} centerPosition 中心点的经纬度坐标
+     * @notice 参数不能为空
+     */
+    tiandituInit(index, key) {
+      // 如果传进来的 map的参数为null，说明需要新建一个map地图
+      if (this.map == null) {
+        let layerArr = this.JudgeBaseAndNoteByType(index)
+        // 地图注记 与 底图的相关配置
+        console.log(layerArr)
+        var projection = getProjection('EPSG:3857')
+        var projectionExtent = projection.getExtent()
+        var size = getWidth(projectionExtent) / 256
+        var resolutions = new Array(14)
+        var matrixIds = new Array(14)
+        for (var z = 0; z < 14; ++z) {
+          // generate resolutions and matrixIds arrays for this WMTS
+          resolutions[z] = size / Math.pow(2, z)
+          matrixIds[z] = z
+        }
+        let layer_Base = new TileLayer({
+          opacity: 1,
+          source: new WMTS({
+            url: 'http://t{0-7}.tianditu.gov.cn/' + layerArr[0] + '_w/wmts?tk=' + key,
+            layer: layerArr[0],
+            matrixSet: 'w',
+            format: 'tiles',
+            style: 'default',
+            tileGrid: new WMTSTileGrid({
+              origin: getTopLeft(projectionExtent),
+              resolutions: resolutions,
+              matrixIds: matrixIds,
+            }),
+            wrapX: true,
+          }),
+          visible: true,
+        })
+        let layer_Note = new TileLayer({
+          opacity: 1,
+          source: new WMTS({
+            url: 'http://t{0-7}.tianditu.gov.cn/' + layerArr[1] + '_w/wmts?tk=' + key,
+            layer: layerArr[1],
+            matrixSet: 'w',
+            format: 'tiles',
+            style: 'default',
+            tileGrid: new WMTSTileGrid({
+              origin: getTopLeft(projectionExtent),
+              resolutions: resolutions,
+              matrixIds: matrixIds,
+            }),
+            wrapX: true,
+          }),
+          visible: true,
+        })
+        //线的图层
+        this.lineSource = new VectorSource({ wrapX: false })
+        this.lineLayer = new VectorLayer({
+          source: this.lineSource,
+        })
+        var map = new Map({
+          layers: [layer_Base, layer_Note, this.lineLayer],
+          target: 'map',
+          view: new View({
+            center: [15611315, 2500873],
+            zoom: 5,
+            minZoom: 4,
+          }),
+        })
+        console.log(map)
+        this.map = map
+      }
+    },
+
+    // 根据 约定的 类型的索引 判别 底图 与 注记图 需要渲染的layer类型
+    JudgeBaseAndNoteByType(index) {
+      let map = [
+        ['vec', 'cva'],
+        ['ter', 'cta'],
+        ['img', 'cia'],
+      ]
+      return map[index]
+    },
+
+    //  把图片绘制到地图上去
+    drawPicToMap({ imageLayer }, index) {
+      let leftBottom = fromLonLat([106.38195585585585, 16.768055855855856])
+      let rightTop = fromLonLat([114.67024414414415, 25.05634414414414])
+      let extent = leftBottom.concat(rightTop)
+      let source = new ImageStatic({
+        imageExtent: extent,
+        // http://d1.weather.com.cn/newwebgis/radar/5m/QPFRef_202203072010.png
+        url: '/jeecg-boot/' + this.dealPathArray[index],
+      })
+      imageLayer.setSource(source)
+      imageLayer.changed()
+    },
+
+    // 雷达数据处理
+    radarDataDeal() {
+      let image = new ImageLayer()
+      this.imageLayer = image
+      this.map.addLayer(image)
+
+      let value = radarData.value
+      let pathArray = []
+      let timeArray = []
+      for (let i = value.length - 1; i >= 0; i--) {
+        let timeLength = value[i].time.length
+        for (let j = timeLength - 1; j >= 0; j--) {
+          let curTime = value[i].time[j]
+          let dealTime = curTime.slice(0, 2) + ':' + curTime.slice(2)
+          timeArray.push(dealTime)
+          pathArray.push(value[i].path[j])
+        }
+      }
+
+      this.dealTimeArray = timeArray
+      this.dealPathArray = pathArray
+      const radarDataLength = (this.radarDataLength = timeArray.length)
+
+      // step 每一个间隔的值 = 100 / radarDataLength
+      const step = (this.step = Math.floor(100 / this.radarDataLength))
+      let marks = {}
+      for (let i = 0; i < radarDataLength; i++) {
+        marks[i * step] = timeArray[i]
+      }
+      console.log(marks)
+      this.marks = marks
+      this.max = (radarDataLength - 1) * step
+
+      console.log(timeArray)
     },
   },
 }
