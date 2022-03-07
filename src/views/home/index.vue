@@ -37,6 +37,13 @@ export default {
           three: true,
         },
         {
+          path: '/test/index',
+          title: '测试页面',
+          description: '测试页面',
+          image: require('./images/developing.png'),
+          three: true,
+        },
+        {
           path: '/three/olypmpic',
           title: '冰墩墩',
           description: '2022冰墩墩',

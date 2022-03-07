@@ -16,7 +16,7 @@ export default {
     newPhoto() {
       console.log('快照')
       const html = document.getElementById('app')
-      html2canvas(html).then(async (canvas) => {
+      html2canvas(html).then(async canvas => {
         const dataUrl = canvas.toDataURL('image/jpeg', 1)
 
         let link = document.createElement('a')
@@ -25,8 +25,8 @@ export default {
         link.click()
         URL.revokeObjectURL(link.href)
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -43,7 +43,7 @@ export default {
     top: 0;
     left: 5%;
     z-index: 99;
-    opacity: 0.2;
+    opacity: 0.4;
     &:hover {
       opacity: 1;
       transition: opacity 1s;

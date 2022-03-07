@@ -1,7 +1,13 @@
 export const featureObj = {
-  // 类型判定
-  typeJude(feature) {
-    console.log('typeJude')
+  // feature 类型判定
+  typeJudge: function(feature) {
+    if (feature.get('typhoonPoint')) {
+      return 'typhoonPoint'
+    } else if (feature.get('typhoonSolar')) {
+      return 'typhoonSolar'
+    } else {
+      return 'isFeatureButDontNeedTodo'
+    }
   },
   // 台风点相关
   typhoonPointClick(feature) {

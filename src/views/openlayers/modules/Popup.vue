@@ -21,10 +21,10 @@
         <div class="left">移速移向</div>
         <div class="right">{{ `${info.movespeed} 公里/小时, ${info.movedirection}` }}</div>
       </div>
-      <div class="box">
+      <!-- <div class="box">
         <div class="left">七级半径</div>
-        <div class="right">{{ `${info.movespeed} 公里/小时, ${info.movedirection}` }}</div>
-      </div>
+        <div class="right">{{ info.rr07 }}公里</div>
+      </div> -->
     </div>
   </div>
 </template>
