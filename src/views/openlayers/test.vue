@@ -7,13 +7,19 @@
 
         <!-- <button @click="startMeasure">测距</button>
         <button @click="stopMeasure">清除</button> -->
-        <a-button type="primary">相对湿度绘制</a-button>
+        <a-button type="primary" @click="getHumidity">相对湿度绘制</a-button>
         <a-button type="primary">webgl渲染大数据</a-button>
         <a-button type="primary">刷新 webgl 数据</a-button>
         <a-button type="primary">时间切片刷新</a-button>
       </div>
       <div class="slider">
-        <a-slider :marks="marks11" :step="null" :default-value="37" />
+        <a-slider
+          :tipFormatter="formatTooltip"
+          :marks="marks"
+          :step="null"
+          :default-value="37"
+          @change="sliderChange"
+        />
       </div>
     </div>
     <Popup ref="Popup" :info="pointInfo" :commonInfo="commonInfo" />
@@ -36,6 +42,7 @@ import WMTSTileGrid from 'ol/tilegrid/WMTS'
 
 import typhoonData from './json/typhoon.json'
 import radarData from './json/radarData.json'
+import humidityData from './json/humidity.json'
 import { featureObj } from './feature'
 
 import Popup from './modules/Popup'
@@ -49,17 +56,7 @@ export default {
       overlay: null,
       pointInfo: {},
       commonInfo: {},
-      marks11: {
-        0: '0',
-        26: '26',
-        37: '37',
-        100: {
-          style: {
-            color: '#f50',
-          },
-          label: <strong>100</strong>,
-        },
-      },
+      marks: {},
 
       measureTooltipElement: null,
       measureTooltip: null,
@@ -121,7 +118,7 @@ export default {
 
     // 注册事件
     designHoverOnMap() {
-      this.map.on('pointermove', (e) => {
+      this.map.on('pointermove', e => {
         let pixel = e.pixel
         let feature = this.map.forEachFeatureAtPixel(pixel, (feature, layer) => {
           return feature
@@ -143,7 +140,10 @@ export default {
     // 设置操作时点样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature.getStyle().getImage().setRadius(radius)
+        feature
+          .getStyle()
+          .getImage()
+          .setRadius(radius)
         feature.changed()
       }
     },
@@ -244,7 +244,7 @@ export default {
         geometry: new Circle(position),
       })
       // 处理四个方向的数据
-      let radiusArr = point.radius7.split('|').map((item) => {
+      let radiusArr = point.radius7.split('|').map(item => {
         return parseFloat(item)
       })
       // 全部除以100 右下角开始
@@ -315,12 +315,12 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function (evt) {
+      this.draw.on('drawstart', function(evt) {
         self.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function (evt) {
+        listener = self.sketch.getGeometry().on('change', function(evt) {
           //获取绘制的几何对象
           self.geom = evt.target
           //定义一个输出对象，用于记录长度
@@ -347,7 +347,7 @@ export default {
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function (e) {
+      this.draw.on('drawend', function(e) {
         //输出坐标信息
         const geometry = e.feature.getGeometry()
         let pointArr = geometry.getCoordinates()
@@ -416,12 +416,12 @@ export default {
       this.lineSource.clear()
       let layerArr = this.map.getOverlays()
       var deleteOverlayArr = []
-      layerArr.forEach((item) => {
+      layerArr.forEach(item => {
         if (item.values_.element.className === 'ol-tooltip ol-tooltip-static draw_km') {
           deleteOverlayArr.push(item)
         }
       })
-      deleteOverlayArr.forEach((item) => {
+      deleteOverlayArr.forEach(item => {
         self.map.removeOverlay(item)
       })
     },
@@ -523,20 +523,6 @@ export default {
       return map[index]
     },
 
-    //  把图片绘制到地图上去
-    drawPicToMap({ imageLayer }, index) {
-      let leftBottom = fromLonLat([106.38195585585585, 16.768055855855856])
-      let rightTop = fromLonLat([114.67024414414415, 25.05634414414414])
-      let extent = leftBottom.concat(rightTop)
-      let source = new ImageStatic({
-        imageExtent: extent,
-        // http://d1.weather.com.cn/newwebgis/radar/5m/QPFRef_202203072010.png
-        url: 'https://tse1-mm.cn.bing.net/th/id/R-C.35d35a3c8795f9eec6a0e212ff5efd41?rik=zRrNeHs5grQx%2bA&riu=http%3a%2f%2fwww.182806.com%2fuploads11%2fprocessed%2f24be6f0e18a68b0e0ba141e4515f02d9.jpeg%40s_0%2cw_660%2ch_370%2cq_80&ehk=l9bQPBf0IV%2fq6JhJyxl6dYbvwodKMZj5Vm7U0EJ6Phg%3d&risl=&pid=ImgRaw&r=0',
-      })
-      imageLayer.setSource(source)
-      imageLayer.changed()
-    },
-
     // 雷达数据处理
     radarDataDeal() {
       let image = new ImageLayer()
@@ -566,11 +552,134 @@ export default {
       for (let i = 0; i < radarDataLength; i++) {
         marks[i * step] = timeArray[i]
       }
-      console.log(marks)
       this.marks = marks
       this.max = (radarDataLength - 1) * step
 
       console.log(timeArray)
+    },
+
+    // 格式化 显示的 字符串
+    formatTooltip: function(value) {
+      const index = value / this.step
+      return this.formateDate(this.dealTimeArray[index])
+    },
+
+    formateDate(str) {
+      let date = new Date()
+      let month = date.getMonth() + 1
+      let day = date.getDate()
+      month > 10 ? month : '0' + month
+      day > 10 ? day : '0' + day
+      return month + '-' + day + ' ' + str
+    },
+
+    // 雷达滑块 值 发生改变
+    sliderChange: function(value) {
+      console.log('value: ', value)
+      const index = value / this.step
+      this.drawPicToMap(this, 2)
+    },
+
+    //  把图片绘制到地图上去
+    drawPicToMap({ imageLayer }, index) {
+      let leftBottom = fromLonLat([106.38195585585585, 16.768055855855856])
+      let rightTop = fromLonLat([114.67024414414415, 25.05634414414414])
+      let extent = leftBottom.concat(rightTop)
+      let url
+      if (index) {
+        url = 'https://img1.baidu.com/it/u=1800057517,3423738094&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=210'
+      } else {
+        url = 'https://img1.baidu.com/it/u=3858002748,1577402681&fm=253&fmt=auto&app=138&f=JPEG?w=937&h=378'
+      }
+      let source = new ImageStatic({
+        imageExtent: extent,
+        // http://d1.weather.com.cn/newwebgis/radar/5m/QPFRef_202203072010.png
+        url,
+      })
+      imageLayer.setSource(source)
+      imageLayer.changed()
+    },
+
+    // 相对湿度绘制
+    getHumidity() {
+      let humidity = humidityData.data
+      const length = humidity.length
+      const features = new Array(length)
+      for (let i = 0; i < length; i++) {
+        const coordinates = fromLonLat([humidity[i].x, humidity[i].y])
+        features[i] = new Feature(new Point(coordinates))
+        features[i].set('value', humidity[i].v)
+      }
+      const source = new VectorSource({
+        features: features,
+      })
+
+      const clusterSource = new Cluster({
+        distance: 50,
+        source: source,
+      })
+      // let _this = this;
+      const styleCache = {}
+      const clusters = new VectorLayer({
+        source: clusterSource,
+        style: feature => {
+          console.log('feature: ', feature)
+          let curVal = feature.get('features')[0].get('value')
+          console.log('curVal: ', curVal)
+          let color = this.getHumidityColor(parseInt(curVal))
+          let style = styleCache[curVal]
+          if (!style) {
+            style = new Style({
+              image: new CircleStyle({
+                radius: 15,
+                stroke: new Stroke({
+                  color: '#fff',
+                }),
+                fill: new Fill({
+                  color,
+                }),
+              }),
+              // image: new Icon({
+              //   anchor: [0.5, 0.65],
+              //   src: '/image/logo.png',
+              //   size: [50, 30],
+              // }),
+              // text: new Text({
+              //   text: curVal + '%',
+              //   fill: new Fill({
+              //     color: '#fff',
+              //   }),
+              // }),
+            })
+            styleCache[curVal] = style
+          }
+          return style
+        },
+      })
+      this.map.addLayer(clusters)
+    },
+
+    // 相对湿度的颜色控制
+    // value 是一个 number
+    getHumidityColor(value) {
+      let arr = [
+        { min: 0, max: 10, color: '#f05b72' },
+        { min: 10, max: 20, color: '#905a3d' },
+        { min: 20, max: 30, color: '#87843b' },
+        { min: 30, max: 40, color: '#224b8f' },
+        { min: 40, max: 50, color: '#f15b6c' },
+        { min: 50, max: 60, color: '#8f4b2e' },
+        { min: 60, max: 70, color: '#726930' },
+        { min: 70, max: 80, color: '#003a6c' },
+        { min: 80, max: 90, color: '#f8aba6' },
+        { min: 90, max: 100, color: '#87481f' },
+      ]
+      for (let i = 0; i < 10; i++) {
+        if (value > arr[i].min && value <= arr[i].max) {
+          return arr[i].color
+        }
+      }
+      return '#000'
     },
   },
 }
@@ -600,7 +709,8 @@ export default {
     bottom: 50px;
     // left: 50%;
     z-index: 99;
-    width: 900px;
+    width: 80%;
+    margin: 0 auto;
   }
 }
 </style>
