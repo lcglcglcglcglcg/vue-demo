@@ -12,6 +12,9 @@
         <a-button type="primary">刷新 webgl 数据</a-button>
         <a-button type="primary">时间切片刷新</a-button>
       </div>
+      <div class="slider">
+        <a-slider :marks="marks11" :step="null" :default-value="37" />
+      </div>
     </div>
     <Popup ref="Popup" :info="pointInfo" :commonInfo="commonInfo" />
   </div>
@@ -46,6 +49,17 @@ export default {
       overlay: null,
       pointInfo: {},
       commonInfo: {},
+      marks11: {
+        0: '0',
+        26: '26',
+        37: '37',
+        100: {
+          style: {
+            color: '#f50',
+          },
+          label: <strong>100</strong>,
+        },
+      },
 
       measureTooltipElement: null,
       measureTooltip: null,
@@ -107,7 +121,7 @@ export default {
 
     // 注册事件
     designHoverOnMap() {
-      this.map.on('pointermove', e => {
+      this.map.on('pointermove', (e) => {
         let pixel = e.pixel
         let feature = this.map.forEachFeatureAtPixel(pixel, (feature, layer) => {
           return feature
@@ -129,10 +143,7 @@ export default {
     // 设置操作时点样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature
-          .getStyle()
-          .getImage()
-          .setRadius(radius)
+        feature.getStyle().getImage().setRadius(radius)
         feature.changed()
       }
     },
@@ -233,7 +244,7 @@ export default {
         geometry: new Circle(position),
       })
       // 处理四个方向的数据
-      let radiusArr = point.radius7.split('|').map(item => {
+      let radiusArr = point.radius7.split('|').map((item) => {
         return parseFloat(item)
       })
       // 全部除以100 右下角开始
@@ -304,12 +315,12 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function(evt) {
+      this.draw.on('drawstart', function (evt) {
         self.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function(evt) {
+        listener = self.sketch.getGeometry().on('change', function (evt) {
           //获取绘制的几何对象
           self.geom = evt.target
           //定义一个输出对象，用于记录长度
@@ -336,7 +347,7 @@ export default {
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function(e) {
+      this.draw.on('drawend', function (e) {
         //输出坐标信息
         const geometry = e.feature.getGeometry()
         let pointArr = geometry.getCoordinates()
@@ -405,12 +416,12 @@ export default {
       this.lineSource.clear()
       let layerArr = this.map.getOverlays()
       var deleteOverlayArr = []
-      layerArr.forEach(item => {
+      layerArr.forEach((item) => {
         if (item.values_.element.className === 'ol-tooltip ol-tooltip-static draw_km') {
           deleteOverlayArr.push(item)
         }
       })
-      deleteOverlayArr.forEach(item => {
+      deleteOverlayArr.forEach((item) => {
         self.map.removeOverlay(item)
       })
     },
@@ -520,8 +531,7 @@ export default {
       let source = new ImageStatic({
         imageExtent: extent,
         // http://d1.weather.com.cn/newwebgis/radar/5m/QPFRef_202203072010.png
-        url:
-          'https://tse1-mm.cn.bing.net/th/id/R-C.35d35a3c8795f9eec6a0e212ff5efd41?rik=zRrNeHs5grQx%2bA&riu=http%3a%2f%2fwww.182806.com%2fuploads11%2fprocessed%2f24be6f0e18a68b0e0ba141e4515f02d9.jpeg%40s_0%2cw_660%2ch_370%2cq_80&ehk=l9bQPBf0IV%2fq6JhJyxl6dYbvwodKMZj5Vm7U0EJ6Phg%3d&risl=&pid=ImgRaw&r=0',
+        url: 'https://tse1-mm.cn.bing.net/th/id/R-C.35d35a3c8795f9eec6a0e212ff5efd41?rik=zRrNeHs5grQx%2bA&riu=http%3a%2f%2fwww.182806.com%2fuploads11%2fprocessed%2f24be6f0e18a68b0e0ba141e4515f02d9.jpeg%40s_0%2cw_660%2ch_370%2cq_80&ehk=l9bQPBf0IV%2fq6JhJyxl6dYbvwodKMZj5Vm7U0EJ6Phg%3d&risl=&pid=ImgRaw&r=0',
       })
       imageLayer.setSource(source)
       imageLayer.changed()
@@ -573,7 +583,7 @@ export default {
   position: relative;
   .tools {
     position: absolute;
-    right: 0;
+    right: 10px;
     top: 10px;
     z-index: 99;
     display: flex;
@@ -584,6 +594,13 @@ export default {
       width: 100%;
       margin: 5px 0;
     }
+  }
+  .slider {
+    position: absolute;
+    bottom: 50px;
+    // left: 50%;
+    z-index: 99;
+    width: 900px;
   }
 }
 </style>

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import {
+  Slider,
   Descriptions,
   Mentions,
   Row,
@@ -52,10 +53,11 @@ import {
   Collapse,
   FormModel,
   Skeleton,
-  Popconfirm
+  Popconfirm,
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 
+Vue.use(Slider)
 Vue.use(FormModel)
 Vue.use(Mentions)
 Vue.use(Tooltip)
