@@ -8,9 +8,9 @@
         <!-- <button @click="startMeasure">测距</button>
         <button @click="stopMeasure">清除</button> -->
         <a-button type="primary" @click="getHumidity">相对湿度绘制</a-button>
-        <a-button type="primary">webgl渲染大数据</a-button>
-        <a-button type="primary">刷新 webgl 数据</a-button>
-        <a-button type="primary">时间切片刷新</a-button>
+        <a-button type="primary" @click="webglRenderHumidity">webgl渲染大数据</a-button>
+        <a-button type="primary" @click="refreshWebgl">刷新 webgl 数据</a-button>
+        <a-button type="primary" @click="timeSliceRefresh">时间切片刷新</a-button>
       </div>
       <div class="slider">
         <a-slider
@@ -67,6 +67,8 @@ export default {
       coordinate: [],
       lineLayer: null, //线图层
       lineSource: null,
+
+      webglLayer:null,
     }
   },
   mounted() {
@@ -680,6 +682,182 @@ export default {
         }
       }
       return '#000'
+    },
+
+    // webglRenderHumidity
+    webglRenderHumidity() {
+      const style = {
+        symbol: {
+          symbolType: 'image',
+          src: 'image/logo.png',
+          size: [18, 28],
+          rotateWithView: false,
+        },
+      }
+      let data = humidityData.data
+      const len = data.length
+      const source = new VectorSource()
+      let features = []
+      for (let i = 0; i < len; i++) {
+        const coords = fromLonLat([data[i].x, data[i].y])
+        features.push(new Feature(new Point(coords)))
+      }
+      source.addFeatures(features)
+      const layer = new WebGLPointsLayer({
+        source,
+        style,
+        disableHitDetection: false,
+      })
+      this.map.addLayer(layer)
+    },
+
+    // refresh webgl
+    refreshWebgl: function() {
+      // 用来表示偏移量
+      let count = 1
+      const style = {
+        symbol: {
+          symbolType: 'image',
+          src: 'image/logo.png',
+          size: [18, 28],
+          rotateWithView: false,
+        },
+      }
+      setInterval(() => {
+        let data = humidityData.data
+        const len = data.length
+        const source = new VectorSource()
+        let features = []
+        console.log(count)
+        for (let i = 0; i < len; i++) {
+          const coords = fromLonLat([parseFloat(data[i].x) + count * 0.2, parseFloat(data[i].y) + count * 0.2])
+          features.push(new Feature(new Point(coords)))
+        }
+        source.addFeatures(features)
+        const layer = new WebGLPointsLayer({
+          source,
+          style,
+          disableHitDetection: true,
+        })
+        if (this.webglLayer !== null) {
+          this.map.removeLayer(this.webglLayer)
+          this.webglLayer.dispose()
+        }
+        this.webglLayer = layer
+        this.webglLayer.changed()
+
+        this.map.addLayer(layer)
+        count++
+      }, 1000)
+    },
+
+    // time slice 时间切片 刷新
+    timeSliceRefresh() {
+      // 这个索引 用于判断 当前切的部分 是第几个部分
+      let index = 0
+      let features = []
+      //  当前 进行处理的数据
+      let curData = humidityData.data
+      let length = curData.length
+      let _this = this
+      let count = 1
+      // 标志  标志 当前数据 是否已经处理完了
+      let flag = false
+      const style = {
+        symbol: {
+          symbolType: 'image',
+          src: 'image/logo.png',
+          size: [18, 28],
+          rotateWithView: false,
+        },
+      }
+      function init() {
+        const source = new VectorSource()
+        const layer = new WebGLPointsLayer({
+          style,
+          disableHitDetection: true,
+        })
+        return { source, layer }
+      }
+      async function refresh() {
+        console.log('切片中')
+        for (let i = index * 50; i < (index + 1) * 50; i++) {
+          if (i == length) {
+            flag = true
+            break
+          }
+          const coords = fromLonLat([parseFloat(curData[i].x) + count * 0.2, parseFloat(curData[i].y) + count * 0.2])
+          features.push(new Feature(new Point(coords)))
+        }
+        index++
+        if (flag) {
+          console.log('数据处理已经完成，开始渲染。。。')
+          const { data: humidity1 } = await getHumidityData()
+          if (_this.webglLayer !== null) {
+            _this.map.removeLayer(_this.webglLayer)
+            _this.webglLayer.dispose()
+          }
+          let { source, layer } = init()
+          source.addFeatures(features)
+          layer.setSource(source)
+          _this.webglLayer = layer
+          _this.map.addLayer(layer)
+          _this.webglLayer.changed()
+          curData = humidity1.data
+          features.length = 0
+          flag = false
+          index = 0
+          count++
+        }
+        requestAnimationFrame(refresh)
+      }
+      requestAnimationFrame(refresh)
+    },
+
+    // 绘制栅格图像
+    drawGrid: function() {
+      let canvas = document.createElement('canvas')
+      let ctx = canvas.getContext('2d')
+      let { nx, ny } = gfsData[0].header
+      let data = gfsData[0].data
+      canvas.width = nx
+      canvas.height = ny
+      let colorMaker = new ColorMaker({
+        values: [0, 3, 5, 10, 15, 20, 30],
+        colors: [
+          [98, 113, 184],
+          [61, 110, 163],
+          [77, 142, 124],
+          [162, 135, 64],
+          [151, 75, 145],
+          [95, 100, 160],
+          [91, 136, 161],
+        ],
+      })
+      //  传进数据 只绘制一次
+      console.time('fillRect绘制')
+      // let imgData = ctx.createImageData(nx, ny);
+      // for (let i = 0; i < ny; i++) {
+      //   for (let j = 0; j < nx; j++) {
+      //     let dataIndex = i * nx + j;
+      //     let curColors = colorMaker.makeColor(data[dataIndex]);
+      //     imgData.data[dataIndex * 4 + 0] = curColors[0];
+      //     imgData.data[dataIndex * 4 + 1] = curColors[1];
+      //     imgData.data[dataIndex * 4 + 2] = curColors[2];
+      //     imgData.data[dataIndex * 4 + 3] = 255;
+      //   }
+      // }
+      // ctx.putImageData(imgData, 0, 0);
+      // 720 * 361 10倍  nx  ny
+      for (let i = 0; i < ny; i++) {
+        for (let j = 0; j < nx; j++) {
+          //  makecolor =>>  '111,111,111'
+          ctx.fillStyle = `rgb(${colorMaker.makeColor(data[i * nx + j])})`
+          // 一次的绘制操作
+          ctx.fillRect(j, i, 1, 1)
+        }
+      }
+      console.timeEnd('fillRect绘制')
     },
   },
 }
