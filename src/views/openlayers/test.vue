@@ -590,7 +590,7 @@ export default {
     sliderChange: function(value) {
       console.log('value: ', value)
       const index = value / this.step
-      this.drawPicToMap(this, 2)
+      this.drawPicToMap(this, value)
     },
 
     //  把图片绘制到地图上去
@@ -599,7 +599,7 @@ export default {
       let rightTop = fromLonLat([114.67024414414415, 25.05634414414414])
       let extent = leftBottom.concat(rightTop)
       let url
-      if (index) {
+      if (index > 20) {
         url = 'https://img1.baidu.com/it/u=1800057517,3423738094&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=210'
       } else {
         url = 'https://img1.baidu.com/it/u=3858002748,1577402681&fm=253&fmt=auto&app=138&f=JPEG?w=937&h=378'
@@ -620,7 +620,9 @@ export default {
       const features = new Array(length)
       for (let i = 0; i < length; i++) {
         const coordinates = fromLonLat([humidity[i].x, humidity[i].y])
-        features[i] = new Feature(new Point(coordinates))
+        features[i] = new Feature({
+          geometry: new Point(coordinates),
+        })
         features[i].set('value', humidity[i].v)
       }
       const source = new VectorSource({
