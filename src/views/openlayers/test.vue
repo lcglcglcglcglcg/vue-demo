@@ -16,7 +16,7 @@
         <a-slider
           :tipFormatter="formatTooltip"
           :marks="marks"
-          :step="null"
+          :step="step"
           :default-value="37"
           @change="sliderChange"
         />
@@ -32,6 +32,7 @@ import { Vector as VectorLayer, Image as ImageLayer, WebGLPoints as WebGLPointsL
 import { WMTS, Vector as VectorSource, ImageStatic, Cluster } from 'ol/source'
 import Feature from 'ol/Feature'
 import { Point, MultiLineString, LineString, Polygon, Circle } from 'ol/geom'
+import { fromCircle } from 'ol/geom/Polygon'
 import { getTopLeft, getWidth } from 'ol/extent'
 import { fromLonLat, get as getProjection } from 'ol/proj'
 import { Style, Circle as CircleStyle, Fill, Stroke, Text, Icon } from 'ol/style'
@@ -68,7 +69,11 @@ export default {
       lineLayer: null, //线图层
       lineSource: null,
 
-      webglLayer:null,
+      step: 0,
+      webglLayer: null,
+
+      dealTimeArray: [],
+      dealPathArray: [],
     }
   },
   mounted() {
@@ -100,8 +105,12 @@ export default {
           this.lineLayer,
         ],
         view: new View({
-          center: [15611315, 2500873],
+          projection: 'EPSG:4326',
+          center: [114.9829, 24.928], // 地图中心经纬度
+          extext: [-180, -45, 180, 60],
           zoom: 5,
+          maxZoom: 18,
+          minZoom: 0,
         }),
       })
     },
@@ -120,7 +129,7 @@ export default {
 
     // 注册事件
     designHoverOnMap() {
-      this.map.on('pointermove', e => {
+      this.map.on('pointermove', (e) => {
         let pixel = e.pixel
         let feature = this.map.forEachFeatureAtPixel(pixel, (feature, layer) => {
           return feature
@@ -142,10 +151,7 @@ export default {
     // 设置操作时点样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature
-          .getStyle()
-          .getImage()
-          .setRadius(radius)
+        feature.getStyle().getImage().setRadius(radius)
         feature.changed()
       }
     },
@@ -203,7 +209,7 @@ export default {
         else {
           // 增加点
           let featurePoint = new Feature({
-            geometry: new Point(fromLonLat([points[index].lng, points[index].lat])),
+            geometry: new Point([points[index].lng, points[index].lat]),
           })
           featurePoint.setStyle(
             new Style({
@@ -228,8 +234,8 @@ export default {
           if (index > 0) {
             let featureLine = new Feature({
               geometry: new LineString([
-                fromLonLat([points[index - 1].lng, points[index - 1].lat]),
-                fromLonLat([points[index].lng, points[index].lat]),
+                [points[index - 1].lng, points[index - 1].lat],
+                [points[index].lng, points[index].lat],
               ]),
             })
             source.addFeature(featureLine)
@@ -244,9 +250,10 @@ export default {
       let position = fromLonLat([point.lng, point.lat])
       let feature = new Feature({
         geometry: new Circle(position),
+        // geometry: fromCircle(new Circle(position, 10000)).transform('EPSG:3857', 'EPSG:4326'),
       })
       // 处理四个方向的数据
-      let radiusArr = point.radius7.split('|').map(item => {
+      let radiusArr = point.radius7.split('|').map((item) => {
         return parseFloat(item)
       })
       // 全部除以100 右下角开始
@@ -256,7 +263,7 @@ export default {
         NW: radiusArr[2] * 1000,
         NE: radiusArr[3] * 1000,
       }
-      //       实地距离：  R * P
+      // 实地距离：  R * P
       // 图上距离：  (P / 72) / 39.3701 = P / (72*39.3701)
       // 比例尺：  S =  P / (72*39.3701)  / R*P   = 1 /  R*72*32.3701
       // 假设屏幕距离为P，分辨率为R，则比例尺S为:
@@ -317,12 +324,12 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function(evt) {
+      this.draw.on('drawstart', function (evt) {
         self.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function(evt) {
+        listener = self.sketch.getGeometry().on('change', function (evt) {
           //获取绘制的几何对象
           self.geom = evt.target
           //定义一个输出对象，用于记录长度
@@ -349,7 +356,7 @@ export default {
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function(e) {
+      this.draw.on('drawend', function (e) {
         //输出坐标信息
         const geometry = e.feature.getGeometry()
         let pointArr = geometry.getCoordinates()
@@ -418,12 +425,12 @@ export default {
       this.lineSource.clear()
       let layerArr = this.map.getOverlays()
       var deleteOverlayArr = []
-      layerArr.forEach(item => {
+      layerArr.forEach((item) => {
         if (item.values_.element.className === 'ol-tooltip ol-tooltip-static draw_km') {
           deleteOverlayArr.push(item)
         }
       })
-      deleteOverlayArr.forEach(item => {
+      deleteOverlayArr.forEach((item) => {
         self.map.removeOverlay(item)
       })
     },
@@ -561,7 +568,7 @@ export default {
     },
 
     // 格式化 显示的 字符串
-    formatTooltip: function(value) {
+    formatTooltip(value) {
       const index = value / this.step
       return this.formateDate(this.dealTimeArray[index])
     },
@@ -576,7 +583,7 @@ export default {
     },
 
     // 雷达滑块 值 发生改变
-    sliderChange: function(value) {
+    sliderChange: function (value) {
       console.log('value: ', value)
       const index = value / this.step
       this.drawPicToMap(this, 2)
@@ -624,7 +631,7 @@ export default {
       const styleCache = {}
       const clusters = new VectorLayer({
         source: clusterSource,
-        style: feature => {
+        style: (feature) => {
           console.log('feature: ', feature)
           let curVal = feature.get('features')[0].get('value')
           console.log('curVal: ', curVal)
@@ -712,7 +719,7 @@ export default {
     },
 
     // refresh webgl
-    refreshWebgl: function() {
+    refreshWebgl: function () {
       // 用来表示偏移量
       let count = 1
       const style = {
@@ -737,7 +744,7 @@ export default {
         const layer = new WebGLPointsLayer({
           source,
           style,
-          disableHitDetection: true,
+          disableHitDetection: true, //将此设置为true会稍微提高性能,但会阻止在图层上进行所有命中检测,需要交互的话,设置false
         })
         if (this.webglLayer !== null) {
           this.map.removeLayer(this.webglLayer)
@@ -779,7 +786,7 @@ export default {
         })
         return { source, layer }
       }
-      async function refresh() {
+      function refresh() {
         console.log('切片中')
         for (let i = index * 50; i < (index + 1) * 50; i++) {
           if (i == length) {
@@ -792,7 +799,6 @@ export default {
         index++
         if (flag) {
           console.log('数据处理已经完成，开始渲染。。。')
-          const { data: humidity1 } = await getHumidityData()
           if (_this.webglLayer !== null) {
             _this.map.removeLayer(_this.webglLayer)
             _this.webglLayer.dispose()
@@ -803,7 +809,7 @@ export default {
           _this.webglLayer = layer
           _this.map.addLayer(layer)
           _this.webglLayer.changed()
-          curData = humidity1.data
+          curData = humidityData.data
           features.length = 0
           flag = false
           index = 0
@@ -815,7 +821,7 @@ export default {
     },
 
     // 绘制栅格图像
-    drawGrid: function() {
+    drawGrid: function () {
       let canvas = document.createElement('canvas')
       let ctx = canvas.getContext('2d')
       let { nx, ny } = gfsData[0].header
