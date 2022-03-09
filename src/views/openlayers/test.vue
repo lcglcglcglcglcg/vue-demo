@@ -105,9 +105,8 @@ export default {
           this.lineLayer,
         ],
         view: new View({
-          projection: 'EPSG:4326',
-          center: [114.9829, 24.928], // 地图中心经纬度
-          extext: [-180, -45, 180, 60],
+          // projection: 'EPSG:4326',
+          center: fromLonLat([114.9829, 24.928]), // 地图中心经纬度
           zoom: 5,
           maxZoom: 18,
           minZoom: 0,
@@ -151,7 +150,10 @@ export default {
     // 设置操作时点样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature.getStyle().getImage().setRadius(radius)
+        feature
+          .getStyle()
+          .getImage()
+          .setRadius(radius)
         feature.changed()
       }
     },
@@ -209,7 +211,7 @@ export default {
         else {
           // 增加点
           let featurePoint = new Feature({
-            geometry: new Point([points[index].lng, points[index].lat]),
+            geometry: new Point(fromLonLat([points[index].lng, points[index].lat])),
           })
           featurePoint.setStyle(
             new Style({
@@ -324,12 +326,12 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function (evt) {
+      this.draw.on('drawstart', function(evt) {
         self.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function (evt) {
+        listener = self.sketch.getGeometry().on('change', function(evt) {
           //获取绘制的几何对象
           self.geom = evt.target
           //定义一个输出对象，用于记录长度
@@ -356,7 +358,7 @@ export default {
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function (e) {
+      this.draw.on('drawend', function(e) {
         //输出坐标信息
         const geometry = e.feature.getGeometry()
         let pointArr = geometry.getCoordinates()
@@ -446,6 +448,8 @@ export default {
       }
       return colors[level]
     },
+
+    // https://github.com/zmannnnn/openlayers  封装例子
 
     /**
      * @param {index} 想要初始化的地图类型的相关索引 支持：矢量图、影像图、地形图，分别对应 0 1 2
@@ -583,7 +587,7 @@ export default {
     },
 
     // 雷达滑块 值 发生改变
-    sliderChange: function (value) {
+    sliderChange: function(value) {
       console.log('value: ', value)
       const index = value / this.step
       this.drawPicToMap(this, 2)
@@ -719,7 +723,7 @@ export default {
     },
 
     // refresh webgl
-    refreshWebgl: function () {
+    refreshWebgl: function() {
       // 用来表示偏移量
       let count = 1
       const style = {
@@ -821,7 +825,7 @@ export default {
     },
 
     // 绘制栅格图像
-    drawGrid: function () {
+    drawGrid: function() {
       let canvas = document.createElement('canvas')
       let ctx = canvas.getContext('2d')
       let { nx, ny } = gfsData[0].header
