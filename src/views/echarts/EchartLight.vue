@@ -6,7 +6,7 @@
 
 <script>
 import * as echarts from 'echarts'
-import '@/../node_modules/echarts/map/js/china.js' // 引入中国地图数据
+// import '@/../node_modules/echarts/map/js/china.js' // 引入中国地图数据
 import { geoCoord } from './mock'
 export default {
   data() {
@@ -21,8 +21,8 @@ export default {
         calculable: true,
         color: ['#ff3333', 'orange', 'yellow', 'lime', 'aqua'],
         textStyle: {
-          color: '#fff'
-        }
+          color: '#fff',
+        },
       },
       series: [
         {
@@ -36,9 +36,9 @@ export default {
               borderColor: 'rgba(100,149,237,1)',
               borderWidth: 0.5,
               areaStyle: {
-                color: '#1b1b1b'
-              }
-            }
+                color: '#1b1b1b',
+              },
+            },
           },
           data: [],
           markLine: {
@@ -49,10 +49,10 @@ export default {
               normal: {
                 color: '#fff',
                 borderWidth: 1,
-                borderColor: 'rgba(30,144,255,0.5)'
-              }
+                borderColor: 'rgba(30,144,255,0.5)',
+              },
             },
-            data: []
+            data: [],
           },
           markPoint: {
             symbol: 'emptyCircle',
@@ -61,15 +61,15 @@ export default {
             },
             effect: {
               show: true,
-              shadowBlur: 0
+              shadowBlur: 0,
             },
             itemStyle: {
               normal: {
-                label: { show: false }
+                label: { show: false },
               },
               emphasis: {
-                label: { position: 'top' }
-              }
+                label: { position: 'top' },
+              },
             },
             data: [
               { name: '上海', value: 95 },
@@ -81,15 +81,15 @@ export default {
               { name: '长春', value: 40 },
               { name: '包头', value: 30 },
               { name: '重庆', value: 20 },
-              { name: '常州', value: 10 }
-            ]
-          }
+              { name: '常州', value: 10 },
+            ],
+          },
         },
         {
           name: '北京 Top10',
           type: 'map',
           mapType: 'china',
-          data: []
+          data: [],
           // markLine: {
           //   smooth: true,
           //   effect: {
@@ -158,8 +158,8 @@ export default {
           //     { name: '常州', value: 10 }
           //   ]
           // }
-        }
-      ]
+        },
+      ],
     }
     this.myEchart.setOption(option)
   },
@@ -171,8 +171,8 @@ export default {
       }
       console.log(data, 'data')
       return data
-    }
-  }
+    },
+  },
 }
 </script>
 

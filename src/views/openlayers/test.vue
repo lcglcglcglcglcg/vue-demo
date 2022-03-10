@@ -107,6 +107,7 @@ export default {
         view: new View({
           // projection: 'EPSG:4326',
           center: fromLonLat([114.9829, 24.928]), // 地图中心经纬度
+          extent: [-180, -45, 180, 48],
           zoom: 5,
           maxZoom: 18,
           minZoom: 0,
@@ -150,10 +151,7 @@ export default {
     // 设置操作时点样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature
-          .getStyle()
-          .getImage()
-          .setRadius(radius)
+        feature.getStyle().getImage().setRadius(radius)
         feature.changed()
       }
     },
@@ -326,12 +324,12 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function(evt) {
+      this.draw.on('drawstart', function (evt) {
         self.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function(evt) {
+        listener = self.sketch.getGeometry().on('change', function (evt) {
           //获取绘制的几何对象
           self.geom = evt.target
           //定义一个输出对象，用于记录长度
@@ -358,7 +356,7 @@ export default {
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function(e) {
+      this.draw.on('drawend', function (e) {
         //输出坐标信息
         const geometry = e.feature.getGeometry()
         let pointArr = geometry.getCoordinates()
@@ -587,7 +585,7 @@ export default {
     },
 
     // 雷达滑块 值 发生改变
-    sliderChange: function(value) {
+    sliderChange: function (value) {
       console.log('value: ', value)
       const index = value / this.step
       this.drawPicToMap(this, value)
@@ -698,6 +696,7 @@ export default {
     },
 
     // webglRenderHumidity
+    // 多数据时候渲染更快
     webglRenderHumidity() {
       const style = {
         symbol: {
@@ -713,7 +712,7 @@ export default {
       let features = []
       for (let i = 0; i < len; i++) {
         const coords = fromLonLat([data[i].x, data[i].y])
-        features.push(new Feature(new Point(coords)))
+        features.push(new Feature({ geometry: new Point(coords) }))
       }
       source.addFeatures(features)
       const layer = new WebGLPointsLayer({
@@ -725,7 +724,7 @@ export default {
     },
 
     // refresh webgl
-    refreshWebgl: function() {
+    refreshWebgl: function () {
       // 用来表示偏移量
       let count = 1
       const style = {
@@ -827,7 +826,7 @@ export default {
     },
 
     // 绘制栅格图像
-    drawGrid: function() {
+    drawGrid: function () {
       let canvas = document.createElement('canvas')
       let ctx = canvas.getContext('2d')
       let { nx, ny } = gfsData[0].header
