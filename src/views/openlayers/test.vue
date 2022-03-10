@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map" class="map" tabindex="0">
+    <div id="map" class="map">
       <div class="tools">
         <a-button type="primary" @click="beginCalDistance">开始测距</a-button>
         <a-button type="primary" @click="cancleCalDistance">取消测距</a-button>
@@ -92,7 +92,7 @@ export default {
   methods: {
     initMap() {
       //线的图层
-      this.lineSource = new VectorSource({ wrapX: false })
+      this.lineSource = new VectorSource()
       this.lineLayer = new VectorLayer({
         source: this.lineSource,
       })
@@ -107,7 +107,7 @@ export default {
         view: new View({
           // projection: 'EPSG:4326',
           center: fromLonLat([114.9829, 24.928]), // 地图中心经纬度
-          extent: [-180, -45, 180, 48],
+          // extent: [-180, -45, 180, 48],
           zoom: 5,
           maxZoom: 18,
           minZoom: 0,
@@ -234,8 +234,8 @@ export default {
           if (index > 0) {
             let featureLine = new Feature({
               geometry: new LineString([
-                [points[index - 1].lng, points[index - 1].lat],
-                [points[index].lng, points[index].lat],
+                fromLonLat([points[index - 1].lng, points[index - 1].lat]),
+                fromLonLat([points[index].lng, points[index].lat]),
               ]),
             })
             source.addFeature(featureLine)
@@ -448,81 +448,6 @@ export default {
     },
 
     // https://github.com/zmannnnn/openlayers  封装例子
-
-    /**
-     * @param {index} 想要初始化的地图类型的相关索引 支持：矢量图、影像图、地形图，分别对应 0 1 2
-     * @param {key} 天地图 中申请的秘钥key
-     * @param {*} centerPosition 中心点的经纬度坐标
-     * @notice 参数不能为空
-     */
-    tiandituInit(index, key) {
-      // 如果传进来的 map的参数为null，说明需要新建一个map地图
-      if (this.map == null) {
-        let layerArr = this.JudgeBaseAndNoteByType(index)
-        // 地图注记 与 底图的相关配置
-        console.log(layerArr)
-        var projection = getProjection('EPSG:3857')
-        var projectionExtent = projection.getExtent()
-        var size = getWidth(projectionExtent) / 256
-        var resolutions = new Array(14)
-        var matrixIds = new Array(14)
-        for (var z = 0; z < 14; ++z) {
-          // generate resolutions and matrixIds arrays for this WMTS
-          resolutions[z] = size / Math.pow(2, z)
-          matrixIds[z] = z
-        }
-        let layer_Base = new TileLayer({
-          opacity: 1,
-          source: new WMTS({
-            url: 'http://t{0-7}.tianditu.gov.cn/' + layerArr[0] + '_w/wmts?tk=' + key,
-            layer: layerArr[0],
-            matrixSet: 'w',
-            format: 'tiles',
-            style: 'default',
-            tileGrid: new WMTSTileGrid({
-              origin: getTopLeft(projectionExtent),
-              resolutions: resolutions,
-              matrixIds: matrixIds,
-            }),
-            wrapX: true,
-          }),
-          visible: true,
-        })
-        let layer_Note = new TileLayer({
-          opacity: 1,
-          source: new WMTS({
-            url: 'http://t{0-7}.tianditu.gov.cn/' + layerArr[1] + '_w/wmts?tk=' + key,
-            layer: layerArr[1],
-            matrixSet: 'w',
-            format: 'tiles',
-            style: 'default',
-            tileGrid: new WMTSTileGrid({
-              origin: getTopLeft(projectionExtent),
-              resolutions: resolutions,
-              matrixIds: matrixIds,
-            }),
-            wrapX: true,
-          }),
-          visible: true,
-        })
-        //线的图层
-        this.lineSource = new VectorSource({ wrapX: false })
-        this.lineLayer = new VectorLayer({
-          source: this.lineSource,
-        })
-        var map = new Map({
-          layers: [layer_Base, layer_Note, this.lineLayer],
-          target: 'map',
-          view: new View({
-            center: [15611315, 2500873],
-            zoom: 5,
-            minZoom: 4,
-          }),
-        })
-        console.log(map)
-        this.map = map
-      }
-    },
 
     // 根据 约定的 类型的索引 判别 底图 与 注记图 需要渲染的layer类型
     JudgeBaseAndNoteByType(index) {
@@ -749,7 +674,7 @@ export default {
         const layer = new WebGLPointsLayer({
           source,
           style,
-          disableHitDetection: true, //将此设置为true会稍微提高性能,但会阻止在图层上进行所有命中检测,需要交互的话,设置false
+          disableHitDetection: false, //将此设置为true会稍微提高性能,但会阻止在图层上进行所有命中检测,需要交互的话,设置false
         })
         if (this.webglLayer !== null) {
           this.map.removeLayer(this.webglLayer)
