@@ -12,12 +12,14 @@
         <a-button type="primary" @click="refreshWebgl">刷新 webgl 数据</a-button>
         <a-button type="primary" @click="timeSliceRefresh">时间切片刷新</a-button>
       </div>
-      <div class="slider">
+      <div class="sliderBox">
+        <div class="playBtn" :class="isPlay ? 'stop' : 'play'" @click="playStep"></div>
         <a-slider
+          class="slider"
           :tipFormatter="formatTooltip"
           :marks="marks"
           :step="step"
-          :default-value="37"
+          v-model="playVal"
           @change="sliderChange"
         />
       </div>
@@ -74,6 +76,10 @@ export default {
 
       dealTimeArray: [],
       dealPathArray: [],
+
+      isPlay: false,
+      playVal: 0,
+      timer: null,
     }
   },
   mounted() {
@@ -106,7 +112,7 @@ export default {
         ],
         view: new View({
           // projection: 'EPSG:4326',
-          center: fromLonLat([114.9829, 24.928]), // 地图中心经纬度
+          center: fromLonLat([124.9829, 24.928]), // 地图中心经纬度
           // extent: [-180, -45, 180, 48],
           zoom: 5,
           maxZoom: 18,
@@ -151,7 +157,10 @@ export default {
     // 设置操作时点样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature.getStyle().getImage().setRadius(radius)
+        feature
+          .getStyle()
+          .getImage()
+          .setRadius(radius)
         feature.changed()
       }
     },
@@ -324,12 +333,12 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function (evt) {
+      this.draw.on('drawstart', function(evt) {
         self.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function (evt) {
+        listener = self.sketch.getGeometry().on('change', function(evt) {
           //获取绘制的几何对象
           self.geom = evt.target
           //定义一个输出对象，用于记录长度
@@ -356,7 +365,7 @@ export default {
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function (e) {
+      this.draw.on('drawend', function(e) {
         //输出坐标信息
         const geometry = e.feature.getGeometry()
         let pointArr = geometry.getCoordinates()
@@ -510,7 +519,7 @@ export default {
     },
 
     // 雷达滑块 值 发生改变
-    sliderChange: function (value) {
+    sliderChange(value) {
       console.log('value: ', value)
       const index = value / this.step
       this.drawPicToMap(this, value)
@@ -649,7 +658,7 @@ export default {
     },
 
     // refresh webgl
-    refreshWebgl: function () {
+    refreshWebgl: function() {
       // 用来表示偏移量
       let count = 1
       const style = {
@@ -751,7 +760,7 @@ export default {
     },
 
     // 绘制栅格图像
-    drawGrid: function () {
+    drawGrid: function() {
       let canvas = document.createElement('canvas')
       let ctx = canvas.getContext('2d')
       let { nx, ny } = gfsData[0].header
@@ -795,6 +804,25 @@ export default {
       }
       console.timeEnd('fillRect绘制')
     },
+
+    // 播放
+    playStep() {
+      this.isPlay = !this.isPlay
+      if (this.timer) clearInterval(this.timer)
+      this.timer = setInterval(() => {
+        if (this.isPlay) {
+          this.playVal += this.step
+          const arr = Object.keys(this.marks)
+          const last = arr[arr.length - 1]
+          this.drawPicToMap(this, this.playVal)
+          if (this.playVal == last) {
+            this.isPlay = false
+            this.playVal = 0
+            this.drawPicToMap(this, this.playVal)
+          }
+        }
+      }, 500)
+    },
   },
 }
 </script>
@@ -818,13 +846,28 @@ export default {
       margin: 5px 0;
     }
   }
-  .slider {
+  .sliderBox {
     position: absolute;
     bottom: 50px;
     // left: 50%;
     z-index: 99;
-    width: 80%;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    .playBtn {
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+    }
+    .play {
+      background: url(https://i.tq121.com.cn/i/radarMap/playBtn.png) center center no-repeat;
+    }
+    .stop {
+      background: url(https://i.tq121.com.cn/i/radarMap/stopBtn.png) center center no-repeat;
+    }
+    .slider {
+      width: 900px;
+    }
   }
 }
 </style>

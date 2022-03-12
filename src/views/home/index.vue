@@ -37,7 +37,7 @@ export default {
           three: true,
         },
         {
-          path: '/test/index',
+          path: '/echarts/index',
           title: '测试页面',
           description: '测试页面',
           image: require('./images/developing.png'),
