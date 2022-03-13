@@ -42,6 +42,7 @@ import { Select, Draw } from 'ol/interaction'
 import { getLength, getArea } from 'ol/sphere'
 import { unByKey } from 'ol/Observable'
 import WMTSTileGrid from 'ol/tilegrid/WMTS'
+import { getVectorContext } from 'ol/render'
 
 import typhoonData from './json/typhoon.json'
 import radarData from './json/radarData.json'
@@ -84,7 +85,6 @@ export default {
   },
   mounted() {
     this.initMap()
-    // this.tiandituInit(0, '11748a73773880cc126562dfe4cf9047')
     // this.drawTyphoonPath()
     this.drawTyphoonPathInterval()
     this.designHoverOnMap()
@@ -230,6 +230,23 @@ export default {
           )
           featurePoint.set('typhoonPoint', true)
           featurePoint.set('pointData', points[index])
+          let radius = 0
+          layer.on('postrender', (e) => {
+            if (radius >= 10) radius = 0
+            let opacity = (10 - radius) * 0.1
+            const ctx = getVectorContext(e)
+            ctx.setStyle(
+              new Style({
+                image: new CircleStyle({
+                  radius,
+                  stroke: new Stroke({ color: `rgba(255,0,0,${opacity})` }),
+                }),
+              })
+            )
+            ctx.drawGeometry(featurePoint.getGeometry())
+            radius += 0.2
+            layer.changed()
+          })
           source.addFeature(featurePoint)
           // 增加风圈
           if (points[index].radius7) {
@@ -238,7 +255,6 @@ export default {
             this.lastSolar = featureSolar
             source.addFeature(featureSolar)
           }
-
           // 增加线
           if (index > 0) {
             let featureLine = new Feature({
@@ -277,7 +293,6 @@ export default {
       // 比例尺：  S =  P / (72*39.3701)  / R*P   = 1 /  R*72*32.3701
       // 假设屏幕距离为P，分辨率为R，则比例尺S为:
       let count = 1
-      console.log(this.map.getView().getResolution())
       feature.setStyle(
         new Style({
           renderer(coordinates, state) {
@@ -303,7 +318,6 @@ export default {
       )
       return feature
     },
-
     // 开始测距
     beginCalDistance() {
       //调用绘图工具并传递类型为线，其他类型有Point,LineString,Polygon,Circle
@@ -499,8 +513,6 @@ export default {
       }
       this.marks = marks
       this.max = (radarDataLength - 1) * step
-
-      console.log(timeArray)
     },
 
     // 格式化 显示的 字符串

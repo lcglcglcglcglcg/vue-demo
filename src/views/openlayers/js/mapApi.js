@@ -1,4 +1,4 @@
-import Tile from 'ol/layer/Tile'
+import { Tile, Vector as VectorLayer } from 'ol/layer'
 import XYZ from 'ol/source/XYZ'
 import Image from 'ol/layer/Image'
 import ImageWMS from 'ol/source/ImageWMS'
@@ -17,12 +17,14 @@ export const tianDiTuMapLayer = new Tile({
   source: new XYZ({
     url: mapRoad,
   }),
+  opacity: 1,
 })
 export const tianDiTuAnnotation = new Tile({
   title: '天地图文字标注',
   source: new XYZ({
     url: mapText,
   }),
+  opacity: 1,
 })
 
 export const tianDiTuAnnotationEn = new Tile({
@@ -30,4 +32,5 @@ export const tianDiTuAnnotationEn = new Tile({
   source: new XYZ({
     url: mapTextEn,
   }),
+  opacity: 1,
 })

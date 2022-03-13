@@ -5,11 +5,13 @@
 <script>
 import { Map, View } from 'ol'
 import { tianDiTuMapLayer, tianDiTuAnnotation } from './js/mapApi'
-import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
+import { WindLayer } from 'ol-wind'
+import gfs from './json/gfs'
 export default {
   data() {
     return {
       map: null,
+      windLayer: null,
     }
   },
   methods: {
@@ -21,38 +23,45 @@ export default {
      */
     tiandituInit() {
       if (this.map == null) {
-        // var projection = getProjection('EPSG:3857')
-        // var projectionExtent = projection.getExtent()
-        // var size = getWidth(projectionExtent) / 256
-        // var resolutions = new Array(14)
-        // var matrixIds = new Array(14)
-        // for (var z = 0; z < 14; ++z) {
-        //   resolutions[z] = size / Math.pow(2, z)
-        //   matrixIds[z] = z
-        // }
-        let layer_Base = new TileLayer({
-          opacity: 1,
-          source: tianDiTuMapLayer,
-        })
-        let layer_Note = new TileLayer({
-          opacity: 1,
-          source: tianDiTuAnnotation,
-        })
-
         this.map = new Map({
-          layers: [layer_Base, layer_Note],
+          layers: [tianDiTuMapLayer, tianDiTuAnnotation],
           target: 'map',
           view: new View({
-            center: [15611315, 2500873],
+            projection: 'EPSG:4326',
+            center: [100, 25],
             zoom: 5,
-            minZoom: 4,
+            minZoom: 0,
+            maxZoom: 18,
           }),
         })
       }
     },
+    addWindLayer() {
+      this.windLayer = new WindLayer(gfs, {
+        forceRender: false,
+        windOptions: {
+          globalAlpha: 0.8,
+          velocityScale: 1 / 20,
+          paths: 1000,
+          // eslint-disable-next-line no-unused-vars
+          colorScale: (m) => {
+            // console.log(m)
+            return 'blue'
+          },
+          lineWidth: 3,
+          generateParticleOption: false,
+        },
+        className: 'ol-layer',
+        // map: map,
+        // projection: 'EPSG:4326'
+      })
+      // this.map.removeLayer(windLayer);
+      this.map.addLayer(this.windLayer)
+    },
   },
   mounted() {
     this.tiandituInit()
+    this.addWindLayer()
   },
 }
 </script>
