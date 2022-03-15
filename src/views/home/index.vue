@@ -38,9 +38,9 @@ export default {
         },
         {
           path: '/echarts/index',
-          title: '测试页面',
-          description: '测试页面',
-          image: require('./images/developing.png'),
+          title: 'echarts',
+          description: 'echarts组件问题记录封装',
+          image: require('./images/echarts.png'),
           three: true,
         },
         {

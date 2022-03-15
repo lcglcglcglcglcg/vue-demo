@@ -585,9 +585,7 @@ export default {
       const clusters = new VectorLayer({
         source: clusterSource,
         style: (feature) => {
-          console.log('feature: ', feature)
           let curVal = feature.get('features')[0].get('value')
-          console.log('curVal: ', curVal)
           let color = this.getHumidityColor(parseInt(curVal))
           let style = styleCache[curVal]
           if (!style) {
@@ -606,12 +604,12 @@ export default {
               //   src: '/image/logo.png',
               //   size: [50, 30],
               // }),
-              // text: new Text({
-              //   text: curVal + '%',
-              //   fill: new Fill({
-              //     color: '#fff',
-              //   }),
-              // }),
+              text: new Text({
+                text: curVal + '%',
+                fill: new Fill({
+                  color: '#fff',
+                }),
+              }),
             })
             styleCache[curVal] = style
           }
