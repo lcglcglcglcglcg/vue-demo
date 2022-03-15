@@ -47,7 +47,10 @@ import { getVectorContext } from 'ol/render'
 import typhoonData from './json/typhoon.json'
 import radarData from './json/radarData.json'
 import humidityData from './json/humidity.json'
+import gfsData from './json/gfs.json'
+
 import { featureObj } from './feature'
+import ColorMaker from './js/colorMaker'
 
 import Popup from './modules/Popup'
 export default {
@@ -772,7 +775,7 @@ export default {
     },
 
     // 绘制栅格图像
-    drawGrid: function() {
+    drawGrid() {
       let canvas = document.createElement('canvas')
       let ctx = canvas.getContext('2d')
       let { nx, ny } = gfsData[0].header
@@ -814,6 +817,7 @@ export default {
           ctx.fillRect(j, i, 1, 1)
         }
       }
+      // console.log(canvas.toDataURL())
       console.timeEnd('fillRect绘制')
     },
 

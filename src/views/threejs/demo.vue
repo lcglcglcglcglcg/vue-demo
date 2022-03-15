@@ -13,7 +13,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 //其他模型加载器
 // import { OBJLoader, MTLLoader } from 'three-obj-mtl-loader'
-// import dat from 'dat.gui'
+import dat from 'dat.gui'
 
 let scene, camera, renderer, controls
 let group, textMesh1, textMesh2, textGeo, materials
@@ -106,7 +106,7 @@ export default {
       cube.position.x = -10
       cube.position.y = 10
       //加载纹理
-      new THREE.TextureLoader().load('/test.jpg', texture => {
+      new THREE.TextureLoader().load('/test.jpg', (texture) => {
         cube.material = new THREE.MeshLambertMaterial({ map: texture })
       })
       scene.add(cube)
@@ -120,7 +120,7 @@ export default {
       sphere.position.y = 5
       sphere.position.z = 0
       //加载纹理
-      new THREE.TextureLoader().load('/test.jpg', texture => {
+      new THREE.TextureLoader().load('/test.jpg', (texture) => {
         sphere.material = new THREE.MeshLambertMaterial({ map: texture })
       })
       scene.add(sphere)
@@ -136,15 +136,15 @@ export default {
 
       loader.load(
         '/3Dtest.glb',
-        gltf => {
+        (gltf) => {
           console.log('gltf: ', gltf)
           gltf.scene.position.set(0, 0, 0)
           scene.add(gltf.scene)
         },
-        xhr => {
+        (xhr) => {
           console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
         },
-        error => {
+        (error) => {
           console.error(error)
         }
       )

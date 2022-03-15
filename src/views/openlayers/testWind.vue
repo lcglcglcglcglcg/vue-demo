@@ -6,6 +6,7 @@
 import { Map, View } from 'ol'
 import { tianDiTuMapLayer, tianDiTuAnnotation } from './js/mapApi'
 import { WindLayer } from 'ol-wind'
+import dat from 'dat.gui'
 import gfs from './json/gfs'
 export default {
   data() {
@@ -46,7 +47,7 @@ export default {
           // eslint-disable-next-line no-unused-vars
           colorScale: (m) => {
             // console.log(m)
-            return 'blue'
+            return 'hotpink'
           },
           lineWidth: 3,
           generateParticleOption: false,
@@ -58,11 +59,46 @@ export default {
       // this.map.removeLayer(windLayer);
       this.map.addLayer(this.windLayer)
     },
+    addDat() {
+      var gui = new dat.GUI()
+      let f = gui.addFolder('粒子效果配置')
+      let object = {
+        // 透明度
+        globalAlpha: 0.92,
+        velocityScale: 1 / 20,
+        paths: 5000,
+        lineWidth: 3,
+        frameRate: 20,
+      }
+      for (let i in object) {
+        let minMax = this.minMaxMap(i)
+        f.add(object, i)
+          .min(minMax[0])
+          .max(minMax[1])
+          .name(`中文${i}`)
+          .onFinishChange(() => {
+            this.windLayer.setWindOptions(object)
+          })
+      }
+    },
+    minMaxMap: function(property) {
+      let map = {
+        globalAlpha: [0, 1],
+        // 速度
+        velocityScale: [0, 1],
+        paths: [0, 7000],
+        lineWidth: [0, 20],
+        frameRate: [20, 100],
+      }
+      return map[property]
+    },
   },
   mounted() {
     this.tiandituInit()
+    this.addDat()
     this.addWindLayer()
   },
+  beforeDestroy() {},
 }
 </script>
 
