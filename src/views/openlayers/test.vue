@@ -2,7 +2,8 @@
   <div>
     <div id="map" class="map">
       <div class="tools">
-        <a-button type="primary" @click="beginCalDistance">开始测距</a-button>
+        <a-button type="primary" @click="beginCalDistance('Polygon')">开始测距(划面)</a-button>
+        <a-button type="primary" @click="beginCalDistance('LineString')">开始测距(划线)</a-button>
         <a-button type="primary" @click="cancleCalDistance">取消测距</a-button>
 
         <!-- <button @click="startMeasure">测距</button>
@@ -53,6 +54,11 @@ import { featureObj } from './feature'
 import ColorMaker from './js/colorMaker'
 
 import Popup from './modules/Popup'
+
+const prefix = 'https://lcglcglcg.gitee.io/image_bed'
+// 定义变量
+let helpTooltipElement, helpTooltip
+
 export default {
   components: { Popup },
   data() {
@@ -67,6 +73,9 @@ export default {
 
       measureTooltipElement: null,
       measureTooltip: null,
+      helpTooltipElement: null,
+      helpTooltip: null,
+
       sketch: null,
       geom: null,
       draw: null,
@@ -160,10 +169,7 @@ export default {
     // 设置操作时点样式
     setPointStyle(feature, radius) {
       if (feature) {
-        feature
-          .getStyle()
-          .getImage()
-          .setRadius(radius)
+        feature.getStyle().getImage().setRadius(radius)
         feature.changed()
       }
     },
@@ -322,11 +328,12 @@ export default {
       return feature
     },
     // 开始测距
-    beginCalDistance() {
+    beginCalDistance(type) {
       //调用绘图工具并传递类型为线，其他类型有Point,LineString,Polygon,Circle
       this.onAddInteraction('Polygon')
       //创建一个新的测距提示
       this.createMeasureTooltip()
+      this.createHelpTooltip()
     },
     // 绘图工具
     onAddInteraction(type) {
@@ -350,12 +357,12 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function(evt) {
+      this.draw.on('drawstart', function (evt) {
         self.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function(evt) {
+        listener = self.sketch.getGeometry().on('change', function (evt) {
           //获取绘制的几何对象
           self.geom = evt.target
           //定义一个输出对象，用于记录长度
@@ -382,8 +389,13 @@ export default {
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function(e) {
-        //输出坐标信息
+      this.draw.on('drawend', function (e) {
+        // 清空再生成坐标
+        self.measureTooltipElement.className = 'tooltip tooltip-static distanceBox'
+        self.sketch = null
+        self.measureTooltipElement = null
+        self.createMeasureTooltip()
+        // 输出坐标信息
         const geometry = e.feature.getGeometry()
         let pointArr = geometry.getCoordinates()
         self.coordinate.push(pointArr)
@@ -398,6 +410,21 @@ export default {
     //删除交互
     removeDraw() {
       this.map.removeInteraction(this.draw)
+    },
+    // 创建一个帮助提示
+    createHelpTooltip() {
+      if (this.helpTooltipElement) {
+        this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement)
+      }
+      this.helpTooltipElement = document.createElement('div')
+      this.helpTooltipElement.className = 'tooltip hidden distanceBoxHidden'
+      this.helpTooltipElement.innerHTML = '请选择测距起点'
+      this.helpTooltip = new Overlay({
+        element: this.helpTooltipElement,
+        offset: [15, 0],
+        positioning: 'center-left',
+      })
+      this.map.addOverlay(this.helpTooltip)
     },
     //创建一个新的测距提示
     createMeasureTooltip() {
@@ -535,22 +562,17 @@ export default {
 
     // 雷达滑块 值 发生改变
     sliderChange(value) {
-      console.log('value: ', value)
       const index = value / this.step
-      this.drawPicToMap(this, value)
+      // 图床6张图片
+      this.drawPicToMap(this, index % 6)
     },
 
     //  把图片绘制到地图上去
     drawPicToMap({ imageLayer }, index) {
-      let leftBottom = fromLonLat([106.38195585585585, 16.768055855855856])
-      let rightTop = fromLonLat([114.67024414414415, 25.05634414414414])
+      let leftBottom = fromLonLat([100, 12])
+      let rightTop = fromLonLat([120, 22])
       let extent = leftBottom.concat(rightTop)
-      let url
-      if (index > 20) {
-        url = 'https://img1.baidu.com/it/u=1800057517,3423738094&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=210'
-      } else {
-        url = 'https://img1.baidu.com/it/u=3858002748,1577402681&fm=253&fmt=auto&app=138&f=JPEG?w=937&h=378'
-      }
+      let url = `${prefix}/images/openlayer/image${index}.png`
       let source = new ImageStatic({
         imageExtent: extent,
         // http://d1.weather.com.cn/newwebgis/radar/5m/QPFRef_202203072010.png
@@ -671,7 +693,7 @@ export default {
     },
 
     // refresh webgl
-    refreshWebgl: function() {
+    refreshWebgl: function () {
       // 用来表示偏移量
       let count = 1
       const style = {
@@ -828,14 +850,14 @@ export default {
           this.playVal += this.step
           const arr = Object.keys(this.marks)
           const last = arr[arr.length - 1]
-          this.drawPicToMap(this, this.playVal)
+          this.sliderChange(this.playVal)
           if (this.playVal == last) {
             this.isPlay = false
             this.playVal = 0
-            this.drawPicToMap(this, this.playVal)
+            this.sliderChange(this.playVal)
           }
         }
-      }, 500)
+      }, 1000)
     },
   },
 }

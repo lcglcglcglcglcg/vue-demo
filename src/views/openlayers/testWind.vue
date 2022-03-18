@@ -81,7 +81,7 @@ export default {
           })
       }
     },
-    minMaxMap: function(property) {
+    minMaxMap: function (property) {
       let map = {
         globalAlpha: [0, 1],
         // 速度
