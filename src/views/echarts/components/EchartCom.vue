@@ -36,14 +36,9 @@ export default {
   },
   mounted() {
     setTimeout(() => this.init(), 100)
-    // this.init()
   },
   methods: {
     init() {
-      // if (this.myChart != null) {
-      //   this.myChart.dispose()
-      //   this.myChart = null
-      // }
       let chartDom = document.getElementById(this.id)
       this.myChart = echarts.init(chartDom)
       this.myChart && this.setOption()

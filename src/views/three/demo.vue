@@ -31,9 +31,9 @@ export default {
   mounted() {
     // this.initgui()
     this.init()
-    // this.load3D()
+    this.load3D()
     this.initControls()
-    this.animate()
+    // this.animate()
   },
   methods: {
     init() {
@@ -41,7 +41,7 @@ export default {
       scene = new THREE.Scene()
 
       // 创建相机对象
-      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100)
       // camera.position.x = 40
       // camera.position.y = 40
       // camera.position.z = 40
@@ -51,14 +51,15 @@ export default {
       // 创建渲染器
       renderer = new THREE.WebGLRenderer({ antialias: true })
       renderer.setClearColor(0xeeeeee) //背景色
-      renderer.setSize(window.innerWidth, window.innerHeight)
+      renderer.setPixelRatio(window.devicePixelRatio) // 为了兼容高清屏幕
+      renderer.setSize(window.innerWidth, window.innerHeight) // 改成这样就可以居中
       renderer.shadowMap.enabled = true //启用阴影
 
       let container = document.getElementById('container')
       container.appendChild(renderer.domElement)
 
-      //
-      this.initAxes()
+      // 坐标箭头 添加几何体
+      // this.initAxes()
 
       // 划线
       // this.drawLine()
@@ -68,6 +69,7 @@ export default {
       // 环境光
       let ambient = new THREE.AmbientLight('#523318', 1)
       scene.add(ambient)
+      // scene.add(new THREE.AmbientLight(0x999999)) // 环境光
       // // 半球光源
       // let light = new THREE.HemisphereLight()
       // this.scene.add(light)
@@ -133,12 +135,11 @@ export default {
     // 加载3D模型
     load3D() {
       const loader = new GLTFLoader()
-
       loader.load(
-        '/3Dtest.glb',
+        '/xuerongrong.glb',
         (gltf) => {
-          console.log('gltf: ', gltf)
-          gltf.scene.position.set(0, 0, 0)
+          // console.log('gltf: ', gltf)
+          // gltf.scene.position.set(0, 0, 0)
           scene.add(gltf.scene)
         },
         (xhr) => {
@@ -148,6 +149,7 @@ export default {
           console.error(error)
         }
       )
+      this.render()
     },
     // 控件
     initControls() {
@@ -246,6 +248,7 @@ export default {
     onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
+      renderer.setPixelRatio(window.devicePixelRatio)
       renderer.setSize(window.innerWidth, window.innerHeight)
     },
     render() {

@@ -44,9 +44,9 @@ export default {
           three: true,
         },
         {
-          path: '/three/olypmpic',
+          path: '/olympic/olympic',
           title: '冰墩墩',
-          description: '2022冰墩墩',
+          description: '2022冬奥吉祥物冰墩墩',
           image: require('./images/developing.png'),
           three: true,
         },

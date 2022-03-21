@@ -16,7 +16,7 @@ module.exports = {
   // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
   // productionSourceMap: false,
 
-  configureWebpack: config => {
+  configureWebpack: (config) => {
     // 生产环境取消 console.log
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
@@ -73,7 +73,7 @@ module.exports = {
       }
     )
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.resolve.alias.set('@$', resolve('src')).set('@api', resolve('src/api'))
 
     // 生产环境，开启js\css压缩
@@ -88,20 +88,10 @@ module.exports = {
     }
 
     // 配置 webpack 识别 markdown 为普通的文件
-    config.module
-      .rule('markdown')
-      .test(/\.md$/)
-      .use()
-      .loader('file-loader')
-      .end()
+    config.module.rule('markdown').test(/\.md$/).use().loader('file-loader').end()
 
     //  webpack 配置 cesium
-    config.module
-      .rule('cesium')
-      .test(/.js$/)
-      .use()
-      .loader('@open-wc/webpack-import-meta-loader')
-      .end()
+    config.module.rule('cesium').test(/.js$/).use().loader('@open-wc/webpack-import-meta-loader').end()
 
     config.module
       .rule('expose2')

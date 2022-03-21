@@ -598,8 +598,9 @@ export default {
         features: features,
       })
 
+      // 设置集群数据
       const clusterSource = new Cluster({
-        distance: 50,
+        distance: 50, // 聚集一起的距离
         source: source,
       })
       // let _this = this;

@@ -42,8 +42,8 @@ export default {
       this.option.series[0].data = yObj['r']
       this.option.series[1].data = yObj['p']
       this.option.series[2].data = yObj['height']
-      this.$refs['EchartCom'].setOption()
-      this.$refs['EchartCom1'].setOption()
+      this.$refs['EchartCom'] && this.$refs['EchartCom'].setOption()
+      this.$refs['EchartCom1'] && this.$refs['EchartCom1'].setOption()
     },
     handleArrData(dataArr, fileds, format = 'YYYY-MM-DD HH:mm:ss') {
       const tempArr = format.split(' ')
