@@ -575,7 +575,6 @@ export default {
       let url = `${prefix}/images/openlayer/image${index}.png`
       let source = new ImageStatic({
         imageExtent: extent,
-        // http://d1.weather.com.cn/newwebgis/radar/5m/QPFRef_202203072010.png
         url,
       })
       imageLayer.setSource(source)

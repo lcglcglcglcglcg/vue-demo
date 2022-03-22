@@ -47,7 +47,7 @@ export default {
           path: '/olympic/olympic',
           title: '冰墩墩',
           description: '2022冬奥吉祥物冰墩墩',
-          image: require('./images/developing.png'),
+          image: require('./images/olympic.png'),
           three: true,
         },
       ],
@@ -64,7 +64,7 @@ export default {
 <style lang="less" scoped>
 .home {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: black;
   background-size: 100%;
   .menu {

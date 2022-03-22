@@ -16,12 +16,19 @@ export default {
     newPhoto() {
       console.log('快照')
       const html = document.getElementById('app')
-      html2canvas(html).then(async canvas => {
-        const dataUrl = canvas.toDataURL('image/jpeg', 1)
+      const options = {
+        // 未生效
+        useCORS: true, // 跨域
+        preserveDrawingBuffer: true,
+        // foreignObjectRendering: true,
+        allowTaint: true, // 允许污染
+      }
+      html2canvas(html, options).then(async (canvas) => {
+        const dataUrl = canvas.toDataURL('image/png', 1)
 
         let link = document.createElement('a')
         link.href = dataUrl
-        link.download = '1.jpeg'
+        link.download = '1.png'
         link.click()
         URL.revokeObjectURL(link.href)
       })
