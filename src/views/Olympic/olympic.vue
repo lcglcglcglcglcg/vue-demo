@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import * as THREE from 'three'
+import Stats from 'three/examples/jsm/libs/stats.module'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js'
 
@@ -31,20 +33,20 @@ import treeTexture from './images/tree.png'
 import flagTexture from './images/flag.png'
 // require('./libs/GLTFLoader.js')
 
-var container, controls, stats, mixer
-var camera,
+let container, controls, stats, mixer
+let camera,
   scene,
   renderer,
   light,
   land = null,
   meshes = [],
   points = []
-var fiveCyclesGroup = new THREE.Group(),
+let fiveCyclesGroup = new THREE.Group(),
   clock = new THREE.Clock()
-var mouseX = 0,
+let mouseX = 0,
   mouseY = 0
-var windowHalfX = window.innerWidth / 2
-var windowHalfY = window.innerHeight / 2
+let windowHalfX = window.innerWidth / 2
+let windowHalfY = window.innerHeight / 2
 
 export default {
   data() {
@@ -59,10 +61,21 @@ export default {
     initThree() {
       console.log('initThree: ')
       this.init()
+      this.animate()
+      this.addClick()
     },
     init() {
-      var _this = this
-      container = document.getElementById('container')
+      let _this = this
+      // 创建场景
+      scene = new THREE.Scene()
+      scene.background = new THREE.TextureLoader().load(skyTexture)
+      scene.fog = new THREE.Fog(0xffffff, 10, 100)
+      // 创建相机
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000)
+      camera.position.set(0, 30, 100)
+      camera.lookAt(new THREE.Vector3(0, 0, 0))
+
+      // 创建渲染器
       // 抗锯齿
       renderer = new THREE.WebGLRenderer({ antialias: true })
       // 设置像素比
@@ -70,27 +83,24 @@ export default {
       renderer.setSize(window.innerWidth, window.innerHeight)
       renderer.shadowMap.enabled = true
       // renderer.shadowMap.type = THREE.PCFSoftShadowMap; // // 0: THREE.BasicShadowMap, 1: THREE.PCFShadowMap, 2: THREE.PCFSoftShadowMap
-
+      container = document.getElementById('container')
       container.appendChild(renderer.domElement)
 
-      scene = new THREE.Scene()
-      scene.background = new THREE.TextureLoader().load(skyTexture)
-      scene.fog = new THREE.Fog(0xffffff, 10, 100)
-
-      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000)
-      camera.position.set(0, 30, 100)
-      camera.lookAt(new THREE.Vector3(0, 0, 0))
-
       // 性能工具
-      // stats = new Stats();
-      // document.documentElement.appendChild(stats.dom);
+      stats = new Stats()
+      document.documentElement.appendChild(stats.dom)
 
+      // 创建立方体
       const cubeGeometry = new THREE.BoxGeometry(0.001, 0.001, 0.001)
       const cubeMaterial = new THREE.MeshLambertMaterial({ color: 0xdc161a })
-
       const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
       cube.position.set(0, 0, 0)
 
+      // 创建光源
+      // 环境光( AmbientLight )：笼罩在整个空间无处不在的光
+      // 点光源( PointLight )：向四面八方发射的单点光源
+      // 聚光灯( SpotLight )：发射出锥形状的光， 模拟手电筒，台灯等光源
+      // 平行光( DirectinalLight )：平行的一束光，模拟从很远处照射的太阳光
       light = new THREE.DirectionalLight(0xffffff, 1)
       light.intensity = 1
       light.position.set(16, 16, 8)
@@ -105,42 +115,54 @@ export default {
 
       scene.add(light)
 
-      // const lightHelper = new THREE.DirectionalLightHelper(light, 1, 'red');
-      // scene.add(lightHelper);
-      // const lightCameraHelper = new THREE.CameraHelper(light.shadow.camera);
-      // scene.add(lightCameraHelper);
+      // 光线辅助线
+      // const lightHelper = new THREE.DirectionalLightHelper(light, 1, 'red')
+      // scene.add(lightHelper)
+      // const lightCameraHelper = new THREE.CameraHelper(light.shadow.camera)
+      // scene.add(lightCameraHelper)
 
-      var ambientLight = new THREE.AmbientLight(0xcfffff)
+      // 环境光照亮场景
+      let ambientLight = new THREE.AmbientLight(0xcfffff)
       ambientLight.intensity = 1
-
       scene.add(ambientLight)
 
+      // 控制器
+      controls = new OrbitControls(camera, renderer.domElement)
+      controls.target.set(0, 0, 0)
+      controls.enableDamping = true
+      controls.enablePan = false
+      controls.enableZoom = false
+
+      // 垂直旋转角度限制
+      controls.minPolarAngle = 1.4
+      controls.maxPolarAngle = 1.8
+
+      // 水平旋转角度限制
+      controls.minAzimuthAngle = -0.8
+      controls.maxAzimuthAngle = 0.8
+
+      // 加载管理器
       const manager = new THREE.LoadingManager()
-
       manager.onStart = (url, loaded, total) => {}
-
       manager.onLoad = () => {
         console.log('Loading complete!')
       }
-
       manager.onProgress = async (url, loaded, total) => {
         if (Math.floor((loaded / total) * 100) === 100) {
           _this.loadingProcessTimeout && clearTimeout(_this.loadingProcessTimeout)
 
           _this.loadingProcessTimeout = setTimeout(() => {
-            _this.setState({
-              loadingProcess: Math.floor((loaded / total) * 100),
-            })
+            _this.loadingProcess = Math.floor((loaded / total) * 100)
             Animations.animateCamera(camera, controls, { x: 0, y: -1, z: 20 }, { x: 0, y: 0, z: 5 }, 3600, () => {})
           }, 800)
         } else {
-          _this.setState({ loadingProcess: Math.floor((loaded / total) * 100) })
+          _this.loadingProcess = Math.floor((loaded / total) * 100)
         }
       }
 
       // 添加地面
-      var loader = new THREE.GLTFLoader(manager)
-      loader.load(landModel, function (mesh) {
+      let loader = new GLTFLoader(manager)
+      loader.load('/models/land.glb', (mesh) => {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             meshes.push(child)
@@ -172,7 +194,7 @@ export default {
       })
 
       // 旗帜
-      loader.load(flagModel, (mesh) => {
+      loader.load('/models/flag.glb', (mesh) => {
         mesh.scene.traverse((child) => {
           if (child.isMesh) {
             meshes.push(child)
@@ -211,7 +233,7 @@ export default {
       })
 
       // bingdwendwen
-      loader.load(bingdwendwenModel, function (mesh) {
+      loader.load('/models/bingdwendwen.glb', function (mesh) {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             meshes.push(child)
@@ -249,7 +271,7 @@ export default {
       })
 
       // xuerongrong
-      loader.load(xuerongrongModel, function (mesh) {
+      loader.load('/models/xuerongrong.glb', function (mesh) {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             child.castShadow = true
@@ -273,7 +295,7 @@ export default {
         roughness: 0.8,
         depthTest: true,
         depthWrite: false,
-        skinning: false,
+        // skinning: false,
         fog: false,
         reflectivity: 0.1,
         refractionRatio: 0,
@@ -285,7 +307,7 @@ export default {
         alphaTest: 0.5,
       })
 
-      loader.load(treeModel, function (mesh) {
+      loader.load('/models/tree.gltf', function (mesh) {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             meshes.push(child)
@@ -347,7 +369,7 @@ export default {
 
       // 创建雪花
       let texture = new THREE.TextureLoader().load(snowTexture)
-      let geometry = new THREE.Geometry()
+      let geometry = new THREE.BufferGeometry()
       let pointsMaterial = new THREE.PointsMaterial({
         size: 1,
         transparent: true,
@@ -370,30 +392,71 @@ export default {
         vertice.velocityY = 0.1 + Math.random() / 3
         // 横向移动速度
         vertice.velocityX = (Math.random() - 0.5) / 3
+        vertices.push(vertice)
         // 将顶点加入几何
-        geometry.vertices.push(vertice)
+        // geometry.vertices.push(vertice) // 旧版本 失效
       }
+
+      // 将顶点加入几何
+      geometry.setFromPoints(vertices)
 
       geometry.center()
       points = new THREE.Points(geometry, pointsMaterial)
       points.position.y = -30
       scene.add(points)
 
-      controls = new OrbitControls(camera, renderer.domElement)
-      controls.target.set(0, 0, 0)
-      controls.enableDamping = true
-      controls.enablePan = false
-      controls.enableZoom = false
+      window.addEventListener('resize', this.onWindowResize, false)
+    },
 
-      // 垂直旋转角度限制
-      controls.minPolarAngle = 1.4
-      controls.maxPolarAngle = 1.8
+    onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
+    },
 
-      // 水平旋转角度限制
-      controls.minAzimuthAngle = -0.8
-      controls.maxAzimuthAngle = 0.8
+    animate() {
+      requestAnimationFrame(this.animate)
+      renderer.render(scene, camera)
+      stats && stats.update()
+      controls && controls.update()
+      TWEEN && TWEEN.update()
+      fiveCyclesGroup && (fiveCyclesGroup.rotation.y += 0.01)
+      let vertices = points.geometry.vertices
+      vertices &&
+        vertices.forEach(function (v) {
+          v.y = v.y - v.velocityY
+          v.x = v.x - v.velocityX
+          if (v.y <= 0) v.y = 60
+          if (v.x <= -20 || v.x >= 20) v.velocityX = v.velocityX * -1
+        })
 
-      window.addEventListener('resize', onWindowResize, false)
+      // 顶点变动之后需要更新，否则无法实现雨滴特效
+      points.geometry.verticesNeedUpdate = true
+
+      let time = clock.getDelta()
+      mixer && mixer.update(time)
+    },
+
+    // 增加点击事件
+    addClick() {
+      // 增加点击事件，声明raycaster和mouse变量
+      let raycaster = new THREE.Raycaster()
+      let mouse = new THREE.Vector2()
+      function onMouseClick(event) {
+        // 通过鼠标点击的位置计算出raycaster所需要的点的位置，以屏幕中心为原点，值的范围为-1到1.
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+        // 通过鼠标点的位置和当前相机的矩阵计算出raycaster
+        raycaster.setFromCamera(mouse, camera)
+        // 获取raycaster直线和所有模型相交的数组集合
+        var intersects = raycaster.intersectObjects(meshes)
+
+        if (intersects.length > 0) {
+          console.log(intersects[0].object)
+        }
+      }
+
+      window.addEventListener('click', onMouseClick, false)
     },
   },
 }
