@@ -1,8 +1,8 @@
 <template>
   <div>
     <div id="container"></div>
-    <div v-if="loadingProcess !== 100" className="olympic_loading">
-      <div className="box">{loadingProcess} %</div>
+    <div v-if="loadingProcess !== 100" class="olympic_loading">
+      <div class="box">{{ loadingProcess }} %</div>
     </div>
   </div>
 </template>
@@ -20,12 +20,6 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 // import { OBJLoader, MTLLoader } from 'three-obj-mtl-loader'
 
 import Animations from './js/animations'
-
-// import landModel from './models/land.glb'
-// import treeModel from './models/tree.gltf'
-// import bingdwendwenModel from './models/bingdwendwen.glb'
-// import xuerongrongModel from './models/xuerongrong.glb'
-// import flagModel from './models/flag.glb'
 
 import skyTexture from './images/sky.jpg'
 import snowTexture from './images/snow.png'
@@ -87,8 +81,8 @@ export default {
       container.appendChild(renderer.domElement)
 
       // 性能工具
-      stats = new Stats()
-      document.documentElement.appendChild(stats.dom)
+      // stats = new Stats()
+      // document.documentElement.appendChild(stats.dom)
 
       // 创建立方体
       const cubeGeometry = new THREE.BoxGeometry(0.001, 0.001, 0.001)
@@ -463,5 +457,22 @@ export default {
 </script>
 
 <style scoped>
-@import './index.css';
+.olympic_loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #ffffff url('./images/panda.png') no-repeat left center;
+  background-size: auto 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 120px;
+  color: #2d2d2d;
+  text-shadow: 0 1px 0 hsl(174, 5%, 80%), 0 2px 0 hsl(174, 5%, 75%), 0 3px 0 hsl(174, 5%, 70%),
+    0 4px 0 hsl(174, 5%, 66%), 0 5px 0 hsl(174, 5%, 64%), 0 6px 0 hsl(174, 5%, 62%), 0 7px 0 hsl(174, 5%, 61%),
+    0 8px 0 hsl(174, 5%, 60%), 0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
+}
 </style>
