@@ -20,7 +20,7 @@ export default {
         // 未生效
         useCORS: true, // 跨域
         preserveDrawingBuffer: true,
-        // foreignObjectRendering: true,
+        foreignObjectRendering: true,
         allowTaint: true, // 允许污染
       }
       html2canvas(html, options).then(async (canvas) => {

@@ -693,7 +693,7 @@ export default {
     },
 
     // refresh webgl
-    refreshWebgl: function () {
+    refreshWebgl() {
       // 用来表示偏移量
       let count = 1
       const style = {
@@ -896,10 +896,10 @@ export default {
       margin-right: 20px;
     }
     .play {
-      background: url(https://i.tq121.com.cn/i/radarMap/playBtn.png) center center no-repeat;
+      background: url(./image/playBtn.png) center center no-repeat;
     }
     .stop {
-      background: url(https://i.tq121.com.cn/i/radarMap/stopBtn.png) center center no-repeat;
+      background: url(./image/stopBtn.png) center center no-repeat;
     }
     .slider {
       width: 900px;
