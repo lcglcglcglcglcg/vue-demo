@@ -50,9 +50,9 @@
         :className="mapCircleData.className"
       ></MapCircle>
       <!-- 自定义覆盖物 -->
-      <MapOverlay :position="mapOverlayData.position" :className="mapOverlayData.className"
-        ><div><img :src="mapOverlayData.img" alt="" /></div
-      ></MapOverlay>
+      <MapOverlay :position="mapOverlayData.position" :className="mapOverlayData.className">
+        <div><img :src="mapOverlayData.img" alt="" /></div>
+      </MapOverlay>
       <!-- 海量点 -->
       <MapPointCollection
         :pointList="mapPointCollectionData.pointlist"
@@ -258,7 +258,7 @@ export default {
       const pixel = this.mapData.getEventPixel(evt.originalEvent)
       const hit = this.mapData.hasFeatureAtPixel(pixel)
       // 获取地图上的feature
-      const feature = this.mapData.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+      const feature = this.mapData.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
         return feature
       })
       // 获取叠加图层对像素叠加图层（hit）设置鼠标样式（给标注点添加鼠标经过样式）

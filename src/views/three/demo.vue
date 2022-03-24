@@ -42,9 +42,6 @@ export default {
 
       // 创建相机对象
       camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100)
-      // camera.position.x = 40
-      // camera.position.y = 40
-      // camera.position.z = 40
       camera.position.set(40, 40, 40) //设置相机位置
       camera.lookAt(0, 0, 0)
 
@@ -59,10 +56,10 @@ export default {
       container.appendChild(renderer.domElement)
 
       // 坐标箭头 添加几何体
-      // this.initAxes()
+      this.initAxes()
 
       // 划线
-      // this.drawLine()
+      this.drawLine()
 
       // this.createText()
 
@@ -92,7 +89,6 @@ export default {
       let plane = new THREE.Mesh(planeGeometry, planeMaterial)
       plane.receiveShadow = true
       plane.rotation.x = -0.5 * Math.PI
-      console.log('plane: ', plane)
       scene.add(plane)
 
       let spotLight = new THREE.SpotLight(0xffffff)
@@ -136,7 +132,7 @@ export default {
     load3D() {
       const loader = new GLTFLoader()
       loader.load(
-        '/xuerongrong.glb',
+        '/vue-demo/xuerongrong.glb',
         (gltf) => {
           // console.log('gltf: ', gltf)
           // gltf.scene.position.set(0, 0, 0)
@@ -225,6 +221,7 @@ export default {
       // line
       const line = new THREE.Line(geometry, material)
       scene.add(line)
+      renderer.render(scene, camera)
     },
     animate() {
       let { controls } = this
@@ -252,6 +249,8 @@ export default {
       renderer.setSize(window.innerWidth, window.innerHeight)
     },
     render() {
+      // 再次调用animate方法实现刷新
+      requestAnimationFrame(this.render)
       renderer.render(scene, camera)
     },
   },

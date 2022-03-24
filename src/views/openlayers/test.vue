@@ -55,7 +55,7 @@ import ColorMaker from './js/colorMaker'
 
 import Popup from './modules/Popup'
 
-const prefix = 'https://lcglcglcg.gitee.io/image_bed'
+const prefix = 'http://lcglcglcg.gitee.io/image_bed'
 // 定义变量
 let helpTooltipElement, helpTooltip
 
@@ -574,6 +574,7 @@ export default {
       let extent = leftBottom.concat(rightTop)
       let url = `${prefix}/images/openlayer/image${index}.png`
       let source = new ImageStatic({
+        crossOrigin: null,
         imageExtent: extent,
         url,
       })
