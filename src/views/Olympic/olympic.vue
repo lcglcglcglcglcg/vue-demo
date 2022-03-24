@@ -71,7 +71,10 @@ export default {
 
       // 创建渲染器
       // 抗锯齿
-      renderer = new THREE.WebGLRenderer({ antialias: true })
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        preserveDrawingBuffer: true, // canvas 截图需要设置
+      })
       // 设置像素比
       renderer.setPixelRatio(window.devicePixelRatio)
       renderer.setSize(window.innerWidth, window.innerHeight)
@@ -156,7 +159,9 @@ export default {
 
       // 添加地面
       let loader = new GLTFLoader(manager)
-      loader.load('/models/land.glb', (mesh) => {
+      // 设置跨域
+      loader.setCrossOrigin('anonymous')
+      loader.load(window.publicPath + '/models/land.glb', (mesh) => {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             meshes.push(child)
@@ -188,7 +193,7 @@ export default {
       })
 
       // 旗帜
-      loader.load('/models/flag.glb', (mesh) => {
+      loader.load(window.publicPath + '/models/flag.glb', (mesh) => {
         mesh.scene.traverse((child) => {
           if (child.isMesh) {
             meshes.push(child)
@@ -227,7 +232,7 @@ export default {
       })
 
       // bingdwendwen
-      loader.load('/models/bingdwendwen.glb', function (mesh) {
+      loader.load(window.publicPath + '/models/bingdwendwen.glb', function (mesh) {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             meshes.push(child)
@@ -265,7 +270,7 @@ export default {
       })
 
       // xuerongrong
-      loader.load('/models/xuerongrong.glb', function (mesh) {
+      loader.load(window.publicPath + '/models/xuerongrong.glb', function (mesh) {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             child.castShadow = true
@@ -301,7 +306,7 @@ export default {
         alphaTest: 0.5,
       })
 
-      loader.load('/models/tree.gltf', function (mesh) {
+      loader.load(window.publicPath + '/models/tree.gltf', function (mesh) {
         mesh.scene.traverse(function (child) {
           if (child.isMesh) {
             meshes.push(child)

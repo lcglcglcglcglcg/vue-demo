@@ -132,7 +132,7 @@ export default {
     load3D() {
       const loader = new GLTFLoader()
       loader.load(
-        '/vue-demo/xuerongrong.glb',
+        window.publicPath + '/xuerongrong.glb',
         (gltf) => {
           // console.log('gltf: ', gltf)
           // gltf.scene.position.set(0, 0, 0)
