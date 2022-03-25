@@ -30,7 +30,7 @@ export default {
           three: true,
         },
         {
-          path: '/openlayers/test',
+          path: '/openlayers/index',
           title: '台风轨迹',
           description: 'openlayers 实现台风运动轨迹',
           image: require('./images/typhoon.png'),
