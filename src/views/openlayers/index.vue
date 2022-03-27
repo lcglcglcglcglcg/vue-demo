@@ -3,15 +3,15 @@
     <div id="map" class="map">
       <div class="tools">
         <a-button type="primary" @click="beginCalDistance('Polygon')">开始测距(划面)</a-button>
-        <a-button type="primary" @click="beginCalDistance('LineString')">开始测距(划线)</a-button>
+        <!-- <a-button type="primary" @click="beginCalDistance('LineString')">开始测距(划线)</a-button> -->
         <a-button type="primary" @click="cancleCalDistance">取消测距</a-button>
 
         <!-- <button @click="startMeasure">测距</button>
         <button @click="stopMeasure">清除</button> -->
         <a-button type="primary" @click="getHumidity">相对湿度绘制</a-button>
         <a-button type="primary" @click="webglRenderHumidity">webgl渲染大数据</a-button>
-        <a-button type="primary" @click="refreshWebgl">刷新 webgl 数据</a-button>
-        <a-button type="primary" @click="timeSliceRefresh">时间切片刷新</a-button>
+        <!-- <a-button type="primary" @click="refreshWebgl">刷新 webgl 数据</a-button>
+        <a-button type="primary" @click="timeSliceRefresh">时间切片刷新</a-button> -->
       </div>
       <div class="sliderBox">
         <div class="playBtn" :class="isPlay ? 'stop' : 'play'" @click="playStep"></div>
@@ -81,7 +81,6 @@ export default {
       sketch: null,
       geom: null,
       draw: null,
-      coordinate: [],
       lineLayer: null, // 线图层
       lineSource: null,
 
@@ -159,8 +158,26 @@ export default {
 
     // 注册事件
     designHoverOnMap() {
-      this.map.on('pointermove', (e) => {
-        let pixel = e.pixel
+      this.map.on('pointermove', (evt) => {
+        if (evt.dragging) return
+        // 测距hover提示
+        if (this.sketch) {
+          let helpMsg = 'Click to start drawing'
+          const geom = this.sketch.getGeometry()
+          if (geom instanceof Polygon) {
+            //几何图形的提示信息
+            helpMsg = 'Click to continue drawing the polygon'
+          } else if (geom instanceof LineString) {
+            //线性的提示信息
+            helpMsg = 'Click to continue drawing the line'
+          }
+          this.helpTooltipElement.innerHTML = helpMsg
+          this.helpTooltip.setPosition(evt.coordinate)
+          this.helpTooltipElement.classList.remove('hidden')
+        }
+
+        // hover 出现弹窗
+        let pixel = evt.pixel
         let feature = this.map.forEachFeatureAtPixel(pixel, (feature, layer) => {
           return feature
         })
@@ -369,51 +386,48 @@ export default {
 
       let listener
       //绘制开始时触发的事件
-      this.draw.on('drawstart', function (evt) {
-        self.sketch = evt.feature
+      this.draw.on('drawstart', (evt) => {
+        this.sketch = evt.feature
         // 提示框的坐标
         var tooltipCoord = evt.coordinate
         //定义一个事件监听，监听几何要素的change事件
-        listener = self.sketch.getGeometry().on('change', function (evt) {
+        listener = this.sketch.getGeometry().on('change', (evt) => {
           //获取绘制的几何对象
-          self.geom = evt.target
+          this.geom = evt.target
           //定义一个输出对象，用于记录长度
           var output
           //判断交互类型是否为线
-          if (self.geom instanceof Polygon) {
-            output = self.formatArea(self.geom)
-            tooltipCoord = self.geom.getInteriorPoint().getCoordinates()
-            self.measureTooltipElement.innerHTML = output
+          if (this.geom instanceof Polygon) {
+            output = this.formatArea(this.geom)
+            tooltipCoord = this.geom.getInteriorPoint().getCoordinates()
+            this.measureTooltipElement.innerHTML = output
             // output +
             // `<img class="deleteLine" id="deleteLine${lengthMeasureCount}" tempimgdata="${lengthMeasureCount}" src="${deleteLineArea}" style="width: 20px;padding-left: 5px;" />`
-          } else if (self.geom instanceof LineString) {
+          } else if (this.geom instanceof LineString) {
             //输出多线段的长度
-            output = self.formatLength(self.geom)
+            output = this.formatLength(this.geom)
             //获取多线段的最后一个点的坐标
-            tooltipCoord = self.geom.getLastCoordinate()
+            tooltipCoord = this.geom.getLastCoordinate()
             //设置测量提示框的内标签为最终输出结果
-            self.measureTooltipElement.innerHTML = output
+            this.measureTooltipElement.innerHTML = output
           }
-          self.measureTooltipElement.className = 'ol-tooltip ol-tooltip-static draw_km'
+
+          this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-static draw_km'
           //设置测量提示框的位置坐标
-          self.measureTooltip.setPosition(tooltipCoord)
+          this.measureTooltip.setPosition(tooltipCoord)
         })
       })
 
       //绘制结束时触发的事件
-      this.draw.on('drawend', function (e) {
+      this.draw.on('drawend', (e) => {
         // 清空再生成坐标
-        self.measureTooltipElement.className = 'tooltip tooltip-static distanceBox'
-        self.sketch = null
-        self.measureTooltipElement = null
-        self.createMeasureTooltip()
-        // 输出坐标信息
-        const geometry = e.feature.getGeometry()
-        let pointArr = geometry.getCoordinates()
-        self.coordinate.push(pointArr)
+        this.measureTooltipElement.className = 'tooltip tooltip-static distanceBox'
+        this.sketch = null
+        this.measureTooltipElement = null
+        this.createMeasureTooltip()
         unByKey(listener)
         //移除交互
-        // self.removeDraw()
+        // this.removeDraw()
       })
 
       //添加交互
@@ -440,23 +454,22 @@ export default {
     },
     //创建一个新的测距提示
     createMeasureTooltip() {
-      let self = this
       //如果已经存在帮助提示框则移除
-      if (self.measureTooltipElement) {
-        self.measureTooltipElement.parentNode.removeChild(self.measureTooltipElement)
+      if (this.measureTooltipElement) {
+        this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement)
       }
       //创建帮助提示要素的div
-      self.measureTooltipElement = document.createElement('div')
+      this.measureTooltipElement = document.createElement('div')
       //设置帮助提示要素的样式
-      self.measureTooltipElement.className = 'ol-tooltip ol-tooltip-measure'
+      this.measureTooltipElement.className = 'tooltip tooltip-measure'
       //创建一个帮助提示的覆盖标注
-      self.measureTooltip = new Overlay({
-        element: self.measureTooltipElement,
+      this.measureTooltip = new Overlay({
+        element: this.measureTooltipElement,
         offset: [0, -15],
         positioning: 'bottom-center',
       })
       //将帮助提示的覆盖标注添加到地图中
-      self.map.addOverlay(self.measureTooltip)
+      this.map.addOverlay(this.measureTooltip)
     },
     /*输出格式几何图形的结果*/
     formatArea(polygon) {
@@ -579,7 +592,7 @@ export default {
       this.drawPicToMap(this, index % 6)
     },
 
-    //  把图片绘制到地图上去
+    // 把图片绘制到地图上去
     drawPicToMap({ imageLayer }, index) {
       let leftBottom = fromLonLat([100, 12])
       let rightTop = fromLonLat([120, 22])

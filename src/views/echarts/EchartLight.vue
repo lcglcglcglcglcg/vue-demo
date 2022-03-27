@@ -6,7 +6,8 @@
 
 <script>
 import * as echarts from 'echarts'
-// import '@/../node_modules/echarts/map/js/china.js' // 引入中国地图数据
+import 'echarts/lib/component/markLine'
+import chinaMap from './json/china.json' // 引入中国地图数据
 import { geoCoord } from './mock'
 export default {
   data() {
@@ -14,6 +15,7 @@ export default {
   },
   mounted() {
     this.myEchart = echarts.init(this.$refs.myEchart)
+    echarts.registerMap('china', { geoJSON: chinaMap })
     const option = {
       dataRange: {
         min: 0,

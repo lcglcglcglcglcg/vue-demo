@@ -5,7 +5,8 @@
 <script>
 import $ from 'jquery'
 import * as echarts from 'echarts'
-// import '@/../node_modules/echarts/map/js/china.js' // 引入中国地图数据
+// echarts版本过高，ECharts 之前提供下载的矢量地图数据来自第三方，由于部分数据不符合国家《测绘法》规定，目前暂时停止下载服务
+import chinaMap from './json/china.json' // 引入中国地图数据
 import { geoCoordMap, dataList } from './mock'
 
 export default {
@@ -22,6 +23,8 @@ export default {
       this.myEchart = echarts.init(this.$refs.myEchart)
       const url =
         'http://172.16.15.227:22704/geoserver/cors/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=cors:cors_triangle_cal_area&maxFeatures=50&outputFormat=application%2Fjson'
+      // 引入中国地图数据
+      echarts.registerMap('china', require('./json/china.json'))
       echarts.registerMap('myJson', require('./json/map.json'))
       let option = {
         tooltip: {
@@ -40,31 +43,6 @@ export default {
           },
           show: true, //图注
         },
-        // geo: {
-        //   map: 'china',
-        //   roam: true, //不开启缩放和平移
-        //   zoom: 1.23, //视角缩放比例
-        //   label: {
-        //     normal: {
-        //       show: true,
-        //       fontSize: '10',
-        //       color: 'rgba(0,0,0,0.7)',
-        //     },
-        //   },
-        //   itemStyle: {
-        //     normal: {
-        //       borderColor: 'rgba(0, 0, 0, 0.2)',
-        //     },
-        //     emphasis: {
-        //       areaColor: '#F3B329', //鼠标选择区域颜色
-        //       shadowOffsetX: 0,
-        //       shadowOffsetY: 0,
-        //       shadowBlur: 20,
-        //       borderWidth: 0,
-        //       shadowColor: 'rgba(0, 0, 0, 0.5)',
-        //     },
-        //   },
-        // },
         series: [
           {
             type: 'map',
