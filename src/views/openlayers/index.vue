@@ -9,6 +9,7 @@
         <a-button type="primary" @click="webglRenderHumidity">webgl渲染大数据</a-button>
         <!-- <a-button type="primary" @click="refreshWebgl">刷新 webgl 数据</a-button>
         <a-button type="primary" @click="timeSliceRefresh">时间切片刷新</a-button> -->
+        <a-button type="primary" @click="$router.push('/openlayers/testWind')">风速粒子场</a-button>
       </div>
       <div class="sliderBox">
         <div class="playBtn" :class="isPlay ? 'stop' : 'play'" @click="playStep"></div>

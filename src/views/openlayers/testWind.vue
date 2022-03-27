@@ -41,9 +41,9 @@ export default {
       this.windLayer = new WindLayer(gfs, {
         forceRender: false,
         windOptions: {
-          globalAlpha: 0.8,
-          velocityScale: 1 / 20,
-          paths: 1000,
+          globalAlpha: 0.4,
+          velocityScale: 1 / 10,
+          paths: 10000,
           // eslint-disable-next-line no-unused-vars
           colorScale: (m) => {
             // console.log(m)
