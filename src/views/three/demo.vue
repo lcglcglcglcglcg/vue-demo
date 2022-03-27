@@ -104,7 +104,7 @@ export default {
       cube.position.x = -10
       cube.position.y = 10
       //加载纹理
-      new THREE.TextureLoader().load('/test.jpg', (texture) => {
+      new THREE.TextureLoader().load(window.publicPath + '/test.jpg', (texture) => {
         cube.material = new THREE.MeshLambertMaterial({ map: texture })
       })
       scene.add(cube)
@@ -118,7 +118,7 @@ export default {
       sphere.position.y = 5
       sphere.position.z = 0
       //加载纹理
-      new THREE.TextureLoader().load('/test.jpg', (texture) => {
+      new THREE.TextureLoader().load(window.publicPath + '/test.jpg', (texture) => {
         sphere.material = new THREE.MeshLambertMaterial({ map: texture })
       })
       scene.add(sphere)
@@ -132,7 +132,7 @@ export default {
     load3D() {
       const loader = new GLTFLoader()
       loader.load(
-        '/vue-demo/xuerongrong.glb',
+        window.publicPath + '/xuerongrong.glb',
         (gltf) => {
           // console.log('gltf: ', gltf)
           // gltf.scene.position.set(0, 0, 0)

@@ -227,7 +227,7 @@ export default {
         StationSource = new VectorSource()
         StationLayer = new VectorLayer({
           source: StationSource,
-          style: function(feature) {
+          style: function (feature) {
             return new Style({
               fill: new Fill({
                 color: [24, 144, 255, 0.4], // 蓝色
@@ -239,7 +239,7 @@ export default {
         StationSourceLine = new VectorSource()
         StationLayerLine = new VectorLayer({
           source: StationSourceLine,
-          style: function(feature) {
+          style: function (feature) {
             return new Style({
               fill: new Fill({
                 color: [255, 202, 24, 0.4], // 橙色
@@ -251,7 +251,7 @@ export default {
         polygonSource = new VectorSource()
         polygonLayer = new VectorLayer({
           source: polygonSource,
-          style: function(feature) {
+          style: function (feature) {
             return new Style({
               stroke: new Stroke({
                 width: 6,
@@ -281,7 +281,7 @@ export default {
         setMapColor('mapServeRange')
 
         // 监听屏幕缩放事件
-        map.on('moveend', function(e) {
+        map.on('moveend', function (e) {
           let currentZoom = map.getView().getZoom() //获取当前地图的缩放级别
           if (currentZoom > 9) {
             this.isShowBig = true
@@ -301,14 +301,14 @@ export default {
         window.addEventListener('resize', this.changeSize)
         // 鼠标移动事件
         let _this = this
-        mapEvent = function(evt) {
+        mapEvent = function (evt) {
           if (evt.dragging) {
             return
           }
           // 当前点击的地图坐标点
           var pixel = map.getEventPixel(evt.originalEvent)
           // 如果当前点击地图坐标点与layer层的坐标点相交，返回该坐标点；
-          var feature = map.forEachFeatureAtPixel(pixel, function(feature, layer) {
+          var feature = map.forEachFeatureAtPixel(pixel, function (feature, layer) {
             // 过滤掉与非基准站坐标层相交的其他图层的点
             if (feature.getProperties().user_name) return feature
           })
@@ -332,7 +332,7 @@ export default {
       let featuresArr = []
       let featuresLineArr = []
 
-      this.stations.forEach(v => {
+      this.stations.forEach((v) => {
         let { l, b } = v
         featuresArr.push(turf.buffer(turf.point([l, b]), 30, { units: 'kilometers' }))
 
@@ -342,7 +342,7 @@ export default {
       console.log('featuresArr: ', featuresArr, featuresLineArr)
       // 处理相交部分
       var union1 = featuresArr[0]
-      featuresArr.forEach(ele => {
+      featuresArr.forEach((ele) => {
         try {
           union1 = turf.union(union1, ele)
         } catch (e) {}
@@ -350,7 +350,7 @@ export default {
       StationSource.addFeature(new GeoJSON().readFeature(union1))
 
       var union2 = featuresLineArr[0]
-      featuresLineArr.forEach(ele => {
+      featuresLineArr.forEach((ele) => {
         try {
           union2 = turf.union(union2, ele)
         } catch (e) {}
@@ -366,7 +366,7 @@ export default {
         type: '分类代码',
         citylimit: true,
       })
-      axios.get(`https://restapi.amap.com/v3/assistant/inputtips?${str}`).then(res => {
+      axios.get(`https://restapi.amap.com/v3/assistant/inputtips?${str}`).then((res) => {
         if (res.status !== 200) return
         this.tips = res.data.tips
       })
@@ -386,7 +386,7 @@ export default {
         params.keywords = this.tips[i].adcode
       }
       const str = Qs.stringify(params)
-      axios.get(`https://restapi.amap.com/v3/config/district?${str}`).then(res => {
+      axios.get(`https://restapi.amap.com/v3/config/district?${str}`).then((res) => {
         if (res.status !== 200) return
         const polyline = res.data.districts[0].polyline
         polygonSource.clear()
@@ -396,9 +396,9 @@ export default {
     // 处理经纬度
     handelLonLat(polyline) {
       const multipleBlockCoord = polyline.split('|')
-      multipleBlockCoord.forEach(subItem => {
+      multipleBlockCoord.forEach((subItem) => {
         let arr = []
-        subItem.split(';').forEach(item => {
+        subItem.split(';').forEach((item) => {
           let splitArr = item.split(',')
           const { lat, lon } = transGCJ2ToWGS(splitArr[1], splitArr[0])
           arr.push([lon, lat])
@@ -452,7 +452,7 @@ export default {
       this.form.county = ''
       this.countyList = []
       cover(1, v)
-        .then(res => {
+        .then((res) => {
           if (res.success) {
             let { province, cityList, stationList, countyList, triangleList } = res.result
             this.cityList = cityList
@@ -471,7 +471,7 @@ export default {
       this.form.county = ''
       this.countyList = []
       cover(2, v)
-        .then(res => {
+        .then((res) => {
           if (res.success) {
             let { city, countyList, stationList, triangleList } = res.result
             this.countyList = countyList
@@ -492,7 +492,7 @@ export default {
         return
       }
       cover(3, v)
-        .then(res => {
+        .then((res) => {
           if (res.success) {
             let { county, stationList, triangleList } = res.result
             this.addMultiPolygon(county.geom)
@@ -520,7 +520,7 @@ export default {
         this.$message.error('请输入经纬度!')
       } else {
         //172.16.15.137:22702
-        location(lon, lat).then(res => {
+        location(lon, lat).then((res) => {
           if (res.success) {
             let { county, stationList, countyList, triangleList } = res.result
             this.addMultiPolygon(county.geom)
@@ -553,7 +553,7 @@ export default {
 
     // 获取站点信息
     getStations() {
-      GetStations().then(res => {
+      GetStations().then((res) => {
         if (!res.success) return
         this.stations = res.result.stationList
         this.triangles = res.result.triangleList
@@ -564,7 +564,7 @@ export default {
   },
   mounted() {
     this.getStations()
-    cover(0).then(res => {
+    cover(0).then((res) => {
       if (res.success) {
         this.provinceList = res.result.provinceList
         this.provinceList.unshift({

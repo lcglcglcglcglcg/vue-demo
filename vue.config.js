@@ -35,6 +35,7 @@ module.exports = {
 
     // 增加three工具使用
     config.module.rules.push(
+      // three 0.129.0
       // OrbitControls.js库使用
       {
         test: require.resolve('three/examples/js/controls/OrbitControls'),

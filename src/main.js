@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+window.publicPath = process.env.NODE_ENV === 'development' ? '' : '/vue-demo' // 本地加载public资源 '/' gitee上部署的需要加入部署前缀
+
 // 引入自定义样式
 import '@/style/index.css'
 import '@/assets/less/JAreaLinkage.less'

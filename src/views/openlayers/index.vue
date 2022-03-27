@@ -5,13 +5,11 @@
         <a-button type="primary" @click="beginCalDistance('Polygon')">开始测距(划面)</a-button>
         <!-- <a-button type="primary" @click="beginCalDistance('LineString')">开始测距(划线)</a-button> -->
         <a-button type="primary" @click="cancleCalDistance">取消测距</a-button>
-
-        <!-- <button @click="startMeasure">测距</button>
-        <button @click="stopMeasure">清除</button> -->
         <a-button type="primary" @click="getHumidity">相对湿度绘制</a-button>
         <a-button type="primary" @click="webglRenderHumidity">webgl渲染大数据</a-button>
         <!-- <a-button type="primary" @click="refreshWebgl">刷新 webgl 数据</a-button>
         <a-button type="primary" @click="timeSliceRefresh">时间切片刷新</a-button> -->
+        <a-button type="primary" @click="$router.push('/openlayers/testWind')">风速粒子场</a-button>
       </div>
       <div class="sliderBox">
         <div class="playBtn" :class="isPlay ? 'stop' : 'play'" @click="playStep"></div>
@@ -96,6 +94,7 @@ export default {
     }
   },
   mounted() {
+    // 需要优化
     this.initMap()
     this.addOverlay()
     // this.drawTyphoonPath()
@@ -229,7 +228,6 @@ export default {
           ])
         }
       })
-      console.log('positions: ', positions)
       let featureLine = new Feature({
         geometry: new MultiLineString(positions),
       })
@@ -358,11 +356,11 @@ export default {
     },
     // 开始测距
     beginCalDistance(type) {
-      //调用绘图工具并传递类型为线，其他类型有Point,LineString,Polygon,Circle
-      this.onAddInteraction('Polygon')
       //创建一个新的测距提示
       this.createMeasureTooltip()
-      this.createHelpTooltip()
+      // this.createHelpTooltip()
+      //调用绘图工具并传递类型为线，其他类型有Point,LineString,Polygon,Circle
+      this.onAddInteraction(type)
     },
     // 绘图工具
     onAddInteraction(type) {
@@ -502,6 +500,7 @@ export default {
       this.map.removeInteraction(this.draw)
       this.lineSource.clear()
       let layerArr = this.map.getOverlays()
+      console.log('layerArr: ', layerArr)
       var deleteOverlayArr = []
       layerArr.forEach((item) => {
         if (item.values_.element.className === 'ol-tooltip ol-tooltip-static draw_km') {
