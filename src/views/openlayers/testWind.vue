@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       map: null,
+      gui: null,
       windLayer: null,
     }
   },
@@ -60,12 +61,13 @@ export default {
       this.map.addLayer(this.windLayer)
     },
     addDat() {
-      var gui = new dat.GUI()
-      let f = gui.addFolder('粒子效果配置')
+      if (this.gui) this.gui.destroy()
+      this.gui = new dat.GUI()
+      let f = this.gui.addFolder('粒子效果配置')
       let object = {
         // 透明度
-        globalAlpha: 0.92,
-        velocityScale: 1 / 20,
+        globalAlpha: 0.8,
+        velocityScale: 1 / 10,
         paths: 5000,
         lineWidth: 3,
         frameRate: 20,
@@ -75,10 +77,11 @@ export default {
         f.add(object, i)
           .min(minMax[0])
           .max(minMax[1])
-          .name(`中文${i}`)
+          .name(`中${i}`)
           .onFinishChange(() => {
             this.windLayer.setWindOptions(object)
           })
+          .listen() // 选项调用 listen 方法，则你改变option时，也会同步到面板里
       }
     },
     minMaxMap: function (property) {
@@ -99,6 +102,7 @@ export default {
     this.addWindLayer()
   },
   beforeDestroy() {
+    if (this.gui) this.gui.destroy()
     this.map.removeLayer(this.windLayer)
   },
 }
