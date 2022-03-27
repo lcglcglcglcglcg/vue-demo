@@ -93,6 +93,7 @@ export default {
     }
   },
   mounted() {
+    // 需要优化
     this.initMap()
     // this.drawTyphoonPath()
     this.drawTyphoonPathInterval()
@@ -197,7 +198,6 @@ export default {
           ])
         }
       })
-      console.log('positions: ', positions)
       let featureLine = new Feature({
         geometry: new MultiLineString(positions),
       })
