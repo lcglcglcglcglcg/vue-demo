@@ -41,13 +41,13 @@ export default {
       this.windLayer = new WindLayer(gfs, {
         forceRender: false,
         windOptions: {
-          globalAlpha: 0.4,
+          globalAlpha: 0.8,
           velocityScale: 1 / 10,
           paths: 10000,
           // eslint-disable-next-line no-unused-vars
           colorScale: (m) => {
             // console.log(m)
-            return 'hotpink'
+            return 'skyblue'
           },
           lineWidth: 3,
           generateParticleOption: false,
@@ -98,7 +98,9 @@ export default {
     this.addDat()
     this.addWindLayer()
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    this.map.removeLayer(this.windLayer)
+  },
 }
 </script>
 
