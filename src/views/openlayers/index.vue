@@ -41,6 +41,7 @@ import { getLength, getArea } from 'ol/sphere'
 import { unByKey } from 'ol/Observable'
 import WMTSTileGrid from 'ol/tilegrid/WMTS'
 import { getVectorContext } from 'ol/render'
+import { ScaleLine, FullScreen, Attribution, OverviewMap, defaults as defaultControls } from 'ol/control'
 
 import typhoonData from './json/typhoon.json'
 import radarData from './json/radarData.json'
@@ -61,24 +62,24 @@ export default {
   data() {
     return {
       map: null,
-      lastSolar: null,
-      lastZoomPoint: null,
-      overlay: null,
-      pointInfo: {},
-      commonInfo: {},
-      marks: {},
+      lastSolar: null, // 上一个风圈
+      lastZoomPoint: null, // 上一个缩放点
+      overlay: null, // 覆盖物
+      pointInfo: {}, // 点信息
+      commonInfo: {}, // 台风通用信息
 
-      measureTooltipElement: null,
-      measureTooltip: null,
-      helpTooltipElement: null,
-      helpTooltip: null,
+      marks: {}, // 转化的slider 数据
+
+      measureTooltipElement: null, // 测量元素
+      measureTooltip: null, // 测量信息
+      helpTooltipElement: null, // 帮助元素
+      helpTooltip: null, // 帮助信息
 
       sketch: null,
       geom: null,
       draw: null,
-      lineSource: null,
       coordinate: [],
-      lineLayer: null, //线图层
+      lineLayer: null, // 线图层
       lineSource: null,
 
       step: 0,
@@ -95,10 +96,10 @@ export default {
   mounted() {
     // 需要优化
     this.initMap()
+    this.addOverlay()
     // this.drawTyphoonPath()
     this.drawTyphoonPathInterval()
     this.designHoverOnMap()
-    this.addOverlay()
 
     this.radarDataDeal()
     this.drawPicToMap(this, 0)
@@ -107,18 +108,12 @@ export default {
   },
   methods: {
     initMap() {
-      //线的图层
-      this.lineSource = new VectorSource()
-      this.lineLayer = new VectorLayer({
-        source: this.lineSource,
-      })
       this.map = new Map({
         target: 'map',
         layers: [
           new TileLayer({
             source: new OSM(),
           }),
-          this.lineLayer,
         ],
         view: new View({
           // projection: 'EPSG:4326',
@@ -128,7 +123,24 @@ export default {
           maxZoom: 18,
           minZoom: 0,
         }),
+        controls: defaultControls({ attribution: true }).extend([
+          new Attribution(),
+          new FullScreen(),
+          new ScaleLine({ units: 'metric' }),
+        ]),
       })
+
+      // 增加线图层
+      this.addMapLayer('lineSource', 'lineLayer')
+    },
+
+    // 地图增加图层
+    addMapLayer(s, l) {
+      const source = new VectorSource()
+      const layer = new VectorLayer({ source })
+      this[s] = source
+      this[l] = layer
+      this.map.addLayer(layer)
     },
 
     // 添加叠加层

@@ -1,6 +1,6 @@
 export const featureObj = {
   // feature 类型判定
-  typeJudge: function(feature) {
+  typeJudge: function (feature) {
     if (feature.get('typhoonPoint')) {
       return 'typhoonPoint'
     } else if (feature.get('typhoonSolar')) {

@@ -72,9 +72,7 @@ export default class map {
       controls: defaultControls({ attribution: true }).extend([
         attriBution,
         new FullScreen(),
-        new ScaleLine({
-          units: 'metric',
-        }),
+        new ScaleLine({ units: 'metric' }),
       ]),
     })
     this.createLayers()
@@ -87,7 +85,7 @@ export default class map {
     this.lineString = new LineString(points, 'XY').transform('EPSG:4326', 'EPSG:3857')
     let length = this.lineString.length
     for (let i = 0; i < length; i++) {
-      this.lineString[i].forEachSegment(function(start, end) {
+      this.lineString[i].forEachSegment(function (start, end) {
         let dx = end[0] - start[0]
         let dy = end[1] - start[1]
         let rotation = Math.atan2(dy, dx)
@@ -169,7 +167,7 @@ export default class map {
       source: new VectorSource({
         features: [routeFeature, this.moveMarker, startMarker, this.endMarker],
       }),
-      style: function(feature) {
+      style: function (feature) {
         return that.styles[feature.get('type')]
       },
     })
@@ -232,12 +230,12 @@ export default class map {
     this.mapObj.on('pointermove', this.pointerFn) //监听地图的鼠标移动
     this.mapObj.getViewport().addEventListener('mouseout', this.mouseOutFn) //监听鼠标离开时的事件
     let listener
-    this.draw.on('drawstart', evt => {
+    this.draw.on('drawstart', (evt) => {
       // set sketch
       this.sketch = evt.feature
       console.log('this.sketch的值', this.sketch)
       let tooltipCoord = evt.coordinate
-      listener = this.sketch.getGeometry().on('change', evt => {
+      listener = this.sketch.getGeometry().on('change', (evt) => {
         const geom = evt.target
         let lenth = getLength(geom)
         let output
@@ -451,15 +449,15 @@ export default class map {
    * */
   createPopup(imeiId, container, content, str) {
     this.setOverlays(imeiId, container)
-    this.mapObj.on('singleclick', evt => {
-      let feature = this.mapObj.forEachFeatureAtPixel(evt.pixel, function(feature) {
+    this.mapObj.on('singleclick', (evt) => {
+      let feature = this.mapObj.forEachFeatureAtPixel(evt.pixel, function (feature) {
         return feature
       })
       if (feature) {
         console.log('@@@》', evt)
         let coordinate = evt.coordinate
         content.innerHTML = str
-        this.infoWindows.forEach(item => {
+        this.infoWindows.forEach((item) => {
           if (item.id === imeiId) {
             item.setPosition(coordinate)
           }
@@ -471,8 +469,8 @@ export default class map {
     })
   }
   mapClick() {
-    this.mapObj.on('singleclick', evt => {
-      let feature = this.mapObj.forEachFeatureAtPixel(evt.pixel, function(feature) {
+    this.mapObj.on('singleclick', (evt) => {
+      let feature = this.mapObj.forEachFeatureAtPixel(evt.pixel, function (feature) {
         return feature
       })
       if (feature) {
@@ -534,7 +532,7 @@ export default class map {
     let ele = this.parseToDOM(html)[0]
     let viewport = this.mapObj.getViewport()
     viewport.append(ele)
-    document.getElementById(`popup-closer-${id}`).onclick = function() {
+    document.getElementById(`popup-closer-${id}`).onclick = function () {
       document.getElementById(`popup-${id}`).style.display = 'none'
     }
     let infoWindow = new Overlay({
@@ -682,7 +680,7 @@ export default class map {
         layer: null,
       },
     ]
-    this.customLayersArr.forEach(item => {
+    this.customLayersArr.forEach((item) => {
       //循环创建多种图层
       let layersVal = this.setLayers(item.mapType, false)
       item.layer = layersVal
@@ -708,7 +706,7 @@ export default class map {
       projection: projection,
       tileGrid: tilegrid,
       crossOrigin: 'anonymous', //跨域
-      tileUrlFunction: function(tileCoord) {
+      tileUrlFunction: function (tileCoord) {
         if (!tileCoord) {
           return ''
         }
