@@ -4,6 +4,7 @@
 
 <script>
 import * as echarts from 'echarts'
+
 let dataPoint = [
   {
     name: '龙亭镇',
@@ -139,7 +140,7 @@ export default {
             panSensitivity: 2, //平移操作的灵敏度
             panMouseButton: 'right', //平移操作使用的鼠标按键
 
-            distance: 200, //默认视角距离主体的距离
+            distance: 300, //默认视角距离主体的距离
             center: [0, 0, 0],
 
             animation: true,
@@ -155,7 +156,7 @@ export default {
             show: true,
             zlevel: 1,
             boxWidth: 200,
-            //boxHeight: 4, //4:没有bar. 30:有bar,bar最高度30，按比例分配高度
+            boxHeight: 4, //4:没有bar. 30:有bar,bar最高度30，按比例分配高度
             regionHeight: 3,
             shading: 'lambert',
             label: {
@@ -173,7 +174,6 @@ export default {
             emphasis: {
               label: {
                 show: false,
-
                 textStyle: {
                   color: '#fff',
                   fontSize: 14,
@@ -384,4 +384,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped lang="less">
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+</style>

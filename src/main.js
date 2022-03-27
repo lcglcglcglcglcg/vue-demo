@@ -11,6 +11,9 @@ import '@/assets/less/JAreaLinkage.less'
 
 Vue.config.productionTip = false
 
+import * as echartsGL from 'echarts-gl' // 引入echarts
+Vue.prototype.$echartsGL = echartsGL // 引入组件（将echarts注册为全局）
+
 // 引入cesium
 import 'cesium/Widgets/widgets.css'
 
