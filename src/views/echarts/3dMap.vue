@@ -120,7 +120,7 @@ export default {
       this.myEchart = echarts.init(this.$refs.myEchart)
       echarts.registerMap('diyMap', require('./json/data-1598929586542-0zn9mj60y.json'))
       let option = {
-        backgroundColor: '#000f1e',
+        backgroundColor: '#fff',
         geo3D: {
           map: 'diyMap',
           show: false,
