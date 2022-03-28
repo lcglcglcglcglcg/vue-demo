@@ -161,14 +161,14 @@ export default {
         if (evt.dragging) return
         // 测距hover提示
         if (this.sketch) {
-          let helpMsg = 'Click to start drawing'
+          let helpMsg = '点击开始绘画'
           const geom = this.sketch.getGeometry()
           if (geom instanceof Polygon) {
             //几何图形的提示信息
-            helpMsg = 'Click to continue drawing the polygon'
+            helpMsg = '点击划面'
           } else if (geom instanceof LineString) {
             //线性的提示信息
-            helpMsg = 'Click to continue drawing the line'
+            helpMsg = '点击划线'
           }
           this.helpTooltipElement.innerHTML = helpMsg
           this.helpTooltip.setPosition(evt.coordinate)
@@ -266,23 +266,24 @@ export default {
           )
           featurePoint.set('typhoonPoint', true)
           featurePoint.set('pointData', points[index])
-          let radius = 0
-          layer.on('postrender', (e) => {
-            if (radius >= 10) radius = 0
-            let opacity = (10 - radius) * 0.1
-            const ctx = getVectorContext(e)
-            ctx.setStyle(
-              new Style({
-                image: new CircleStyle({
-                  radius,
-                  stroke: new Stroke({ color: `rgba(255,0,0,${opacity})` }),
-                }),
-              })
-            )
-            ctx.drawGeometry(featurePoint.getGeometry())
-            radius += 0.2
-            layer.changed()
-          })
+          // 绘制扩散点 (注释  太吃性能了)
+          // let radius = 0
+          // layer.on('postrender', (e) => {
+          //   if (radius >= 10) radius = 0
+          //   let opacity = (10 - radius) * 0.1
+          //   const ctx = getVectorContext(e)
+          //   ctx.setStyle(
+          //     new Style({
+          //       image: new CircleStyle({
+          //         radius,
+          //         stroke: new Stroke({ color: `rgba(255,0,0,${opacity})` }),
+          //       }),
+          //     })
+          //   )
+          //   ctx.drawGeometry(featurePoint.getGeometry())
+          //   radius += 0.2
+          //   layer.changed()
+          // })
           source.addFeature(featurePoint)
           // 增加风圈
           if (points[index].radius7) {
@@ -358,7 +359,7 @@ export default {
     beginCalDistance(type) {
       //创建一个新的测距提示
       this.createMeasureTooltip()
-      // this.createHelpTooltip()
+      this.createHelpTooltip()
       //调用绘图工具并传递类型为线，其他类型有Point,LineString,Polygon,Circle
       this.onAddInteraction(type)
     },
@@ -398,19 +399,14 @@ export default {
           if (this.geom instanceof Polygon) {
             output = this.formatArea(this.geom)
             tooltipCoord = this.geom.getInteriorPoint().getCoordinates()
-            this.measureTooltipElement.innerHTML = output
-            // output +
-            // `<img class="deleteLine" id="deleteLine${lengthMeasureCount}" tempimgdata="${lengthMeasureCount}" src="${deleteLineArea}" style="width: 20px;padding-left: 5px;" />`
           } else if (this.geom instanceof LineString) {
             //输出多线段的长度
             output = this.formatLength(this.geom)
             //获取多线段的最后一个点的坐标
             tooltipCoord = this.geom.getLastCoordinate()
-            //设置测量提示框的内标签为最终输出结果
-            this.measureTooltipElement.innerHTML = output
           }
-
-          this.measureTooltipElement.className = 'ol-tooltip ol-tooltip-static draw_km'
+          //设置测量提示框的内标签为最终输出结果
+          this.measureTooltipElement.innerHTML = output
           //设置测量提示框的位置坐标
           this.measureTooltip.setPosition(tooltipCoord)
         })
@@ -419,7 +415,7 @@ export default {
       //绘制结束时触发的事件
       this.draw.on('drawend', (e) => {
         // 清空再生成坐标
-        this.measureTooltipElement.className = 'tooltip tooltip-static distanceBox'
+        this.measureTooltipElement.className = 'tooltip tooltip-static'
         this.sketch = null
         this.measureTooltipElement = null
         this.createMeasureTooltip()
@@ -441,8 +437,7 @@ export default {
         this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement)
       }
       this.helpTooltipElement = document.createElement('div')
-      this.helpTooltipElement.className = 'tooltip hidden distanceBoxHidden'
-      this.helpTooltipElement.innerHTML = '请选择测距起点'
+      this.helpTooltipElement.className = 'tooltip hidden'
       this.helpTooltip = new Overlay({
         element: this.helpTooltipElement,
         offset: [15, 0],
@@ -500,10 +495,9 @@ export default {
       this.map.removeInteraction(this.draw)
       this.lineSource.clear()
       let layerArr = this.map.getOverlays()
-      console.log('layerArr: ', layerArr)
       var deleteOverlayArr = []
       layerArr.forEach((item) => {
-        if (item.values_.element.className === 'ol-tooltip ol-tooltip-static draw_km') {
+        if (item.values_.element.className.includes('tooltip')) {
           deleteOverlayArr.push(item)
         }
       })

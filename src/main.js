@@ -8,6 +8,7 @@ window.publicPath = process.env.NODE_ENV === 'development' ? '' : '/vue-demo' //
 // 引入自定义样式
 import '@/style/index.css'
 import '@/assets/less/JAreaLinkage.less'
+import '@/assets/less/common.less'
 
 Vue.config.productionTip = false
 
