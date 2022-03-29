@@ -33,7 +33,7 @@ export default {
     this.init()
     this.load3D()
     this.initControls()
-    // this.animate()
+    this.animate()
   },
   methods: {
     init() {
@@ -153,7 +153,7 @@ export default {
 
       // 如果使用animate方法时，将此函数删除
 
-      //controls.addEventListener( 'change', render );
+      // controls.addEventListener('change', this.render)
 
       // 使动画循环使用时阻尼或自转 意思是否有惯性
 
@@ -198,7 +198,6 @@ export default {
       const line = new THREE.Line(geometry, material)
 
       scene.add(line)
-      renderer.render(scene, camera)
     },
     // 文字
     createText() {
@@ -221,7 +220,6 @@ export default {
       // line
       const line = new THREE.Line(geometry, material)
       scene.add(line)
-      renderer.render(scene, camera)
     },
     animate() {
       let { controls } = this
@@ -250,7 +248,7 @@ export default {
     },
     render() {
       // 再次调用animate方法实现刷新
-      requestAnimationFrame(this.render)
+      // requestAnimationFrame(this.render)
       renderer.render(scene, camera)
     },
   },
