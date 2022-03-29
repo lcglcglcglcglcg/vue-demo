@@ -17,23 +17,21 @@ export default {
   },
   methods: {
     init() {
-      renderer = new THREE.WebGLRenderer()
-      renderer.setPixelRatio(window.devicePixelRatio)
-      renderer.setSize(window.innerWidth, window.innerHeight)
-
-      document.getElementById('page').appendChild(renderer.domElement)
+      scene = new THREE.Scene()
+      scene.add(new THREE.GridHelper(1000, 10, 0x888888, 0x444444))
 
       const aspect = window.innerWidth / window.innerHeight
-
       cameraPersp = new THREE.PerspectiveCamera(50, aspect, 0.01, 30000)
       cameraOrtho = new THREE.OrthographicCamera(-600 * aspect, 600 * aspect, 600, -600, 0.01, 30000)
       currentCamera = cameraPersp
 
+      renderer = new THREE.WebGLRenderer()
+      renderer.setPixelRatio(window.devicePixelRatio)
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      document.getElementById('page').appendChild(renderer.domElement)
+
       currentCamera.position.set(1000, 500, 1000)
       currentCamera.lookAt(0, 200, 0)
-
-      scene = new THREE.Scene()
-      scene.add(new THREE.GridHelper(1000, 10, 0x888888, 0x444444))
 
       const light = new THREE.DirectionalLight(0xffffff, 2)
       light.position.set(1, 1, 1)
@@ -45,7 +43,6 @@ export default {
 
       control = new TransformControls(currentCamera, renderer.domElement)
       control.addEventListener('change', this.render)
-
       control.addEventListener('dragging-changed', function (event) {
         orbit.enabled = !event.value
       })
@@ -53,13 +50,13 @@ export default {
       // control.setMode('scale')
       control.setSize(1.2)
 
-      const texture = new THREE.TextureLoader().load(require('./image/crate.gif'), this.render)
+      const texture = new THREE.TextureLoader().load('/image/logo.png', this.render)
       texture.anisotropy = renderer.capabilities.getMaxAnisotropy()
 
-      const geometry = new THREE.BoxGeometry(50, 50, 50)
-      const material = new THREE.MeshLambertMaterial({ color: 0x000000 })
-
+      const geometry = new THREE.BoxGeometry(100, 100, 100)
+      const material = new THREE.MeshLambertMaterial({ map: texture })
       const mesh = new THREE.Mesh(geometry, material)
+
       scene.add(mesh)
 
       control.attach(mesh)
@@ -161,7 +158,6 @@ export default {
 
     onWindowResize() {
       const aspect = window.innerWidth / window.innerHeight
-
       cameraPersp.aspect = aspect
       cameraPersp.updateProjectionMatrix()
 
@@ -170,7 +166,6 @@ export default {
       cameraOrtho.updateProjectionMatrix()
 
       renderer.setSize(window.innerWidth, window.innerHeight)
-
       this.render()
     },
     render() {

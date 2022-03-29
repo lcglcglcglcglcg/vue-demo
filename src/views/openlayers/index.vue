@@ -358,7 +358,7 @@ export default {
     beginCalDistance(type) {
       //创建一个新的测距提示
       this.createMeasureTooltip()
-      // this.createHelpTooltip()
+      this.createHelpTooltip()
       //调用绘图工具并传递类型为线，其他类型有Point,LineString,Polygon,Circle
       this.onAddInteraction(type)
     },

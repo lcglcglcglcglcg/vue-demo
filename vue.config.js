@@ -12,7 +12,8 @@ function resolve(dir) {
 module.exports = {
   lintOnSave: false,
   outputDir: 'dist',
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-demo' : '/',
+  // publicPath: process.env.NODE_ENV === 'production' ? '/vue-demo' : '/',
+  publicPath: './',
   // 如果你不需要生产环境的 source map，可以将其设置为 false 以加速生产环境构建。
   // productionSourceMap: false,
 
@@ -34,50 +35,12 @@ module.exports = {
     }
 
     // 增加three工具使用
-    config.module.rules.push(
-      // three 0.129.0
-      // OrbitControls.js库使用
-      {
-        test: require.resolve('three/examples/js/controls/OrbitControls'),
-        use: 'imports-loader?THREE=three',
-      },
-      {
-        test: require.resolve('three/examples/js/controls/OrbitControls'),
-        use: 'exports-loader?THREE.OrbitControls',
-      },
-      // TextGeometry库使用
-      // {
-      //   test: require.resolve('three/examples/js/controls/TextGeometry'),
-      //   use: 'imports-loader?THREE=three',
-      // },
-      // {
-      //   test: require.resolve('three/examples/js/controls/TextGeometry'),
-      //   use: 'exports-loader?THREE.TextGeometry',
-      // },
-      // CSS2DRenderer.js库使用
-      {
-        test: require.resolve('three/examples/js/renderers/CSS2DRenderer.js'),
-        use: 'imports-loader?THREE=three',
-      },
-      {
-        test: require.resolve('three/examples/js/renderers/CSS2DRenderer.js'),
-        use: 'exports-loader?THREE.CSS2DRenderer',
-      },
-      // OBJLoader.js库使用
-      {
-        test: require.resolve('three/examples/js/loaders/OBJLoader.js'),
-        use: 'imports-loader?THREE=three',
-      },
-      {
-        test: require.resolve('three/examples/js/loaders/OBJLoader.js'),
-        use: 'exports-loader?THREE.OBJLoader',
-      }
-    )
+    // config.module.rules.push()
   },
   chainWebpack: (config) => {
     config.resolve.alias.set('@$', resolve('src')).set('@api', resolve('src/api'))
 
-    // 生产环境，开启js\css压缩
+    // 生产环境，开启js\css压缩  需要开启服务器gzip配置
     if (process.env.NODE_ENV === 'production') {
       // config.plugin('compressionPlugin').use(
       //   new CompressionPlugin({
