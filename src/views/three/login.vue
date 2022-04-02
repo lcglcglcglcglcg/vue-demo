@@ -486,6 +486,7 @@ export default {
         username: this.formField.user,
         verifyCode: this.formField.code,
       }
+      this.$router.push('/home/index')
       console.log('params: ', params)
       // 提交登陆请求
     },
