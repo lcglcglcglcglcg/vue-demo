@@ -150,59 +150,36 @@ export default {
     // 控件
     initControls() {
       controls = new OrbitControls(camera, renderer.domElement)
-
-      // 如果使用animate方法时，将此函数删除
-
-      // controls.addEventListener('change', this.render)
-
       // 使动画循环使用时阻尼或自转 意思是否有惯性
-
       controls.enableDamping = true
-
       //动态阻尼系数 就是鼠标拖拽旋转灵敏度
-
       //controls.dampingFactor = 0.25;
-
       //是否可以缩放
-
       controls.enableZoom = true
-
       //是否自动旋转
-
       controls.autoRotate = true
-
       //设置相机距离原点的最远距离
-
       controls.minDistance = 50
-
       //设置相机距离原点的最远距离
-
       controls.maxDistance = 1000
-
       //是否开启右键拖拽
-
       controls.enablePan = true
     },
     // 画线
     drawLine() {
       // 创建材质
       const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
-
       const points = []
       points.push(new THREE.Vector3(0, 0, 0))
       points.push(new THREE.Vector3(0, 10, 0))
       points.push(new THREE.Vector3(10, 0, 0))
-
       const geometry = new THREE.BufferGeometry().setFromPoints(points)
-
       const line = new THREE.Line(geometry, material)
-
       scene.add(line)
     },
     // 文字
     createText() {
       const MAX_POINTS = 500
-
       // geometry
       const geometry = new THREE.BufferGeometry()
 
