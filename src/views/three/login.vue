@@ -319,16 +319,17 @@ export default {
       })
       const tube = new THREE.Mesh(tubeGeometry, tubeMaterial)
       scene.add(tube)
-      const clondGeometry = new THREE.PlaneGeometry(geometryWidth, geometryHeigh)
+
+      const cloudGeometry = new THREE.PlaneGeometry(geometryWidth, geometryHeigh)
       const textureLoader = new THREE.TextureLoader()
       const cloudTexture = textureLoader.load(require('./images/cloud.png'))
-      const clondMaterial = new THREE.MeshBasicMaterial({
+      const cloudMaterial = new THREE.MeshBasicMaterial({
         map: cloudTexture,
         blending: THREE.AdditiveBlending,
         depthTest: false,
         transparent: true,
       })
-      const cloud = new THREE.Mesh(clondGeometry, clondMaterial)
+      const cloud = new THREE.Mesh(cloudGeometry, cloudMaterial)
       scene.add(cloud)
       return {
         cloud,

@@ -37,6 +37,13 @@ export default {
           three: true,
         },
         {
+          path: '/houseViewer/index',
+          title: '360°看房场景',
+          description: 'three实现3D看房场景',
+          image: require('./images/echarts.png'),
+          three: true,
+        },
+        {
           path: '/echarts/index',
           title: 'echarts',
           description: 'echarts组件问题记录封装',
