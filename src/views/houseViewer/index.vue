@@ -48,7 +48,7 @@ export default {
               position: { x: -100, y: 0, z: -231 },
               content: {
                 title: '信息点2',
-                text: '77989',
+                text: '画框',
                 showTip: true,
                 showTitle: false,
               },
@@ -57,7 +57,7 @@ export default {
               position: { x: 150, y: -50, z: -198 },
               content: {
                 title: '信息点3',
-                text: 'qwdcz',
+                text: '台灯',
                 showTip: true,
                 showTitle: false,
               },
@@ -66,7 +66,7 @@ export default {
               position: { x: 210, y: 11, z: -140 },
               content: {
                 title: '信息点4',
-                text: '大豆食心虫侦察十大大苏打大大大大大大大',
+                text: '客厅壁画',
                 showTip: true,
                 showTitle: false,
               },
@@ -75,7 +75,7 @@ export default {
               position: { x: 208, y: -12, z: 140 },
               content: {
                 title: '信息点5',
-                text: 'eq',
+                text: '高清电视机',
                 showTip: true,
                 showTitle: false,
               },
@@ -127,6 +127,10 @@ export default {
     initCamera(element) {
       this.camera = new THREE.PerspectiveCamera(45, element.clientWidth / element.clientHeight, 0.1, 1000)
       this.camera.position.set(50, 0, 40)
+
+      // const helper = new THREE.CameraHelper(this.camera)
+      // helper.update()
+      // this.scene.add(helper)
     },
     initControls(element) {
       this.controls = new OrbitControls(this.camera, element)
@@ -141,7 +145,7 @@ export default {
     },
     initContent(index = 0) {
       let sphereGeometry = new THREE.SphereGeometry(16, 50, 50)
-      // sphereGeometry.scale(16, 16, -16)
+      sphereGeometry.scale(16, 16, -16)
       let texture = new THREE.TextureLoader().load(this.dataList[index].image)
       let sphereMaterial = new THREE.MeshBasicMaterial({ map: texture })
       this.sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
@@ -155,10 +159,10 @@ export default {
       this.dataList[index].tipsList.forEach((item) => {
         let sprite = new THREE.Sprite(material)
         sprite.scale.set(10, 10, 10)
-        sprite.position.set(item.position.x, item.position.y, item.position.z)
-        sprite.content = item.content
-        this.tipsSpriteList.push(sprite)
-        this.scene.add(sprite)
+        sprite.position.set(item.position.x, item.position.y, item.position.z) // 设置标签位置
+        sprite.content = item.content // 设置标签内容
+        this.tipsSpriteList.push(sprite) // 储存标签
+        this.scene.add(sprite) // 添加到场景中
       })
     },
     changeContentAndtips(index) {
@@ -178,6 +182,7 @@ export default {
     render() {
       this.controls.update()
       this.renderer.render(this.scene, this.camera)
+      // 定义渲染器是否应对对象进行排序。默认是true.
       this.renderer.sortObjects = false
       this.timer = requestAnimationFrame(this.render)
       this.time.value += 0.015

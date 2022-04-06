@@ -40,7 +40,7 @@ export default {
           path: '/houseViewer/index',
           title: '360°看房场景',
           description: 'three实现3D看房场景',
-          image: require('./images/echarts.png'),
+          image: require('./images/houseViewer.png'),
           three: true,
         },
         {
