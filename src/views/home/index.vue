@@ -44,6 +44,13 @@ export default {
           three: true,
         },
         {
+          path: '/three/fullMv',
+          title: '3d视频展示',
+          description: '3d视频展示',
+          image: require('./images/car1.png'),
+          three: true,
+        },
+        {
           path: '/echarts/index',
           title: 'echarts',
           description: 'echarts组件问题记录封装',

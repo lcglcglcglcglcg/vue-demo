@@ -442,7 +442,7 @@ export default {
     initRenderer() {
       // 开启抗锯齿
       // 在 css 中设置背景色透明显示渐变色
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true })
       // 定义渲染器的尺寸；在这里它会填满整个屏幕
       renderer.setSize(width, height)
       renderer.shadowMap.enabled = true
