@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Album />
     <div class="menu">
       <h1>我的项目</h1>
       <ul class="content">
@@ -81,6 +82,7 @@ export default {
   min-height: 100vh;
   background-color: black;
   background-size: 100%;
+  position: relative;
   .menu {
     width: 80%;
     margin: 0 auto;

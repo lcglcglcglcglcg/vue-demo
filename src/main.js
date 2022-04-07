@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// import './config'
 
 window.publicPath = process.env.NODE_ENV === 'development' ? '' : '/vue-demo' // 本地加载public资源 '/' gitee上部署的需要加入部署前缀
 

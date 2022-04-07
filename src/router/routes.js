@@ -7,6 +7,4 @@ function importPages(r) {
   })
 }
 
-console.log(routes, 'routes')
-
 export default routes
