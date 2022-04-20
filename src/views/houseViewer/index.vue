@@ -85,6 +85,7 @@ export default {
               content: {
                 title: '进入房间',
                 text: '',
+                image: 2,
                 showTip: false,
                 showTitle: true,
               },
@@ -98,6 +99,21 @@ export default {
               position: { x: -199, y: -24, z: 145 },
               content: {
                 title: '进入大厅',
+                text: '',
+                image: 0,
+                showTip: false,
+                showTitle: true,
+              },
+            },
+          ],
+        },
+        {
+          image: require('./image/kitchen.jpg'),
+          tipsList: [
+            {
+              position: { x: -199, y: -24, z: 145 },
+              content: {
+                title: '房间进入大厅',
                 text: '',
                 image: 0,
                 showTip: false,

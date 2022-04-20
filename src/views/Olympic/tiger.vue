@@ -58,7 +58,7 @@ export default {
       let _this = this
       // 创建场景
       scene = new THREE.Scene()
-      // scene.background = new THREE.TextureLoader().load(bgTexture)
+      scene.background = new THREE.TextureLoader().load(bgTexture)
       // 增加雾
       scene.fog = new THREE.Fog(0xdddddd, 100, 120)
 
@@ -109,7 +109,7 @@ export default {
       const cubeMaterial = new THREE.MeshLambertMaterial({ color: 0xdc161a })
       const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
       cube.position.set(0, 0, 0)
-      scene.add(cube)
+      // scene.add(cube)
 
       light = new THREE.DirectionalLight(0xffffff, 1)
       light.intensity = 1
@@ -124,10 +124,10 @@ export default {
       light.shadow.camera.right = 80
       scene.add(light)
 
-      const lightHelper = new THREE.DirectionalLightHelper(light, 1, 'red')
-      scene.add(lightHelper)
-      const lightCameraHelper = new THREE.CameraHelper(light.shadow.camera)
-      scene.add(lightCameraHelper)
+      // const lightHelper = new THREE.DirectionalLightHelper(light, 1, 'red')
+      // scene.add(lightHelper)
+      // const lightCameraHelper = new THREE.CameraHelper(light.shadow.camera)
+      // scene.add(lightCameraHelper)
     },
 
     onWindowResize() {

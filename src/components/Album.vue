@@ -8,43 +8,43 @@
       <div class="cube">
         <!--前面图片 -->
         <div class="out_front">
-          <img src="img/img01.jpg " class="pic" />
+          <img :src="imgPre + '/image0.png'" class="pic" />
         </div>
         <!--后面图片 -->
         <div class="out_back">
-          <img src="img/img02.jpg" class="pic" />
+          <img :src="imgPre + '/image1.png'" class="pic" />
         </div>
         <!--左图片 -->
         <div class="out_left">
-          <img src="img/img03.jpg" class="pic" />
+          <img :src="imgPre + '/image2.png'" class="pic" />
         </div>
         <div class="out_right">
-          <img src="img/img04.jpg" class="pic" />
+          <img :src="imgPre + '/image3.png'" class="pic" />
         </div>
         <div class="out_top">
-          <img src="img/img05.jpg" class="pic" />
+          <img :src="imgPre + '/image4.png'" class="pic" />
         </div>
         <div class="out_bottom">
-          <img src="img/img06.jpg" class="pic" />
+          <img :src="imgPre + '/image5.png'" class="pic" />
         </div>
         <!--小正方体 -->
         <span class="in_front">
-          <img src="img/img07.jpg" class="in_pic" />
+          <img :src="imgPre + '/image3.png'" class="in_pic" />
         </span>
         <span class="in_back">
-          <img src="img/img08.jpg" class="in_pic" />
+          <img :src="imgPre + '/image5.png'" class="in_pic" />
         </span>
         <span class="in_left">
-          <img src="img/img09.jpg" class="in_pic" />
+          <img :src="imgPre + '/image4.png'" class="in_pic" />
         </span>
         <span class="in_right">
-          <img src="img/img10.jpg" class="in_pic" />
+          <img :src="imgPre + '/image0.png'" class="in_pic" />
         </span>
         <span class="in_top">
-          <img src="img/img11.jpg" class="in_pic" />
+          <img :src="imgPre + '/image1.png'" class="in_pic" />
         </span>
         <span class="in_bottom">
-          <img src="img/img12.jpg" class="in_pic" />
+          <img :src="imgPre + '/image2.png'" class="in_pic" />
         </span>
       </div>
     </div>
@@ -56,12 +56,13 @@ import config from '@/config/common'
 export default {
   data() {
     return {
-      imgs: [
-        '/images/openlayer/image0.png',
-        '/images/openlayer/image1.png',
-        '/images/openlayer/image3.png',
-        '/images/openlayer/image4.png',
-      ],
+      imgPre: config.imgUrlPrefix + '/images/openlayer',
+      // imgs: [
+      //   '/images/openlayer/image0.png',
+      //   '/images/openlayer/image1.png',
+      //   '/images/openlayer/image3.png',
+      //   '/images/openlayer/image4.png',
+      // ],
     }
   },
   mounted() {
@@ -78,7 +79,7 @@ export default {
   background: linear-gradient(#ff6666 20%, #336699 100%);
   .wrap {
     width: 200px;
-    margin: 150px auto;
+    margin: 20px auto;
     position: relative;
   }
   .cube {
@@ -92,39 +93,39 @@ export default {
   }
   .cube div {
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     opacity: 0.8;
     transition: all 0.4s;
   }
   /*定义所有图片样式*/
   .pic {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
   }
   .cube .out_front {
-    transform: rotateY(0deg) translateZ(100px);
+    transform: rotateY(0deg) translateZ(50px);
   }
   .cube .out_back {
-    transform: translateZ(-100px) rotateY(180deg);
+    transform: translateZ(-50px) rotateY(180deg);
   }
   .cube .out_left {
-    transform: rotateY(90deg) translateZ(100px);
+    transform: rotateY(90deg) translateZ(50px);
   }
   .cube .out_right {
-    transform: rotateY(-90deg) translateZ(100px);
+    transform: rotateY(-90deg) translateZ(50px);
   }
   .cube .out_top {
-    transform: rotateX(90deg) translateZ(100px);
+    transform: rotateX(90deg) translateZ(50px);
   }
   .cube .out_bottom {
-    transform: rotateX(-90deg) translateZ(100px);
+    transform: rotateX(-90deg) translateZ(50px);
   }
   /*定义小正方体样式*/
   .cube span {
     display: bloack;
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     top: 50px;
     left: 50px;
@@ -153,22 +154,22 @@ export default {
   }
   /*鼠标移入后样式*/
   .cube:hover .out_front {
-    transform: rotateY(0deg) translateZ(200px);
+    transform: rotateY(0deg) translateZ(100px);
   }
   .cube:hover .out_back {
-    transform: translateZ(-200px) rotateY(180deg);
+    transform: translateZ(-100px) rotateY(180deg);
   }
   .cube:hover .out_left {
-    transform: rotateY(90deg) translateZ(200px);
+    transform: rotateY(90deg) translateZ(100px);
   }
   .cube:hover .out_right {
-    transform: rotateY(-90deg) translateZ(200px);
+    transform: rotateY(-90deg) translateZ(100px);
   }
   .cube:hover .out_top {
-    transform: rotateX(90deg) translateZ(200px);
+    transform: rotateX(90deg) translateZ(100px);
   }
   .cube:hover .out_bottom {
-    transform: rotateX(-90deg) translateZ(200px);
+    transform: rotateX(-90deg) translateZ(100px);
   }
   .hovertreeinfo {
     text-align: center;
