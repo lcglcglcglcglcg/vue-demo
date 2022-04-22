@@ -4,17 +4,17 @@
       <h2>松隆子</h2>
     </div>
     <div class="wrap">
+      <audio id="audio" class="audio" src="../assets/杨千嬅 - 捞月亮的人 (Live).mp3" muted autoplay controls loop>
+        捞月亮的人
+      </audio>
       <!--	/*包裹所有元素的容器*/-->
       <div class="cube">
-        <!--前面图片 -->
         <div class="out_front">
           <img :src="imgPre + '/image0.png'" class="pic" />
         </div>
-        <!--后面图片 -->
         <div class="out_back">
           <img :src="imgPre + '/image1.png'" class="pic" />
         </div>
-        <!--左图片 -->
         <div class="out_left">
           <img :src="imgPre + '/image2.png'" class="pic" />
         </div>
@@ -65,14 +65,13 @@ export default {
       // ],
     }
   },
-  mounted() {
-    console.log('this.config: ', config)
-  },
+  mounted() {},
 }
 </script>
 
 <style lang="less" scoped>
 .album {
+  z-index: 100;
   position: absolute;
   right: 0;
   top: 0;
@@ -81,22 +80,28 @@ export default {
     width: 200px;
     margin: 20px auto;
     position: relative;
+    .audio {
+      width: 100%;
+      height: 30px;
+    }
   }
   .cube {
     width: 200px;
     height: 200px;
-    margin: 0 auto;
+    // margin: 0 auto;
     transform-style: preserve-3d;
     transform: rotateX(-30deg) rotateY(-80deg);
-    -webkit-animation: rotate 20s infinite;
+    animation: rotate 20s infinite;
     animation-timing-function: linear;
   }
   .cube div {
     position: absolute;
+    top: 50px;
+    left: 50px;
     width: 100px;
     height: 100px;
-    opacity: 0.8;
-    transition: all 0.4s;
+    // opacity: 0.8;
+    // transition: all 0.4s;
   }
   /*定义所有图片样式*/
   .pic {
@@ -124,8 +129,8 @@ export default {
   /*定义小正方体样式*/
   .cube span {
     display: bloack;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     position: absolute;
     top: 50px;
     left: 50px;
