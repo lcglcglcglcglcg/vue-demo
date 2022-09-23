@@ -156,6 +156,10 @@ export default {
       })
     },
 
+    init() {
+      // let scene =
+    },
+
     onWindowResize() {
       const aspect = window.innerWidth / window.innerHeight
       cameraPersp.aspect = aspect

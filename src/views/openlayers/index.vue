@@ -13,14 +13,7 @@
       </div>
       <div class="sliderBox">
         <div class="playBtn" :class="isPlay ? 'stop' : 'play'" @click="playStep"></div>
-        <a-slider
-          class="slider"
-          :tipFormatter="formatTooltip"
-          :marks="marks"
-          :step="step"
-          v-model="playVal"
-          @change="sliderChange"
-        />
+        <a-slider class="slider" :tipFormatter="formatTooltip" :marks="marks" :step="step" v-model="playVal" @change="sliderChange" />
       </div>
     </div>
     <Popup ref="Popup" :info="pointInfo" :commonInfo="commonInfo" />
