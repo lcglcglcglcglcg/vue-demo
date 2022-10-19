@@ -5,7 +5,7 @@ const cesiumSource = 'node_modules/cesium/Source'
 const cesiumWorkers = '../Build/Cesium/Workers'
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
@@ -86,6 +86,14 @@ module.exports = {
         target: 'http://d1.weather.com.cn/newwebgis/radar', // 请求本地 需要jeecg-boot后台项目
         ws: false,
         changeOrigin: true,
+      },
+      '/test': {
+        target: 'https://pnt.10086.cn/ppk/v2', // 请求本地 需要jeecg-boot后台项目
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '/test': ''  //默认所有请求都加了jeecg-boot前缀，需要去掉
+        }
       },
     },
   },
