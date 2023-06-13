@@ -64,7 +64,7 @@ export default class map {
   }
 
   /*地图初始化*/
-  init() {
+  init () {
     let attriBution = new Attribution({})
     this.mapObj = new Map({
       target: this.targetEle,
@@ -80,7 +80,7 @@ export default class map {
   }
 
   /*创建轨迹地图*/
-  createTrackMap(points, iconPath) {
+  createTrackMap (points, iconPath) {
     this.points = points
     this.lineString = new LineString(points, 'XY').transform('EPSG:4326', 'EPSG:3857')
     let length = this.lineString.length
@@ -175,7 +175,7 @@ export default class map {
     this.viewExtent(points[0])
   }
   /*创建可以绘制多边形的地图*/
-  createPolygonMap() {
+  createPolygonMap () {
     this.init() //初始化地图
     this.createLayers() //为地图设置多图层
     this.source = new VectorSource({ wrapX: false })
@@ -186,7 +186,7 @@ export default class map {
     this.addInteraction('LineString')
   }
 
-  createPopupMap() {
+  createPopupMap () {
     this.init()
     this.markerLayer = new VectorLayer({
       source: new VectorSource({
@@ -198,7 +198,7 @@ export default class map {
   }
 
   /*为地图添加矢量图层*/
-  addInteraction(drawType) {
+  addInteraction (drawType) {
     this.draw = new Draw({
       source: this.source,
       type: drawType,
@@ -264,13 +264,13 @@ export default class map {
   }
 
   /*在地图上绘制多边形*/
-  drawPolygon(drawType) {
+  drawPolygon (drawType) {
     this.mapObj.removeInteraction(this.draw) //先移除上一次的draw
     this.addInteraction(drawType) //再创建draw
   }
 
   /*转换中心点*/
-  transformCenter() {
+  transformCenter () {
     let view = new View({
       center: new Point(this.center).transform('EPSG:4326', 'EPSG:3857').getCoordinates(),
       zoom: this.zoom,
@@ -281,7 +281,7 @@ export default class map {
   }
 
   /*播放轨迹*/
-  playTrack(speedRef) {
+  playTrack (speedRef) {
     if (this.animating) {
       //关闭轨迹动画
       this.stopTrack(true)
@@ -297,7 +297,7 @@ export default class map {
     }
   }
   /*移动轨迹事件*/
-  moveTrack(event) {
+  moveTrack (event) {
     let vectorContext = getVectorContext(event)
     if (this.animating) {
       this.speedVal += this.speedObj.value
@@ -320,7 +320,7 @@ export default class map {
     }
   }
   /*停止轨迹播放*/
-  stopTrack() {
+  stopTrack () {
     if (this.animating) {
       this.index = 0
       this.speedVal = 0
@@ -335,7 +335,7 @@ export default class map {
    * projection:"EPSG:3857",//使用这个坐标系
    * projection: "EPSG:4326",//使用这个坐标系
    * */
-  getView() {
+  getView () {
     let view = new View({
       // projection: "EPSG:4326",//使用这个坐标系
       center: transform(this.center, 'EPSG:4326', 'EPSG:3857'),
@@ -347,11 +347,11 @@ export default class map {
     return view
   }
   /*创建一个经纬度(坐标点)*/
-  getPoint(point) {
+  getPoint (point) {
     return new Point(point).transform('EPSG:4326', 'EPSG:3857')
   }
   /*视野自适应*/
-  viewExtent(ponit) {
+  viewExtent (ponit) {
     try {
       let transformPoint = this.getPoint(ponit).getCoordinates()
       let extent = new boundingExtent([transformPoint])
@@ -369,7 +369,7 @@ export default class map {
   向地图中添加遮盖物
  * @container {Object} 为某个Dom元素添加遮罩层
  * */
-  setOverlays(imei, container) {
+  setOverlays (imei, container) {
     let overlay = new Overlay({
       id: imei,
       element: container, //在某个元素上面添加这个图层
@@ -384,7 +384,7 @@ export default class map {
     return overlay
   }
   /* 创建Marker标注*/
-  createMarker(id, point, url) {
+  createMarker (id, point, url) {
     let marker = new Feature({
       geometry: this.getPoint(point),
     })
@@ -400,7 +400,7 @@ export default class map {
     return marker
   }
   /*  获取一个标记*/
-  getMarker(id, point, url) {
+  getMarker (id, point, url) {
     let marker = this.findMarker(id)
     if (marker) {
       if (point) {
@@ -412,7 +412,7 @@ export default class map {
     }
   }
   /* 设置标记*/
-  setMarker(id, point) {
+  setMarker (id, point) {
     let marker = this.findMarker(id)
     if (marker) {
       if (point) {
@@ -422,11 +422,11 @@ export default class map {
     }
   }
   /*查找标记*/
-  findMarker(id) {
+  findMarker (id) {
     let marker = this.markerLayer.getSource().getFeatureById(id)
     return marker
   }
-  setPopup(id, point, htmlContent) {
+  setPopup (id, point, htmlContent) {
     let infoWindow = this.findPopup(id)
     if (infoWindow) {
       if (point != null) {
@@ -447,7 +447,7 @@ export default class map {
    * @content {Obj} 向某个Dom元素里添加标签
    * @callback {Fun} 自定义popup中有哪些标签的函数
    * */
-  createPopup(imeiId, container, content, str) {
+  createPopup (imeiId, container, content, str) {
     this.setOverlays(imeiId, container)
     this.mapObj.on('singleclick', (evt) => {
       let feature = this.mapObj.forEachFeatureAtPixel(evt.pixel, function (feature) {
@@ -468,7 +468,7 @@ export default class map {
       }
     })
   }
-  mapClick() {
+  mapClick () {
     this.mapObj.on('singleclick', (evt) => {
       let feature = this.mapObj.forEachFeatureAtPixel(evt.pixel, function (feature) {
         return feature
@@ -480,7 +480,7 @@ export default class map {
     })
   }
   /*获取一个信息窗体*/
-  getInfoWindow(id, point, htmlContent) {
+  getInfoWindow (id, point, htmlContent) {
     let infoWindow = this.findInfoWindow(id)
     let transformPoint = this.getPoint(point)
     if (infoWindow) {
@@ -493,7 +493,7 @@ export default class map {
     this.mapClick()
   }
   /* 设置信息窗体*/
-  setInfoWindow(id, point, htmlContent) {
+  setInfoWindow (id, point, htmlContent) {
     let infoWindow = this.findInfoWindow(id)
     if (infoWindow) {
       if (point) {
@@ -509,7 +509,7 @@ export default class map {
     }
   }
   /*查询信息窗体*/
-  findInfoWindow(id) {
+  findInfoWindow (id) {
     for (let i = 0; i < this.infoWindows.length; i++) {
       let infoWindow = this.infoWindows[i]
       if (infoWindow.id == id) {
@@ -518,13 +518,13 @@ export default class map {
     }
     return null
   }
-  parseToDOM(str) {
+  parseToDOM (str) {
     var div = document.createElement('div')
     if (typeof str == 'string') div.innerHTML = str
     return div.childNodes
   }
   /*创建信息窗体*/
-  createInfoWindow(id, point, htmlContent) {
+  createInfoWindow (id, point, htmlContent) {
     let html = `<div id="popup-${id}" class="ol-popup" style="display:none;">
         <a href="javascript:void(0)" id="popup-closer-${id}" class="ol-popup-closer" @click.stop="closePopup"></a>
         <div id="popup-content-${id}" class="popup-content">${htmlContent}</div>
@@ -547,7 +547,7 @@ export default class map {
     return infoWindow
   }
   /* 移除信息窗体*/
-  removeInfoWindow(id) {
+  removeInfoWindow (id) {
     for (let i = 0; i < this.infoWindows.length; i++) {
       let infoWindow = this.infoWindows[i]
       if (infoWindow.id == id) {
@@ -556,7 +556,7 @@ export default class map {
     }
   }
   /*移除一个marker*/
-  removeMarkerAndOverLayer(imeiId) {
+  removeMarkerAndOverLayer (imeiId) {
     let hasMarker = this.findMarker(imeiId)
     if (hasMarker) {
       this.markerLayer.getSource().removeFeature(hasMarker)
@@ -564,18 +564,18 @@ export default class map {
     }
   }
   /*移除所有marker*/
-  removeAllMarker() {
+  removeAllMarker () {
     this.markerLayer.getSource().clear()
   }
   /* 设置地图中心点*/
-  setCenterAndZoom(point, zoom) {
+  setCenterAndZoom (point, zoom) {
     if (zoom) {
       this.mapObj.getView().setZoom(zoom)
     }
     this.center = point
   }
   /*获取不同类型的地图图层*/
-  setLayers(mapType, visible) {
+  setLayers (mapType, visible) {
     let path = ''
     let descript = ''
     let customLayers = null
@@ -616,7 +616,7 @@ export default class map {
   }
 
   /*加载除百度地图以外的地图资源*/
-  setMapSource(url, str, visible) {
+  setMapSource (url, str, visible) {
     return new TileLayer({
       visible,
       source: new XYZ({
@@ -626,7 +626,7 @@ export default class map {
     })
   }
   /*为地图设置鹰眼*/
-  addThumbnailsControl() {
+  addThumbnailsControl () {
     this.mapObj.addControl(
       new OverviewMap({
         layers: [
@@ -640,7 +640,7 @@ export default class map {
   }
 
   /*根据图层的类型切换图层*/
-  toggleMap(mapType) {
+  toggleMap (mapType) {
     let num = this.customLayersArr.length
     for (let i = 0; i < num; i++) {
       this.customLayersArr[i].layer.setVisible(false)
@@ -651,7 +651,7 @@ export default class map {
   }
 
   /*创建多种地图资源*/
-  createLayers() {
+  createLayers () {
     this.customLayersArr = [
       { mapType: 'gaoDeMap', redress: '1', showText: 'Gaode Map', layer: null },
       {
@@ -688,7 +688,7 @@ export default class map {
   }
 
   /*加载百度地图资源*/
-  baiduSource(mapType, visible) {
+  baiduSource (mapType, visible) {
     let projection = get('EPSG:4326')
     let resolutions = []
     for (let i = 0; i < 19; i++) {
@@ -738,7 +738,7 @@ export default class map {
   }
 
   /*点的移动处理*/
-  pointerMoveHandler(evt) {
+  pointerMoveHandler (evt) {
     console.log('我是移动时的函数')
     if (evt.dragging) {
       return
@@ -760,12 +760,12 @@ export default class map {
   }
 
   /*鼠标按下的操作*/
-  mouseoutHandler() {
+  mouseoutHandler () {
     this.helpTooltipElement.classList.add('hidden')
   }
 
   /*创建测量提示工具*/
-  createMeasureTooltip(map) {
+  createMeasureTooltip (map) {
     if (this.measureTooltipElement && this.measureTooltipElement.parentNode) {
       this.measureTooltipElement.parentNode.removeChild(this.measureTooltipElement)
     }
@@ -780,7 +780,7 @@ export default class map {
   }
 
   /*创建帮助提示工具*/
-  createHelpTooltip(map) {
+  createHelpTooltip (map) {
     if (this.helpTooltipElement && this.helpTooltipElement.parentNode) {
       this.helpTooltipElement.parentNode.removeChild(this.helpTooltipElement)
     }
@@ -795,7 +795,7 @@ export default class map {
   }
 
   /*输出格式几何图形的结果*/
-  formatArea(polygon) {
+  formatArea (polygon) {
     let area = getArea(polygon)
     let output = ''
     if (area > 10000) {
@@ -807,7 +807,7 @@ export default class map {
   }
 
   /*输出绘制线性结果*/
-  formatLength(line) {
+  formatLength (line) {
     let length = getLength(line, { projection: 'EPSG:4326' })
     let output = ''
     if (length > 100) {
@@ -818,7 +818,7 @@ export default class map {
     return output
   }
   /*反地址解析*/
-  async getGeocoderAddress(lat, lng, mapType, callback) {
+  async getGeocoderAddress (lat, lng, mapType, callback) {
     let key = ''
     if (mapType == 'googleMap') {
       let str = mapType.toLowerCase()
@@ -849,7 +849,7 @@ export default class map {
     }
   }
   /*地址解析*/
-  async getGeocoderPointByAddress(address, callback) {
+  async getGeocoderPointByAddress (address, callback) {
     let key = 'AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM'
     let { data } = locationAnalysis(address, key)
   }

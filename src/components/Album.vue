@@ -1,7 +1,7 @@
 <template>
   <div class="album">
     <div class="hovertreeinfo">
-      <h2>松隆子</h2>
+      <!-- <h2>松隆子</h2> -->
     </div>
     <div class="wrap">
       <audio id="audio" class="audio" src="../assets/杨千嬅 - 捞月亮的人 (Live).mp3" muted autoplay controls loop>

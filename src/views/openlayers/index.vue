@@ -50,6 +50,7 @@ import Popup from './modules/Popup'
 const prefix = 'http://lcglcglcg.gitee.io/image_bed'
 // 定义变量
 let helpTooltipElement, helpTooltip
+let webglSource, webglLayer
 
 export default {
   components: { Popup },
@@ -685,23 +686,30 @@ export default {
           src: 'image/logo.png',
           size: [18, 28],
           rotateWithView: false,
+          text: new Text({
+            text: 564 + '%',
+            fill: new Fill({
+              color: '#fff',
+            }),
+          }),
         },
       }
       let data = humidityData.data
       const len = data.length
-      const source = new VectorSource()
+      webglSource && webglSource.clear()
+      webglSource = new VectorSource()
       let features = []
       for (let i = 0; i < len; i++) {
         const coords = fromLonLat([data[i].x, data[i].y])
         features.push(new Feature({ geometry: new Point(coords) }))
       }
-      source.addFeatures(features)
-      const layer = new WebGLPointsLayer({
-        source,
+      webglSource.addFeatures(features)
+      webglLayer = new WebGLPointsLayer({
+        source: webglSource,
         style,
         disableHitDetection: false,
       })
-      this.map.addLayer(layer)
+      this.map.addLayer(webglLayer)
     },
 
     // refresh webgl

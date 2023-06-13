@@ -4,10 +4,10 @@ import routes from './routes'
 
 try {
   const originalPush = Router.prototype.push
-  Router.prototype.push = function push(location) {
+  Router.prototype.push = function push (location) {
     return originalPush.call(this, location).catch((err) => err)
   }
-} catch (e) {}
+} catch (e) { }
 
 Vue.use(VueRouter)
 

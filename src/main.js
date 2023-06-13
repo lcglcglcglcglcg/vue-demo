@@ -6,10 +6,6 @@ import store from './store'
 
 window.publicPath = process.env.NODE_ENV === 'development' ? '' : '/vue-demo' // 本地加载public资源 '/' gitee上部署的需要加入部署前缀
 
-// 引入自定义样式
-import '@/style/index.css'
-import '@/assets/less/JAreaLinkage.less'
-import '@/assets/less/common.less'
 
 Vue.config.productionTip = false
 
@@ -21,6 +17,9 @@ import 'cesium/Widgets/widgets.css'
 
 // 引入ant-design-vue
 import '@/plugins/antd'
+
+// 通用指令
+import '@/directive'
 
 // 引入dataV
 import dataV from '@jiaminghi/data-view'
@@ -36,6 +35,11 @@ const storageOptions = {
   name: 'ls', // name variable Vue.[ls] or this.[$ls],
   storage: 'local', // storage name session, local, memory
 }
+
+// 引入自定义样式
+import '@/style/index.css'
+import '@/assets/less/JAreaLinkage.less'
+import '@/assets/less/common.less'
 
 Vue.use(Storage, storageOptions)
 
