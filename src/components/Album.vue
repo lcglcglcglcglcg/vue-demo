@@ -4,9 +4,9 @@
       <!-- <h2>松隆子</h2> -->
     </div>
     <div class="wrap">
-      <audio id="audio" class="audio" src="../assets/杨千嬅 - 捞月亮的人 (Live).mp3" muted autoplay controls loop>
+      <!-- <audio id="audio" class="audio" src="../assets/杨千嬅 - 捞月亮的人 (Live).mp3" muted autoplay controls loop>
         捞月亮的人
-      </audio>
+      </audio> -->
       <!--	/*包裹所有元素的容器*/-->
       <div class="cube">
         <div class="out_front">
@@ -75,7 +75,7 @@ export default {
   position: absolute;
   right: 0;
   top: 0;
-  background: linear-gradient(#ff6666 20%, #336699 100%);
+  // background: linear-gradient(#ff6666 20%, #336699 100%);
   .wrap {
     width: 200px;
     margin: 20px auto;

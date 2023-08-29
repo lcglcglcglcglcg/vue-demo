@@ -11,10 +11,10 @@
         <a-button type="primary" @click="timeSliceRefresh">时间切片刷新</a-button> -->
         <a-button type="primary" @click="$router.push('/openlayers/testWind')">风速粒子场</a-button>
       </div>
-      <div class="sliderBox">
+      <!-- <div class="sliderBox">
         <div class="playBtn" :class="isPlay ? 'stop' : 'play'" @click="playStep"></div>
         <a-slider class="slider" :tipFormatter="formatTooltip" :marks="marks" :step="step" v-model="playVal" @change="sliderChange" />
-      </div>
+      </div> -->
     </div>
     <Popup ref="Popup" :info="pointInfo" :commonInfo="commonInfo" />
   </div>
@@ -96,7 +96,7 @@ export default {
     this.designHoverOnMap()
 
     this.radarDataDeal()
-    this.drawPicToMap(this, 0)
+    // this.drawPicToMap(this, 0)
 
     // this.drawGrid()
   },
