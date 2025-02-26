@@ -71,5 +71,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist
+          BRANCH: gh-pages # 部署到的分支
+          FOLDER: dist # 构建后的文件夹路径
