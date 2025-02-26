@@ -1,0 +1,40 @@
+name: Jekyll Build and Deploy
+
+on:
+  push:
+    branches:
+      - master # 监听 master 分支的推送
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉取代码
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # 2. 设置 Ruby 环境
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0' # 指定 Ruby 版本
+          bundler-cache: true # 缓存 Bundler 依赖
+
+      # 3. 安装 Jekyll 和依赖
+      - name: Install Jekyll and dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      # 4. 构建 Jekyll 项目
+      - name: Build with Jekyll
+        run: |
+          bundle exec jekyll build --destination ./_site
+
+      # 5. 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages # 部署到 gh-pages 分支
+          FOLDER: _site # 部署 Jekyll 构建的输出目录
