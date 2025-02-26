@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <a-button @click="newPhoto">点击</a-button> -->
-    <a-button class="snapshotBtn" type="primary" @click="newPhoto">快照</a-button>
+    <a-button class="snapshotBtn" type="primary" @click="newPhoto">快照测试</a-button>
     <router-view />
   </div>
 </template>
